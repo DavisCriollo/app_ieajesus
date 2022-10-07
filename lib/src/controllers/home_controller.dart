@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -76,6 +77,27 @@ class HomeController extends ChangeNotifier {
     setDetalleLibroBiblia(dataRespose.biblia.values.toList());
   }
 
+
+//  =================  CREO DEBOUNCE  PARA BUSQUEDAS ==================//
+
+  Timer? _deboucerSearchBuscaCoro;
+  Timer? _deboucerSearchBuscaHimno;
+  Timer? _deboucerSearchBuscaAlabanza;
+  Timer? _deboucerSearchBuscaInfantiles;
+
+  @override
+  void dispose() {
+    _deboucerSearchBuscaCoro?.cancel();
+  _deboucerSearchBuscaHimno?.cancel();
+  _deboucerSearchBuscaAlabanza?.cancel();
+  _deboucerSearchBuscaInfantiles?.cancel();
+
+    // _videoController.dispose();
+    super.dispose();
+  }
+
+
+
 //=============================================================================//
 //================================== MODULO COROS ==============================//
   
@@ -98,6 +120,37 @@ class HomeController extends ChangeNotifier {
   }
 
 //====================================//
+
+
+
+
+//===================BOTON SEARCH COROS==========================//
+
+  bool _btnSearchCoros = false;
+  bool get btnSearch => _btnSearchCoros;
+
+  void setBtnSearch(bool action) {
+    _btnSearchCoros = action;
+    //  print('==_btnSearchCoros===> $_btnSearchCoros');
+    notifyListeners();
+  }
+  //===================INPUT SEARCH COROSE==========================//
+ String _nameSearchCoro = "";
+  String get nameSearch => _nameSearchCoro;
+
+  void onSearchText(String data) {
+    _nameSearchCoro = data;
+    if (_nameSearchCoro.length >= 3) {
+      _deboucerSearchBuscaCoro?.cancel();
+      _deboucerSearchBuscaCoro = Timer(const Duration(milliseconds: 700), () {
+        print('=====> $data');
+        // buscaAusencias(_nameSearch,'false');
+      });
+    } else {
+      // buscaAusencias('','false');
+    }
+    notifyListeners();
+  }
 
 
 
@@ -126,12 +179,38 @@ class HomeController extends ChangeNotifier {
 
 //====================================//
 
+//===================BOTON SEARCH HIMNOS==========================//
 
+  bool _btnSearchHimnos = false;
+  bool get btnSearcHimno => _btnSearchHimnos;
+
+  void setBtnSearchHimno(bool action) {
+    _btnSearchHimnos = action;
+    //  print('==_btnSearchCoros===> $_btnSearchCoros');
+    notifyListeners();
+  }
+  //===================INPUT SEARCH COROSE==========================//
+ String _nameSearchHimno = "";
+  String get nameSearchHimno => _nameSearchHimno;
+
+  void onSearchTextHimno(String data) {
+    _nameSearchHimno = data;
+    if (_nameSearchHimno.length >= 3) {
+      _deboucerSearchBuscaHimno?.cancel();
+      _deboucerSearchBuscaHimno = Timer(const Duration(milliseconds: 700), () {
+        print('=====> $data');
+        // buscaAusencias(_nameSearch,'false');
+      });
+    } else {
+      // buscaAusencias('','false');
+    }
+    notifyListeners();
+  }
 
 
 
 //=============================================================================//
-//================================== MODULO HIMNOS ==============================//
+//================================== MODULO ALABANZA ==============================//
   
   //=============== INPUTS ===========//
   
@@ -153,6 +232,33 @@ class HomeController extends ChangeNotifier {
 
 //====================================//
 
+//===================BOTON SEARCH ALABANZAS ==========================//
+
+  bool _btnSearchAlabanzas = false;
+  bool get btnSearchAlabanza => _btnSearchAlabanzas;
+
+  void setBtnSearchAlabanza(bool action) {
+    _btnSearchAlabanzas = action;
+    //  print('==_btnSearchCoros===> $_btnSearchCoros');
+    notifyListeners();
+  }
+  //===================INPUT SEARCH COROSE==========================//
+ String _nameSearchAlabanza = "";
+  String get nameSearchAlabanza => _nameSearchAlabanza;
+
+  void onSearchTextAlabanza(String data) {
+    _nameSearchAlabanza = data;
+    if (_nameSearchAlabanza.length >= 3) {
+      _deboucerSearchBuscaAlabanza?.cancel();
+      _deboucerSearchBuscaAlabanza = Timer(const Duration(milliseconds: 700), () {
+        print('=====> $data');
+        // buscaAusencias(_nameSearch,'false');
+      });
+    } else {
+      // buscaAusencias('','false');
+    }
+    notifyListeners();
+  }
 
 
 
@@ -162,7 +268,7 @@ class HomeController extends ChangeNotifier {
 
 
 //=============================================================================//
-//================================== MODULO HIMNOS ==============================//
+//================================== MODULO INFANTILES ==============================//
   
   //=============== INPUTS ===========//
   
@@ -184,7 +290,33 @@ class HomeController extends ChangeNotifier {
 
 //====================================//
 
+//===================BOTON SEARCH ALABANZAS ==========================//
 
+  bool _btnSearchInfantiles = false;
+  bool get btnSearchInfantiles => _btnSearchInfantiles;
+
+  void setBtnSearchInfantiles(bool action) {
+    _btnSearchInfantiles = action;
+    //  print('==_btnSearchCoros===> $_btnSearchCoros');
+    notifyListeners();
+  }
+  //===================INPUT SEARCH COROSE==========================//
+ String _nameSearchInfantiles = "";
+  String get nameSearchInfantiles => _nameSearchInfantiles;
+
+  void onSearchTextInfantiles(String data) {
+    _nameSearchInfantiles = data;
+    if (_nameSearchInfantiles.length >= 3) {
+      _deboucerSearchBuscaInfantiles?.cancel();
+      _deboucerSearchBuscaInfantiles = Timer(const Duration(milliseconds: 700), () {
+        print('=====> $data');
+        // buscaAusencias(_nameSearch,'false');
+      });
+    } else {
+      // buscaAusencias('','false');
+    }
+    notifyListeners();
+  }
 
 
 //=============================================================================//

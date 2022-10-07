@@ -37,6 +37,9 @@ dependencies:
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.1.0
   provider: ^6.0.3
+  dependencies:
+  sqflite:
+  path_provider: ^2.0.11
 
 
 

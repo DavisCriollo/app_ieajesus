@@ -14,6 +14,7 @@ class CrearCoro extends StatefulWidget {
 }
 
 class _CrearCoroState extends State<CrearCoro> {
+
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
@@ -68,6 +69,9 @@ class _CrearCoroState extends State<CrearCoro> {
             // : const SizedBox(),
           ],
         ),
+        
+        
+        
         body: Container(
           color: Colors.grey.shade100,
           width: size.wScreen(100.0),
