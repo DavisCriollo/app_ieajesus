@@ -68,16 +68,16 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                       style: GoogleFonts.roboto(
                           // fontSize: size.iScreen(1.8),
                           // color: Colors.black87,
-                          fontWeight: FontWeight.normal),
+                          fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(
-                      'Tono: Do+',
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.roboto(
-                          // fontSize: size.iScreen(1.8),
-                          // color: Colors.black87,
-                          fontWeight: FontWeight.normal),
-                    ),
+                    // subtitle: Text(
+                    //   'Tono: Do+',
+                    //   overflow: TextOverflow.ellipsis,
+                    //   style: GoogleFonts.roboto(
+                    //       // fontSize: size.iScreen(1.8),
+                    //       // color: Colors.black87,
+                    //       fontWeight: FontWeight.normal),
+                    // ),
                     trailing: const Icon(Icons.chevron_right),
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -99,6 +100,9 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     inputFormatters: [
+                        UpperCaseText(),
+                      ],
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),
@@ -110,7 +114,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                         // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
-                      // avisoSalidaController.onDetalleChange(text);
+                      controllerCoroNino.setTituloCoroNino(text);
                     },
                     validator: (text) {
                       if (text!.trim().isNotEmpty) {
@@ -149,7 +153,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                         // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
-                      // avisoSalidaController.onDetalleChange(text);
+                   controllerCoroNino.setLetraCoroNino(text);
                     },
                     validator: (text) {
                       if (text!.trim().isNotEmpty) {

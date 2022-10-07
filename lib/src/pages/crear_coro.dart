@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -99,6 +100,9 @@ class _CrearCoroState extends State<CrearCoro> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     inputFormatters: [
+                        UpperCaseText(),
+                      ],
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),
@@ -110,7 +114,7 @@ class _CrearCoroState extends State<CrearCoro> {
                         // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
-                      // avisoSalidaController.onDetalleChange(text);
+                      controllerCoro.setTituloCoro(text);
                     },
                     validator: (text) {
                       if (text!.trim().isNotEmpty) {
@@ -149,7 +153,7 @@ class _CrearCoroState extends State<CrearCoro> {
                         // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
-                      // avisoSalidaController.onDetalleChange(text);
+                      controllerCoro.setLetraCoro(text);
                     },
                     validator: (text) {
                       if (text!.trim().isNotEmpty) {
@@ -163,43 +167,7 @@ class _CrearCoroState extends State<CrearCoro> {
               ),
             ),
           ),
-          // ListView.builder(
-          //      physics: const BouncingScrollPhysics(),
-          //   itemCount: 50,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return
-
-          //         Column(
-          //       children: [
-          //         Container(
-          //          color: Colors.white,
-          //           child: ListTile(
-          //             dense: true,
-          //             visualDensity:VisualDensity.compact,
-          //             title: Text(
-          //               'Coro $index',
-          //               overflow: TextOverflow.ellipsis,
-          //               style: GoogleFonts.roboto(
-          //                   // fontSize: size.iScreen(1.8),
-          //                   // color: Colors.black87,
-          //                   fontWeight: FontWeight.normal),
-          //             ),
-          //             subtitle: Text(
-          //               'Tono: Do+',
-          //               overflow: TextOverflow.ellipsis,
-          //               style: GoogleFonts.roboto(
-          //                   // fontSize: size.iScreen(1.8),
-          //                   // color: Colors.black87,
-          //                   fontWeight: FontWeight.normal),
-          //             ),
-          //             trailing: const Icon(Icons.chevron_right),
-          //           ),
-          //         ),
-          //        Container(width: size.wScreen(100),height:size.iScreen(0.2),)
-          //       ],
-          //     );
-          //   },
-          // ),
+          
         ),
       ),
     );
