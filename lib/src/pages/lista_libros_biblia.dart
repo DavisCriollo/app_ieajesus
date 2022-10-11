@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/pages/detalle_libro_biblia.dart';
+import 'package:ieanjesus/src/pages/no_data.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
     final Responsive size = Responsive.of(context);
     final controllerHome= context.read<HomeController>();
     controllerHome.getTodosLosibrosBiblia();
- print('object asdasd ${controllerHome.getlistalibrosBiblia.length}');
+//  print('object asdasd ${controllerHome.getlistalibrosBiblia.length}');
     
     return SafeArea(
       child: Scaffold(
@@ -63,7 +64,38 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
           Consumer<HomeController>(builder: (_, valueLibros, __) {  
 
 // print('object ${valueLibros.getlistalibrosBiblia.length}');
-
+ if (valueLibros.getErrorLibrosBliblia == null) {
+                return Center(
+                  // child: CircularProgressIndicator(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Cargando Datos...',
+                        style: GoogleFonts.lexendDeca(
+                            fontSize: size.iScreen(1.5),
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      //***********************************************/
+                      SizedBox(
+                        height: size.iScreen(1.0),
+                      ),
+                      //*****************************************/
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                );
+              } else if (valueLibros.getErrorLibrosBliblia == false) {
+                return const NoData(
+                  label: 'No existen datos para mostar',
+                );
+              } else if (valueLibros.getlistalibrosBiblia.isEmpty) {
+                return const NoData(
+                  label: 'No existen datos para mostar',
+                );
+                // Text("sin datos");
+              }
 
 
 

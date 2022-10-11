@@ -8,6 +8,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 //
 
 class MenuPrincipal extends StatelessWidget {
+  const MenuPrincipal({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // final authService = Provider.of<AuthService>(context);
@@ -35,7 +37,7 @@ class MenuPrincipal extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                       border: Border.all(
-                        color: Color(0xFF04559D),
+                        color: const Color(0xFF04559D),
                       ),
                     ),
                     width: size.iScreen(13),
@@ -43,7 +45,8 @@ class MenuPrincipal extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image(
-                        image: AssetImage('assets/imgs/Me.jpg'),
+                        // image: AssetImage('assets/imgs/Me.jpg'),
+                        image: AssetImage('assets/imgs/no-image.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -52,10 +55,22 @@ class MenuPrincipal extends StatelessWidget {
                     alignment: Alignment.center,
                     // color:Colors .red,
                     margin: EdgeInsets.only(top: size.iScreen(2.0)),
-                    child: Text('Davis',
+                    child: Text('Dios te Bendiga',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.roboto(
                             fontSize: size.iScreen(2.0),
+                            fontWeight: FontWeight.normal
+                            // color: Colors.white,
+                            )),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    // color:Colors .red,
+                    margin: EdgeInsets.only(top: size.iScreen(0.5)),
+                    child: Text('David',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                            fontSize: size.iScreen(1.7),
                             fontWeight: FontWeight.bold
                             // color: Colors.white,
                             )),
@@ -125,26 +140,32 @@ class MenuPrincipal extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            title: Text('Acerca de',
-                style: GoogleFonts.roboto(
-                    fontSize: size.iScreen(2.0), fontWeight: FontWeight.bold
-                    // color: Colors.white,
-                    )),
-            leading: Icon(FontAwesomeIcons.cog, color: primaryColor),
-            trailing: Icon(
-              FontAwesomeIcons.chevronRight,
-              size: size.iScreen(1.6),
-            ),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: Text('Acerca de',
+          //       style: GoogleFonts.roboto(
+          //           fontSize: size.iScreen(2.0), fontWeight: FontWeight.bold
+          //           // color: Colors.white,
+          //           )),
+          //   leading: const Icon(Icons.info_outline, color: primaryColor),
+          //   trailing: Icon(
+          //     FontAwesomeIcons.chevronRight,
+          //     size: size.iScreen(1.6),
+          //   ),
+          //   onTap: () {
+
+          //     Navigator.pushNamed(context, 'acercaDePage');
+
+
+
+          //   },
+          // ),
           ListTile(
             title: Text('Cerrar Sesión',
                 style: GoogleFonts.roboto(
                     fontSize: size.iScreen(2.0), fontWeight: FontWeight.bold
                     // color: Colors.white,
                     )),
-            leading: Icon(FontAwesomeIcons.cog, color: primaryColor),
+            leading: Icon(Icons.logout_outlined, color: primaryColor),
             trailing: Icon(
               FontAwesomeIcons.chevronRight,
               size: size.iScreen(1.6),
@@ -171,32 +192,32 @@ class _ListaOpciones extends StatelessWidget {
       children: [
         _ItemsMenu(
           enabled: true,
-          icon: FontAwesomeIcons.addressBook,
-          title: 'Añadir Coro',
-          page: 'crearCoros',
+          icon: Icons.auto_stories_outlined,
+          title: 'Dedicatoria',
+          page: 'dedicatoria',
           size: size,
         ),
-        _ItemsMenu(
-          enabled: true,
-          icon: FontAwesomeIcons.book,
-          title: 'Añadir Himno',
-          page: '',
-          size: size,
-        ),
-        _ItemsMenu(
-          enabled: true,
-          icon: FontAwesomeIcons.music,
-          title: 'Añadir Alabanza',
-          page: '',
-          size: size,
-        ),
-        _ItemsMenu(
-          enabled: true,
-          icon: FontAwesomeIcons.children,
-          title: 'Añadir Coro Niños',
-          page: '',
-          size: size,
-        ),
+        // _ItemsMenu(
+        //   enabled: true,
+        //   icon: FontAwesomeIcons.book,
+        //   title: 'Añadir Himno',
+        //   page: '',
+        //   size: size,
+        // ),
+        // _ItemsMenu(
+        //   enabled: true,
+        //   icon: FontAwesomeIcons.music,
+        //   title: 'Añadir Alabanza',
+        //   page: '',
+        //   size: size,
+        // ),
+        // _ItemsMenu(
+        //   enabled: true,
+        //   icon: FontAwesomeIcons.children,
+        //   title: 'Añadir Coro Niños',
+        //   page: '',
+        //   size: size,
+        // ),
         _ItemsMenu(
           enabled: true,
           icon: FontAwesomeIcons.shareAlt,
@@ -249,7 +270,7 @@ class _ItemsMenu extends StatelessWidget {
               size: size.iScreen(2.2),
             ),
             onTap: () {
-              // Navigator.popAndPushNamed(context, page);
+              Navigator.popAndPushNamed(context, page);
             },
           ),
         ),

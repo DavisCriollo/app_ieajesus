@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'MI PORTAFOLIO',
+            'Salmos 84:2',
             style: GoogleFonts.roboto(
                 fontSize: size.iScreen(2.5),
                 color: Colors.white,

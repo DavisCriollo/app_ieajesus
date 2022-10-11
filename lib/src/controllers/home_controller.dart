@@ -50,7 +50,7 @@ class HomeController extends ChangeNotifier {
 
   void setListaLibrosBiblia(List<dynamic> data) {
     _listaLibros = data;
-    print('data : ${_listaLibros}');
+    // print('data : ${_listaLibros}');
 
     notifyListeners();
   }
@@ -69,12 +69,26 @@ class HomeController extends ChangeNotifier {
   bool? get getErrorLibrosBliblia => _errorLibrosBliblia;
 
   Future getTodosLosibrosBiblia() async {
+
     final response = await rootBundle.loadString('assets/data/sbiblia.json');
+
+     
+      _errorLibrosBliblia = true;
+     
 
     final dataRespose = BibliaLibrosController.fromJson(response);
 
+
+// print('ESTA ES LA INFORMACION:$response');
+
+
     setListaLibrosBiblia(dataRespose.biblia.keys.toList());
     setDetalleLibroBiblia(dataRespose.biblia.values.toList());
+   
+
+      notifyListeners();
+      return response;
+    
   }
 
 
