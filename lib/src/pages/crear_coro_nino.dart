@@ -136,12 +136,12 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                     child: Text('Letra:',
                         style: GoogleFonts.lexendDeca(
                             // fontSize: size.iScreen(2.0),
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                             color: Colors.grey)),
                   ),
                   TextFormField(
                     maxLines: 30,
-                    minLines: 1,
+                    minLines: 30,
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),

@@ -14,7 +14,6 @@ class CrearCoro extends StatefulWidget {
 }
 
 class _CrearCoroState extends State<CrearCoro> {
-
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
@@ -69,9 +68,6 @@ class _CrearCoroState extends State<CrearCoro> {
             // : const SizedBox(),
           ],
         ),
-        
-        
-        
         body: Container(
           color: Colors.grey.shade100,
           width: size.wScreen(100.0),
@@ -104,19 +100,19 @@ class _CrearCoroState extends State<CrearCoro> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
-                     inputFormatters: [
-                        UpperCaseText(),
-                      ],
+                    initialValue: controllerCoro.getTituloCoro,
+                    inputFormatters: [
+                      UpperCaseText(),
+                    ],
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
-                        ),
+                      // fontSize: size.iScreen(3.5),
+                      fontWeight: FontWeight.bold,
+                      // letterSpacing: 2.0,
+                    ),
                     onChanged: (text) {
                       controllerCoro.setTituloCoro(text);
                     },
@@ -144,8 +140,9 @@ class _CrearCoroState extends State<CrearCoro> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                    initialValue: controllerCoro.getletraCoro,
                     maxLines: 30,
-                    minLines: 1,
+                    minLines: 30,
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),
@@ -171,7 +168,6 @@ class _CrearCoroState extends State<CrearCoro> {
               ),
             ),
           ),
-          
         ),
       ),
     );
@@ -182,10 +178,12 @@ class _CrearCoroState extends State<CrearCoro> {
     final isValid = controllerCoro.validateFormCoro();
     if (!isValid) return;
     if (isValid) {
-      // ProgressDialog.show(context);
-      // await controllerCoro.crearAvisoSalida(context);
-      // await controller.upLoadImagen();
-      // ProgressDialog.dissmiss(context);
+      if (controllerCoro.getInfoCoro!=null&& controllerCoro.getInfoCoro!.id! > 0) {
+        await controllerCoro.editarCoro();
+      } else {
+        await controllerCoro.crearCoro();
+      }
+
       Navigator.pop(context);
     }
   }

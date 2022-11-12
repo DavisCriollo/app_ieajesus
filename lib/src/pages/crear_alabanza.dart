@@ -96,7 +96,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     child: Text('Título:',
                         style: GoogleFonts.lexendDeca(
                             // fontSize: size.iScreen(2.0),
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                             color: Colors.grey)),
                   ),
                   TextFormField(
@@ -106,7 +106,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
 
                         // fontSize: size.iScreen(3.5),
@@ -141,7 +141,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                   ),
                   TextFormField(
                     maxLines: 30,
-                    minLines: 1,
+                    minLines: 30,
                     decoration: const InputDecoration(
                         // suffixIcon: Icon(Icons.beenhere_outlined)
                         ),

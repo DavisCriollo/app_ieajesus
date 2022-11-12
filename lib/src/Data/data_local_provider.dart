@@ -1,46 +1,80 @@
-import 'dart:io';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:sqflite/sqflite.dart';
-// import 'package:sqflite/sqlite_api.dart';
+import 'package:path/path.dart';
 
-class DBProvider {
-  static Database? _database;
+class DB {
 
-  static final DBProvider db = DBProvider._();
-  DBProvider._();
+  static Future<Database> _openDB() async {
 
-  Future<Database?> get database async {
-    if (_database != null) {
-      _database = await initDB();
-    }
+    return openDatabase(join(await getDatabasesPath(),'letrasMusicas.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          "CREATE TABLE letrasMusicas (id INTEGER PRIMARY KEY, tipo TEXT, titulo TEXT,letra TEXT)",
+        );
+      }, version: 1);
   }
 
-  Future<Database?> initDB() async {
-// PATH DE LA BASE EN LA APLICACION
+  static Future insert(LetraMusica _letraMusica) async {
+    Database database = await _openDB();
 
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'DBApp.db');
+    return database.insert("letrasMusicas", _letraMusica.toMap());
+  }
 
-    print('TENEMOS EL PATH: $path');
+  static Future delete(LetraMusica _letra) async {
+    Database database = await _openDB();
 
-//CREAMOS LA BASE DE DATOS
+    return database.delete("letrasMusicas", where: "id = ?", whereArgs: [_letra.id]);
+  }
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onOpen: (db){},
-      onCreate: (Database db, int version) async{
- await db.execute('''
+  static Future update(LetraMusica _letra) async {
+    Database database = await _openDB();
 
+    return database.update("letrasMusicas", _letra.toMap(), where: "id = ?", whereArgs: [_letra.id]);
+  }
 
+  static Future<List<LetraMusica>> letrasMusicas( String? search) async {
+    Database database = await _openDB();
+    // final List<Map<String, dynamic>> letraMusicasMap = await database.query("letrasMusicas");
+    final List<Map<String, dynamic>> letraMusicasMap = await database.rawQuery('''
 
+SELECT * FROM letrasMusicas WHERE titulo LIKE '%$search'
 
 
 
 ''');
 
-      }
-    );
+// print('esta es la letra: $letraMusicasMap');
+
+
+    return List.generate(letraMusicasMap.length,
+            (i) => LetraMusica(
+              id: letraMusicasMap[i]['id'],
+              tipo: letraMusicasMap[i]['tipo'],
+              titulo: letraMusicasMap[i]['titulo'],
+              letra: letraMusicasMap[i]['letra']
+            ));
+  }
+  static Future<List<LetraMusica>> buscarMusicas() async {
+    Database database = await _openDB();
+    final List<Map<String, dynamic>> letraMusicasMap = await database.query("letrasMusicas");
+
+// print('esta es la letra: $letraMusicasMap');
+
+
+    return List.generate(letraMusicasMap.length,
+            (i) => LetraMusica(
+              id: letraMusicasMap[i]['id'],
+              tipo: letraMusicasMap[i]['tipo'],
+              titulo: letraMusicasMap[i]['titulo'],
+              letra: letraMusicasMap[i]['letra']
+            ));
+  }
+
+  // CON SENTENCIAS
+  static Future<void> insertar2(LetraMusica letraMusica) async {
+    Database database = await _openDB();
+    var resultado = await database.rawInsert("INSERT INTO letraMusica (id, tipo,titulo, letra)"
+    " VALUES (${letraMusica.id}, ${letraMusica.tipo}, ${letraMusica.titulo},${letraMusica.titulo})");
+
   }
 }

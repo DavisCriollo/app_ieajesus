@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:ieanjesus/src/Data/data_local_provider.dart';
 import 'package:ieanjesus/src/models/biblia_libros_model.dart';
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 
 class HomeController extends ChangeNotifier {
   GlobalKey<FormState> coroFormKey = GlobalKey<FormState>();
@@ -42,6 +45,22 @@ class HomeController extends ChangeNotifier {
       return false;
     }
   }
+
+
+
+
+
+void resetFormCoros(){
+
+setTipoCoro(null);
+setTituloCoro(null);
+setLetraCoro(null);
+LetraMusica(id:0,tipo:'',titulo:'',letra:'',);
+print('reset');
+notifyListeners();
+}
+
+
 
 //================================== OBTENEMOS TODOS LOS LIBROS  ==============================//
 
@@ -117,6 +136,15 @@ class HomeController extends ChangeNotifier {
   
   //=============== INPUTS ===========//
   
+  
+  
+  String? _tipoCoro;
+  String? get getTipoCoro => _tipoCoro;
+  void setTipoCoro(String? _textTipo) {
+    _tipoCoro = _textTipo;
+    print('TITULO CORO: $_tipoCoro');
+    notifyListeners();
+  }
   String? _tituloCoro;
   String? get getTituloCoro => _tituloCoro;
   void setTituloCoro(String? _textCoro) {
@@ -157,10 +185,11 @@ class HomeController extends ChangeNotifier {
     if (_nameSearchCoro.length >= 3) {
       _deboucerSearchBuscaCoro?.cancel();
       _deboucerSearchBuscaCoro = Timer(const Duration(milliseconds: 700), () {
-        print('=====> $data');
-        // buscaAusencias(_nameSearch,'false');
+        // print('=====> $data');
+        listarAllCoros(data);
       });
     } else {
+        listarAllCoros('');
       // buscaAusencias('','false');
     }
     notifyListeners();
@@ -333,7 +362,93 @@ class HomeController extends ChangeNotifier {
   }
 
 
-//=============================================================================//
+//===================================CREAR COROS==========================================//
+
+Future crearCoro() async{
+
+   await DB.insert(LetraMusica( tipo: 'coro', titulo: _tituloCoro, letra: _letraCoro));
+ await listarAllCoros(''); 
+
+}
+//===================================ELIMINA COROS==========================================//
+
+Future eliminaCoro(LetraMusica _getCoro) async{
+
+   await  DB.delete(_getCoro);
+ await listarAllCoros(''); 
+
+}
+
+
+//===================================EDITAR COROS==========================================//
+
+Future editarCoro( ) async{
+  print('ESTA ES LA EDICION: ${_getCoro!.titulo}');
+
+  _getCoro!.titulo=_tituloCoro;
+  _getCoro!.letra=_letraCoro;
+   await DB.update(_getCoro!);
+ await listarAllCoros(''); 
+
+}
+
+//===================================LISTA TODOS LOS COROS==========================================//
+List<LetraMusica> _listaCoros=[];
+List<LetraMusica> get getListaCoros=>_listaCoros;
+
+void setListaCoros(List<LetraMusica>  _listCoros){
+  _listaCoros=_listCoros;
+
+  print('Lista dde coros: $_listaCoros');
+notifyListeners();
+}
+
+
+bool? _errorListaCoros; // sera nulo la primera vez
+  bool? get getErrorListaCoros => _errorListaCoros;
+  set setErrorListaCoros(bool? value) {
+    _errorListaCoros = value;
+    notifyListeners();
+  }
+
+
+
+Future listarAllCoros(String? search) async{
+
+final _listAuxCoros=  await DB.letrasMusicas(search);
+print('AUXILIAR:$_listAuxCoros');
+
+ if (_listAuxCoros.isNotEmpty) {
+      _errorListaCoros = true;
+
+setListaCoros(_listAuxCoros);
+     
+      
+      notifyListeners();
+      return _listAuxCoros;
+    }
+    if (_listAuxCoros.isEmpty) {
+      _errorListaCoros = false;
+      notifyListeners();
+      return null;
+    }
+
+}
+//==================================OBTENEMOS LA INFORMACION DEL CORO==========================================//
+
+LetraMusica? _getCoro;
+LetraMusica?  get getInfoCoro=>_getCoro;
+void getInfoDelCoro(LetraMusica? _coro){
+  print('_coro:$_coro');
+  _getCoro=_coro;
+  _tipoCoro=_coro!.tipo;
+  _tituloCoro=_coro.titulo;
+  _letraCoro=_coro.letra;
+
+}
+
+
+
 //=============================================================================//
 
 

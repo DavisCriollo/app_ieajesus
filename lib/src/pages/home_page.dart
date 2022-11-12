@@ -103,9 +103,12 @@ class _HomePageState extends State<HomePage> {
                     alignment: WrapAlignment.center,
                     children: [
                       ItemsMenuHome(
-                        onTap: () {
+                        onTap: () async {
                           // Navigator.pushNamed(
                           //     context, 'ListaCoros');
+
+                           await context.read<HomeController>().listarAllCoros('');
+
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => const ListaCoros()),
