@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ieanjesus/src/controllers/home_controller.dart';
+
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
-import 'package:provider/provider.dart';
 
 class DetalleCoro extends StatelessWidget {
-  final String? titulo;
-  const DetalleCoro({Key? key, required this.titulo}) : super(key: key);
+  final String titulo;
+  final LetraMusica musica;
+  const DetalleCoro({Key? key, required this.titulo, required this.musica})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
-    final _musica=context.read<HomeController>();
+    // final _musica=context.read<HomeController>();
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Detalle de $titulo',
+            'Letra de $titulo',
             style: GoogleFonts.roboto(
                 fontSize: size.iScreen(2.5),
                 color: Colors.white,
@@ -40,45 +42,44 @@ class DetalleCoro extends StatelessWidget {
           ),
         ),
         body: Container(
-           margin: EdgeInsets.only(top: size.iScreen(0.0)),
+            margin: EdgeInsets.only(top: size.iScreen(0.0)),
             padding: EdgeInsets.symmetric(horizontal: size.iScreen(2.0)),
             width: size.wScreen(100.0),
             height: size.hScreen(100),
             child: SingleChildScrollView(
-          child: Column(
-            children: [
-             Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: size.iScreen(1.0)),
-                        width: size.wScreen(100.0),
-                        child: Text(
-                          // 'item Novedad: ${controllerActividades.getItemMulta}',
-                          _musica.getInfoCoro!.titulo!,
-                          textAlign: TextAlign.center,
-                          //
-                          style: GoogleFonts.lexendDeca(
-                              fontSize: size.iScreen(2.3),
-                              // color: Colors.white,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ),
-        
-                                    //==========================================//
-                      Container(
-                        // margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
-                        width: size.wScreen(100.0),
-                        child: SelectableText(
-                                    _musica.getInfoCoro!.letra!,
-                                    textAlign: TextAlign.center,
-                          style: GoogleFonts.lexendDeca(
-                              fontSize: size.iScreen(1.8),
-                              // color: Colors.white,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ),
-                      //*****************************************/
-            ],
-          ),
-        )));
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: size.iScreen(1.0)),
+                    width: size.wScreen(100.0),
+                    child: Text(
+                      // 'item Novedad: ${controllerActividades.getItemMulta}',
+                      musica.titulo!,
+                      textAlign: TextAlign.center,
+                      //
+                      style: GoogleFonts.lexendDeca(
+                          fontSize: size.iScreen(2.3),
+                          // color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+
+                  //==========================================//
+                  Container(
+                    // margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
+                    width: size.wScreen(100.0),
+                    child: SelectableText(
+                      musica.letra!,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lexendDeca(
+                          fontSize: size.iScreen(1.8),
+                          // color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  //*****************************************/
+                ],
+              ),
+            )));
   }
 }

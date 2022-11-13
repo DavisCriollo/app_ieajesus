@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
-import 'package:ieanjesus/src/utils/theme.dart';
+
 import 'package:provider/provider.dart';
 
 class CrearCoro extends StatefulWidget {
-  const CrearCoro({Key? key}) : super(key: key);
+  final String estado;
+  const CrearCoro({Key? key, required this.estado}) : super(key: key);
 
   @override
   State<CrearCoro> createState() => _CrearCoroState();
@@ -57,7 +58,7 @@ class _CrearCoroState extends State<CrearCoro> {
               child: IconButton(
                   splashRadius: 28,
                   onPressed: () {
-                    _onSubmit(context, controllerCoro);
+                    _onSubmit(context);
                   },
                   icon: Icon(
                     Icons.save_outlined,
@@ -174,14 +175,16 @@ class _CrearCoroState extends State<CrearCoro> {
   }
 
   //********************************************************************************************************************//
-  void _onSubmit(BuildContext context, HomeController controllerCoro) async {
+  void _onSubmit(BuildContext context) async {
+    final controllerCoro=context.read<HomeController>();
     final isValid = controllerCoro.validateFormCoro();
     if (!isValid) return;
     if (isValid) {
-      if (controllerCoro.getInfoCoro!=null&& controllerCoro.getInfoCoro!.id! > 0) {
-        await controllerCoro.editarCoro();
-      } else {
+      if (widget.estado=='new') {
         await controllerCoro.crearCoro();
+      } else if (widget.estado=='edit') {
+        await controllerCoro.editarCoro();
+      
       }
 
       Navigator.pop(context);

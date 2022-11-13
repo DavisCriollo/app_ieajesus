@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ieanjesus/src/Data/data_local_provider.dart';
+
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/pages/crear_coro.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
-
-import '../models/letra_musica_model.dart';
 
 class ListaCoros extends StatefulWidget {
   const ListaCoros({Key? key}) : super(key: key);
@@ -21,23 +20,6 @@ class ListaCoros extends StatefulWidget {
 
 class _ListaCorosState extends State<ListaCoros> {
   final TextEditingController _textSearchController = TextEditingController();
-
-// List<LetraMusica> _listaCoros=[];
-// @override
-//   void initState() {
-// initialCoros() ;
-//     super.initState();
-//   }
-
-//  initialCoros() async {
-//    List<LetraMusica> auxLisCoros = await DB.letrarMusicas();
-//    print('la lista de cororssss:$auxLisCoros');
-
-//     setState(() {
-//       _listaCoros = auxLisCoros;
-//     });
-
-//   }
 
   @override
   void dispose() {
@@ -51,6 +33,7 @@ class _ListaCorosState extends State<ListaCoros> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: Colors.green.shade50,
         appBar: AppBar(
           // backgroundColor: primaryColor,
           // title: Text(
@@ -86,7 +69,6 @@ class _ListaCorosState extends State<ListaCoros> {
                                         autofocus: true,
                                         onChanged: (text) {
                                           providerSearch.onSearchText(text);
-                                          // setState(() {});
                                         },
                                         decoration: const InputDecoration(
                                           // icon: Icon(Icons.search),
@@ -174,7 +156,8 @@ class _ListaCorosState extends State<ListaCoros> {
             ),
           ),
         ),
-        body: Container(
+        body: 
+        Container(
           color: Colors.grey.shade100,
           width: size.wScreen(100.0),
           height: size.hScreen(100.0),
@@ -240,7 +223,7 @@ class _ListaCorosState extends State<ListaCoros> {
                               onPressed: (context) {
                                 valueListaCoros.getInfoDelCoro(_coro);
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const CrearCoro()));
+                                    builder: (context) => const CrearCoro(estado: 'edit')));
                               },
                             ),
                             SlidableAction(
@@ -256,10 +239,11 @@ class _ListaCorosState extends State<ListaCoros> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            valueListaCoros.getInfoDelCoro(_coro);
+                            // valueListaCoros.getInfoDelCoro(_coro);
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const DetalleCoro(
+                                builder: (context) => DetalleCoro(
                                       titulo: 'Coro',
+                                      musica: _coro,
                                     )));
                           },
                           child: Container(
@@ -274,7 +258,7 @@ class _ListaCorosState extends State<ListaCoros> {
                                 '${_coro.titulo}',
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.roboto(
-                                    // fontSize: size.iScreen(1.8),
+                                    fontSize: size.iScreen(1.7),
                                     // color: Colors.black87,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -302,6 +286,9 @@ class _ListaCorosState extends State<ListaCoros> {
             },
           ),
         ),
+        
+        
+        
         floatingActionButton: FloatingActionButton(
             child: const Icon(
               Icons.add,
@@ -309,11 +296,12 @@ class _ListaCorosState extends State<ListaCoros> {
             ),
             onPressed: () {
               // bottomSheetVideo(avisoSalidaController, context, size);
+              LetraMusica(id:0,tipo:"",titulo:"",letra: "");
 
               context.read<HomeController>().resetFormCoros();
               Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
-                return const CrearCoro();
+                return const CrearCoro(estado: 'new');
               }));
             }),
       ),

@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
-import 'package:ieanjesus/src/utils/theme.dart';
+
 import 'package:provider/provider.dart';
 
 class CrearCoroNino extends StatefulWidget {
-  const CrearCoroNino({Key? key}) : super(key: key);
+    final String estado;
+  const CrearCoroNino({Key? key, required this.estado}) : super(key: key);
 
   @override
   State<CrearCoroNino> createState() => _CrearCoroNinoState();
@@ -57,7 +58,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
               child: IconButton(
                   splashRadius: 28,
                   onPressed: () {
-                    _onSubmit(context, controllerCoroNino);
+                    _onSubmit(context);
                   },
                   icon: Icon(
                     Icons.save_outlined,
@@ -89,7 +90,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                     height: size.iScreen(1.0),
                   ),
                   //*****************************************/
-                  Container(
+                  SizedBox(
                     width: size.wScreen(100.0),
 
                     // color: Colors.blue,
@@ -100,6 +101,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     initialValue: controllerCoroNino.getTituloCoroNino,
                      inputFormatters: [
                         UpperCaseText(),
                       ],
@@ -109,9 +111,6 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                     textAlign: TextAlign.start,
                     style: const TextStyle(
 
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
                       controllerCoroNino.setTituloCoroNino(text);
@@ -140,6 +139,7 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     initialValue: controllerCoroNino.getletraCoroNino,
                     maxLines: 30,
                     minLines: 30,
                     decoration: const InputDecoration(
@@ -167,57 +167,28 @@ class _CrearCoroNinoState extends State<CrearCoroNino> {
               ),
             ),
           ),
-          // ListView.builder(
-          //      physics: const BouncingScrollPhysics(),
-          //   itemCount: 50,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return
-
-          //         Column(
-          //       children: [
-          //         Container(
-          //          color: Colors.white,
-          //           child: ListTile(
-          //             dense: true,
-          //             visualDensity:VisualDensity.compact,
-          //             title: Text(
-          //               'Coro $index',
-          //               overflow: TextOverflow.ellipsis,
-          //               style: GoogleFonts.roboto(
-          //                   // fontSize: size.iScreen(1.8),
-          //                   // color: Colors.black87,
-          //                   fontWeight: FontWeight.normal),
-          //             ),
-          //             subtitle: Text(
-          //               'Tono: Do+',
-          //               overflow: TextOverflow.ellipsis,
-          //               style: GoogleFonts.roboto(
-          //                   // fontSize: size.iScreen(1.8),
-          //                   // color: Colors.black87,
-          //                   fontWeight: FontWeight.normal),
-          //             ),
-          //             trailing: const Icon(Icons.chevron_right),
-          //           ),
-          //         ),
-          //        Container(width: size.wScreen(100),height:size.iScreen(0.2),)
-          //       ],
-          //     );
-          //   },
-          // ),
+         
         ),
       ),
     );
   }
 
   //********************************************************************************************************************//
-  void _onSubmit(BuildContext context, HomeController coroNinoFormKey) async {
-    final isValid = coroNinoFormKey.validateFormCoroNino();
+  void _onSubmit(BuildContext context,) async {
+     final controllerInfantiles=context.read<HomeController>();
+    final isValid = controllerInfantiles.validateFormCoroNino();
     if (!isValid) return;
     if (isValid) {
-      // ProgressDialog.show(context);
-      // await controllerCoro.crearAvisoSalida(context);
-      // await controller.upLoadImagen();
-      // ProgressDialog.dissmiss(context);
+      
+ if (widget.estado=='new') {
+        await controllerInfantiles.crearInfantil();
+      } else if (widget.estado=='edit')  {
+        await controllerInfantiles.editarInfantil();
+       
+      }
+
+
+
       Navigator.pop(context);
     }
   }

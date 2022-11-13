@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     print('====== RELOADS ========');
     final Responsive size = Responsive.of(context);
     return GestureDetector(
-       onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Center(
             child: SingleChildScrollView(
-                      child: Column(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
@@ -103,11 +103,8 @@ class _HomePageState extends State<HomePage> {
                     alignment: WrapAlignment.center,
                     children: [
                       ItemsMenuHome(
-                        onTap: () async {
-                          // Navigator.pushNamed(
-                          //     context, 'ListaCoros');
-
-                           await context.read<HomeController>().listarAllCoros('');
+                        onTap: () {
+                          context.read<HomeController>().listarAllCoros('');
 
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -120,6 +117,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
+                          context.read<HomeController>().listarAllHimnos('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) =>
@@ -134,8 +132,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          // Navigator.pushNamed(
-                          //     context, 'novedades');
+                          context.read<HomeController>().listarAllAlabanzas('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => const ListaAlabanzas()),
@@ -147,11 +144,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          // Navigator.pushNamed(
-                          //     context, 'novedades');
+                         context.read<HomeController>().listarAllInfantiles('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const ListaCorosInfantiles()),
+                                builder: (context) =>
+                                    const ListaCorosInfantiles()),
                           );
                         },
                         label: 'Coros Niños',
@@ -160,11 +157,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          // Navigator.pushNamed(
-                          //     context, 'novedades');
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const ListaLibrosBiblia()),
+                                builder: (context) =>
+                                    const ListaLibrosBiblia()),
                           );
                         },
                         label: 'Santa Biblia',

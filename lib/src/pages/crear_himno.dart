@@ -7,7 +7,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class CrearHimno extends StatefulWidget {
-  const CrearHimno({Key? key}) : super(key: key);
+  final String estado;
+  const CrearHimno({Key? key, required this.estado}) : super(key: key);
 
   @override
   State<CrearHimno> createState() => _CrearHimnoState();
@@ -57,7 +58,7 @@ class _CrearHimnoState extends State<CrearHimno> {
               child: IconButton(
                   splashRadius: 28,
                   onPressed: () {
-                    _onSubmit(context, controllerHimno);
+                    _onSubmit(context);
                   },
                   icon: Icon(
                     Icons.save_outlined,
@@ -104,6 +105,7 @@ class _CrearHimnoState extends State<CrearHimno> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     initialValue: controllerHimno.getTituloHimno,
                      inputFormatters: [
                         UpperCaseText(),
                       ],
@@ -144,6 +146,7 @@ class _CrearHimnoState extends State<CrearHimno> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                    initialValue: controllerHimno.getletraHimno,
                     maxLines: 30,
                     minLines: 30,
                     decoration: const InputDecoration(
@@ -178,14 +181,17 @@ class _CrearHimnoState extends State<CrearHimno> {
   }
 
   //********************************************************************************************************************//
-  void _onSubmit(BuildContext context, HomeController controllerHimno) async {
+  void _onSubmit(BuildContext context) async {
+    final controllerHimno=context.read<HomeController>();
     final isValid = controllerHimno.validateFormHimno();
     if (!isValid) return;
     if (isValid) {
-      // ProgressDialog.show(context);
-      // await controllerCoro.crearAvisoSalida(context);
-      // await controller.upLoadImagen();
-      // ProgressDialog.dissmiss(context);
+     if (widget.estado=='new')  {
+        await controllerHimno.crearHimno();
+      } else if (widget.estado=='edit') {
+        await controllerHimno.editarHimno();
+       
+      }
       Navigator.pop(context);
     }
   }

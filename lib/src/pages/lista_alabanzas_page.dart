@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/pages/crear_alabanza.dart';
+import 'package:ieanjesus/src/pages/detalle_coro.dart';
+import 'package:ieanjesus/src/pages/no_data.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -28,41 +32,9 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
     return GestureDetector(
          onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     'ALABANZAS',
-        //     style: GoogleFonts.roboto(
-        //         fontSize: size.iScreen(2.5),
-        //         color: Colors.white,
-        //         fontWeight: FontWeight.bold),
-        //     overflow: TextOverflow.ellipsis,
-        //   ),
-        //   flexibleSpace: Container(
-        //     decoration: const BoxDecoration(
-        //       gradient: LinearGradient(
-        //         begin: Alignment.topLeft,
-        //         end: Alignment.bottomCenter,
-        //         colors: <Color>[
-        //           Color(0XFF153E76),
-        //           Color(0XFF0076A7),
-        //           // Color(0XFF005B97),
-        //           // Color(0XFF0075BE),
-        //           // Color(0XFF1E9CD7),
-        //           // Color(0XFF3DA9F4),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
+    
         appBar: AppBar(
-              // backgroundColor: primaryColor,
-              // title: Text(
-              //   'Mis Ausencias',
-              //   style: GoogleFonts.lexendDeca(
-              //       fontSize: size.iScreen(2.45),
-              //       color: Colors.white,
-              //       fontWeight: FontWeight.normal),
-              // ),
+             
               title: Consumer<HomeController>(
                 builder: (_, providerSearch, __) {
                   return Row(
@@ -152,8 +124,9 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                                   color: Colors.white,
                                 ),
                           onPressed: () {
-                            providerSearch
-                                .setBtnSearchAlabanza(!providerSearch.btnSearchAlabanza);
+                            
+                            providerSearch.listarAllAlabanzas('');
+                            providerSearch.setBtnSearchAlabanza(!providerSearch.btnSearchAlabanza);
                             _textSearchController.text = "";
                             // providerSearch.buscaAusencias('', 'false');
                           }),
@@ -179,7 +152,8 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                 ),
               ),
             ),
-        body: Container(
+        body: 
+         Container(
           color: Colors.grey.shade100,
           width: size.wScreen(100.0),
           height: size.hScreen(100.0),
@@ -188,45 +162,130 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
             right: size.iScreen(0.0),
             left: size.iScreen(0.0),
           ),
-          child: ListView.builder(
-               physics: const BouncingScrollPhysics(),
-            itemCount: 50,
-            itemBuilder: (BuildContext context, int index) {
-              return
-                  
-    
-                  Column(
-                children: [
-                  Container(
-                   color: Colors.white,
-                    child: ListTile(
-                      dense: true,
-                      visualDensity:VisualDensity.compact,
-                      title: Text(
-                        'Alabanza $index',
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.roboto(
-                            // fontSize: size.iScreen(1.8),
-                            // color: Colors.black87,
+          child: Consumer<HomeController>(
+            builder: (_, valueListaAlabanza, __) {
+              if (valueListaAlabanza.getErrorListaAlabanzas == null) {
+                return Center(
+                  // child: CircularProgressIndicator(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Cargando Datos...',
+                        style: GoogleFonts.lexendDeca(
+                            fontSize: size.iScreen(1.5),
+                            color: Colors.black87,
                             fontWeight: FontWeight.bold),
                       ),
-                      // subtitle: Text(
-                      //   'Tono: Do+',
-                      //   overflow: TextOverflow.ellipsis,
-                      //   style: GoogleFonts.roboto(
-                      //       // fontSize: size.iScreen(1.8),
-                      //       // color: Colors.black87,
-                      //       fontWeight: FontWeight.normal),
-                      // ),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
+                      //***********************************************/
+                      SizedBox(
+                        height: size.iScreen(1.0),
+                      ),
+                      //*****************************************/
+                      const CircularProgressIndicator(),
+                    ],
                   ),
-                 Container(width: size.wScreen(100),height:size.iScreen(0.2),)
-                ],
+                );
+              } else if (valueListaAlabanza.getErrorListaAlabanzas == false) {
+                return const NoData(
+                  label: 'No existen datos para mostar',
+                );
+                // Text("Error al cargar los datos");
+              } else if (valueListaAlabanza.getListaAlabanzas.isEmpty) {
+                return const NoData(
+                  label: 'No existen datos para mostar',
+                );
+              }
+
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: valueListaAlabanza.getListaAlabanzas.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final _alabanza = valueListaAlabanza.getListaAlabanzas[index];
+
+                  return Column(
+                    children: [
+                      Slidable(
+                        startActionPane: ActionPane(
+                          // A motion is a widget used to control how the pane animates.
+                          motion: const ScrollMotion(),
+
+                          children: [
+                            SlidableAction(
+                              backgroundColor: tercearyColor,
+                              foregroundColor: Colors.white,
+                              icon: Icons.edit,
+                              // label: 'Editar',
+                              onPressed: (context) {
+                                valueListaAlabanza.getInfoDelAlabanza(_alabanza);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const CrearAlabanza(estado: 'edit',)));
+                              },
+                            ),
+                            SlidableAction(
+                              onPressed: (context) async {
+                                valueListaAlabanza.eliminaAlabanza(_alabanza);
+                              },
+                              backgroundColor: cuaternaryColor,
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete_forever_outlined,
+                              // label: 'Eliminar',
+                            ),
+                          ],
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            // valueListaCoros.getInfoDelCoro(_coro);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DetalleCoro(
+                                      titulo: 'Alabanza',
+                                      musica: _alabanza,
+                                    )));
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: size.iScreen(0.1),
+                                horizontal: size.iScreen(1.0)),
+                            color: Colors.white,
+                            child: ListTile(
+                              dense: true,
+                              visualDensity: VisualDensity.compact,
+                              title: Text(
+                                '${_alabanza.titulo}',
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.roboto(
+                               fontSize: size.iScreen(1.7),
+                                    // color: Colors.black87,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              // subtitle: Text(
+                              //   'Tono: Do+',
+                              //   overflow: TextOverflow.ellipsis,
+                              //   style: GoogleFonts.roboto(
+                              //       // fontSize: size.iScreen(1.8),
+                              //       // color: Colors.black87,
+                              //       fontWeight: FontWeight.normal),
+                              // ),
+                              trailing: const Icon(Icons.chevron_right),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: size.wScreen(100),
+                        height: size.iScreen(0.2),
+                      )
+                    ],
+                  );
+                },
               );
             },
           ),
         ),
+       
+       
+        
+        
          floatingActionButton:  FloatingActionButton(
                    child: const Icon(
                             Icons.add,
@@ -234,10 +293,11 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                           ),
                     onPressed:
                          () {
-                            // bottomSheetVideo(avisoSalidaController, context, size);
+                            LetraMusica(id:0,tipo:"",titulo:"",letra: "");
+                             context.read<HomeController>().resetFormCoros();
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (BuildContext context) {
-                              return const CrearAlabanza(
+                              return const CrearAlabanza(estado: 'new',
                                
                               );
                             }));

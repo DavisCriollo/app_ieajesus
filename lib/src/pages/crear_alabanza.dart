@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
-import 'package:ieanjesus/src/utils/theme.dart';
+
 import 'package:provider/provider.dart';
 
 class CrearAlabanza extends StatefulWidget {
-  const CrearAlabanza({Key? key}) : super(key: key);
+    final String estado;
+  const CrearAlabanza({Key? key, required this.estado}) : super(key: key);
 
   @override
   State<CrearAlabanza> createState() => _CrearAlabanzaState();
@@ -57,7 +58,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
               child: IconButton(
                   splashRadius: 28,
                   onPressed: () {
-                    _onSubmit(context, controllerAlabanza);
+                    _onSubmit(context);
                   },
                   icon: Icon(
                     Icons.save_outlined,
@@ -89,7 +90,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     height: size.iScreen(1.0),
                   ),
                   //*****************************************/
-                  Container(
+                  SizedBox(
                     width: size.wScreen(100.0),
 
                     // color: Colors.blue,
@@ -100,6 +101,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                    initialValue: controllerAlabanza.getTituloAlabanza,
                      inputFormatters: [
                         UpperCaseText(),
                       ],
@@ -129,7 +131,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     height: size.iScreen(1.0),
                   ),
                   //*****************************************/
-                  Container(
+                  SizedBox(
                     width: size.wScreen(100.0),
 
                     // color: Colors.blue,
@@ -140,6 +142,7 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                             color: Colors.grey)),
                   ),
                   TextFormField(
+                     initialValue: controllerAlabanza.getletraAlabanza,
                     maxLines: 30,
                     minLines: 30,
                     decoration: const InputDecoration(
@@ -174,14 +177,17 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
   }
 
   //********************************************************************************************************************//
-  void _onSubmit(BuildContext context, HomeController controllerAlabanza) async {
+  void _onSubmit(BuildContext context ) async {
+     final controllerAlabanza=context.read<HomeController>();
     final isValid = controllerAlabanza.validateFormAlabanza();
     if (!isValid) return;
     if (isValid) {
-      // ProgressDialog.show(context);
-      // await controllerCoro.crearAvisoSalida(context);
-      // await controller.upLoadImagen();
-      // ProgressDialog.dissmiss(context);
+if (widget.estado=='new')  {
+        await controllerAlabanza.crearAlabanza();
+      } else if (widget.estado=='edit') {
+        await controllerAlabanza.editarAlabanza();
+        
+      }
       Navigator.pop(context);
     }
   }
