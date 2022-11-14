@@ -118,10 +118,12 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                             color: Colors.white,
                           ),
                     onPressed: () {
-                      providerSearch.setBtnSearchInfantiles(
-                          !providerSearch.btnSearchInfantiles);
-                      _textSearchController.text = "";
-                      // providerSearch.buscaAusencias('', 'false');
+                      // providerSearch.setBtnSearchInfantiles(
+                      //     !providerSearch.btnSearchInfantiles);
+                      // _textSearchController.text = "";
+                        providerSearch.listarAllInfantiles('');
+                        providerSearch.setBtnSearchInfantiles(!providerSearch.btnSearchInfantiles);
+                        _textSearchController.text = "";
                     }),
               ],
             );

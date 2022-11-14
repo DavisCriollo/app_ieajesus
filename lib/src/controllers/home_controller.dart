@@ -338,7 +338,7 @@ class HomeController extends ChangeNotifier {
 
 //====================================//
 
-//===================BOTON SEARCH ALABANZAS ==========================//
+//===================BOTON SEARCH INFANTILES ==========================//
 
   bool _btnSearchInfantiles = false;
   bool get btnSearchInfantiles => _btnSearchInfantiles;
