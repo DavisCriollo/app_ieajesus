@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ieanjesus/src/controllers/home_controller.dart';
+// import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 class DetalleLibro extends StatefulWidget {
-  final int idLibro;
-  final String nombreLibro;
+ final MapEntry<String, dynamic> libro;
+  // final int idLibro;
+  // final String nombreLibro;
   const DetalleLibro(
-      {Key? key, required this.idLibro, required this.nombreLibro})
+      {Key? key, required  this.libro})
       : super(key: key);
 
   @override
@@ -19,15 +20,15 @@ class _DetalleLibroState extends State<DetalleLibro> {
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
-    final controllerHome = context.read<HomeController>();
+    // final controllerHome = context.read<HomeController>();
 
-    controllerHome.getDetallelibroBiblia[widget.idLibro];
+    // controllerHome.getDetallelibroBiblia[widget.idLibro];
 
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
               title: Text(
-                widget.nombreLibro,
+                widget.libro.key,
                 style: GoogleFonts.roboto(
                     fontSize: size.iScreen(2.5),
                     color: Colors.white,
@@ -62,10 +63,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
               ),
               child: ListView.builder(
                 itemCount:
-                    controllerHome.getDetallelibroBiblia[widget.idLibro].length,
+                    widget.libro.value.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final List<dynamic> _capitulo = controllerHome
-                      .getDetallelibroBiblia[widget.idLibro][index];
+                  final List<dynamic> _capitulo = widget.libro.value[index];
 
                   return ExpansionTile(
                       childrenPadding: EdgeInsets.symmetric(

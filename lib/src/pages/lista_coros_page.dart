@@ -35,14 +35,7 @@ class _ListaCorosState extends State<ListaCoros> {
       child: Scaffold(
         backgroundColor: Colors.green.shade50,
         appBar: AppBar(
-          // backgroundColor: primaryColor,
-          // title: Text(
-          //   'Mis Ausencias',
-          //   style: GoogleFonts.lexendDeca(
-          //       fontSize: size.iScreen(2.45),
-          //       color: Colors.white,
-          //       fontWeight: FontWeight.normal),
-          // ),
+        
           title: Consumer<HomeController>(
             builder: (_, providerSearch, __) {
               return Row(

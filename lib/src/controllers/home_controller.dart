@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 
 import 'package:flutter/material.dart';
@@ -108,14 +109,45 @@ class HomeController extends ChangeNotifier {
 
     final dataRespose = BibliaLibrosController.fromJson(response);
 
-//
+// setListaLibrosBibliaCompleta(jsonDecode(response));
+final _resp=(jsonDecode(response));
 
+// print('lllll: ${_resp['biblia']} ');
+
+
+_resp['biblia'].forEach((key, value) {
+print('lllll: ${key} - ${value.runtimeType} ');
+  
+  });
+
+
+
+
+setListaLibrosBibliaCompleta(_resp['biblia']);
     setListaLibrosBiblia(dataRespose.biblia.keys.toList());
     setDetalleLibroBiblia(dataRespose.biblia.values.toList());
 
     notifyListeners();
     return response;
+
   }
+//================================== OBTENEMOS TODOS LOS LIBROS DE LA BIBLIA COMPLETO  ==============================//
+
+  Map<String, dynamic> _listaLibrosCompleta={};
+  Map<String, dynamic> get getlistalibrosBibliaCompleta => _listaLibrosCompleta;
+
+  void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
+    _listaLibrosCompleta = data;
+   print('objeto de la biblia:${_listaLibrosCompleta}');
+  //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][0]}');
+  //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
+    notifyListeners();
+
+  }
+
+ 
+
+  
 
 //  =================  CREO DEBOUNCE  PARA BUSQUEDAS ==================//
 
@@ -123,6 +155,7 @@ class HomeController extends ChangeNotifier {
   Timer? _deboucerSearchBuscaHimno;
   Timer? _deboucerSearchBuscaAlabanza;
   Timer? _deboucerSearchBuscaInfantiles;
+  Timer? _deboucerSearchBuscaBiblia;
 
   @override
   void dispose() {
@@ -130,6 +163,7 @@ class HomeController extends ChangeNotifier {
     _deboucerSearchBuscaHimno?.cancel();
     _deboucerSearchBuscaAlabanza?.cancel();
     _deboucerSearchBuscaInfantiles?.cancel();
+    _deboucerSearchBuscaBiblia?.cancel();
 
     // _videoController.dispose();
     super.dispose();
@@ -191,6 +225,35 @@ class HomeController extends ChangeNotifier {
       });
     } else {
       listarAllCoros('');
+      // buscaAusencias('','false');
+    }
+    notifyListeners();
+  }
+//===================BOTON SEARCH BIBLIA=========================//
+
+  bool _btnSearchBiblia = false;
+  bool get btnSearchBiblia => _btnSearchBiblia;
+
+  void setBtnSearchBiblia(bool action) {
+    _btnSearchBiblia = action;
+    // 
+    notifyListeners();
+  }
+
+  //===================INPUT SEARCH BIBLIA==========================//
+  String _nameSearchBiblia = "";
+  String get nameSearchBiblia => _nameSearchBiblia;
+
+  void onSearchTextBiblia(String data) {
+    _nameSearchBiblia = data;
+    if (_nameSearchBiblia.length >= 2) {
+      _deboucerSearchBuscaBiblia?.cancel();
+      _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
+        print('================================ DATA BIBLIA:$_nameSearchBiblia ');
+       getTodosLosibrosBiblia();
+      });
+    } else {
+     getTodosLosibrosBiblia();
       // buscaAusencias('','false');
     }
     notifyListeners();
