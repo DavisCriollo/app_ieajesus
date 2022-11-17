@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ieanjesus/src/Data/data_local_provider.dart';
+import 'package:ieanjesus/src/api/api_provider.dart';
 import 'package:ieanjesus/src/models/biblia_libros_model.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 
@@ -13,7 +14,7 @@ class HomeController extends ChangeNotifier {
   GlobalKey<FormState> himnoFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> alabanzaFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> coroNinoFormKey = GlobalKey<FormState>();
-
+ final _api = ApiProvider();
   bool validateFormCoro() {
     if (coroFormKey.currentState!.validate()) {
       return true;
@@ -714,8 +715,81 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     notifyListeners();
   }
 
+//============================================================================//
+//================================= PETICION DE LA DATA  ===========================================//
+//============================================================================//
 
+  Map<String, dynamic>?_listaAllData = {};
+  // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
+  Map<String, dynamic>? get getListaAllData => _listaAllData;
 
+  void setListaAllData(Map<String, dynamic>? data) {
+    _listaAllData= {};
+    _listaAllData= data;
+    print('Lista _listaAllData : ${_listaAllData}');
+    notifyListeners();
+  }
+
+  bool? _errorListaAllData; // sera nulo la primera vez
+  bool? get getErrorListaAllData => _errorListaAllData;
+  set setErrorListaAllData(bool? value) {
+    _errorListaAllData = value;
+    notifyListeners();
+  }
+
+  Future getAllData() async {
+   
+    final response = await _api.getAllData();
+    if (response != null) {
+      _errorListaAllData = true;
+  
+      setListaAllData(response);
+
+      notifyListeners();
+      return response;
+    }
+    if (response == null) {
+      _errorListaAllData = false;
+      notifyListeners();
+      return null;
+    }
+  }
+//================================= OBTIENE  LA DATA  ===========================================//
+  Map<String, dynamic>?_listaGetAllData = {};
+  // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
+  Map<String, dynamic>? get getListaGetAllData => _listaGetAllData;
+
+  void setListaGetAllData(Map<String, dynamic>? data) {
+    _listaGetAllData= {};
+    _listaGetAllData= data;
+    print('Lista _listaGetAllData : ${_listaAllData}');
+    notifyListeners();
+  }
+
+  bool? _errorListaGetAllData; // sera nulo la primera vez
+  bool? get getErrorListaGetAllData => _errorListaGetAllData;
+  set setErrorListaGetAllData(bool? value) {
+    _errorListaGetAllData = value;
+    notifyListeners();
+  }
+
+  Future sendAllData() async {
+   
+    final response = await _api.getAllData();
+    if (response != null) {
+      _errorListaGetAllData = true;
+  
+      setListaAllData(response);
+
+      notifyListeners();
+      return response;
+    }
+    if (response == null) {
+      _errorListaGetAllData = false;
+      notifyListeners();
+      return null;
+    }
+  }
 
 
 

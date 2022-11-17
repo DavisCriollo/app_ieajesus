@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ieanjesus/src/controllers/home_controller.dart';
 
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
@@ -8,7 +9,9 @@ import 'package:ieanjesus/src/utils/theme.dart';
 //
 
 class MenuPrincipal extends StatelessWidget {
-  const MenuPrincipal({Key? key}) : super(key: key);
+   MenuPrincipal({Key? key}) : super(key: key);
+
+  final controllerHome=HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +121,11 @@ class MenuPrincipal extends StatelessWidget {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue.shade700),
                   ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                      controllerHome.getAllData();
+
+                    },
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: size.iScreen(0.3)),
