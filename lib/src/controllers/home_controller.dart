@@ -577,7 +577,9 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 //=======================================================================================//
 
   Future crearAlabanza() async {
-    await DB.insert(LetraMusica(
+    await DB.insert(
+      
+      LetraMusica(
         tipo: 'alabanza', titulo: _tituloAlabanza, letra: _letraAlabanza));
     await listarAllAlabanzas('');
   }
@@ -790,6 +792,66 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   //     return null;
   //   }
   // }
+
+  //===================================LISTA TODOS LOS COROS==========================================//
+  List? _listaParaGuardar = [];
+  List? get getListaParaGuardar => _listaParaGuardar;
+
+  void setListaParaGuardar(List? _lista) {
+
+    _listaParaGuardar = _lista;
+
+
+
+    
+    print('LISTA PARA GUARDAR: ${_listaParaGuardar!.length}');
+    // print('LISTA PARA GUARDAR:$_listaParaGuardar');
+    notifyListeners();
+  }
+
+  bool? _errorListaParaGuardar; // sera nulo la primera vez
+  bool? get getErrorListaParaGuardar => _errorListaParaGuardar;
+  set setErrorListaParaGuardar(bool? value) {
+    _errorListaParaGuardar = value;
+    notifyListeners();
+  }
+
+  Future listarAllParaGuardar(String? search) async {
+    final _listAuxParaGuardar = await DB.letrasMusicas(search);
+ 
+    if (_listAuxParaGuardar.isNotEmpty) {
+      _errorListaParaGuardar = true;
+          setListaParaGuardar(_listAuxParaGuardar);
+
+      notifyListeners();
+      return _listAuxParaGuardar;
+    }
+
+    if (_listAuxParaGuardar.isEmpty) {
+      _errorListaParaGuardar = false;
+      notifyListeners();
+      return null;
+    }
+  }
+  //===================================GUARDA LA DATA==========================================//
+  Future saveData() async {
+    // final _listAuxParaGuardar = await DB.letrasMusicas(search);
+
+    // print('SAVE DATA $getListaParaGuardar');
+  // final response = await _api.saveAllData(_listaParaGuardar);
+   await _api.saveAllData(_listaParaGuardar);
+
+  //   if (response != null) {
+     
+  //        return response;
+  //   }
+  //   if (response == null) {
+     
+  //     notifyListeners();
+  //     return null;
+  //   }
+  //   return null;
+  }
 
 
 

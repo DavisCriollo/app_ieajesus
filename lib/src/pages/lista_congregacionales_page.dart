@@ -312,8 +312,8 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
             color: Colors.white,
           ),
           onPressed: () {
-       
          LetraMusica(id:0,tipo:"",titulo:"",letra: "");
+         context.read<HomeController>().resetFormCoros();
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
               return const CrearHimno(estado: 'new');

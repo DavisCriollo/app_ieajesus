@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     print('====== RELOADS ========');
     final Responsive size = Responsive.of(context);
+    final resetsForms = context.read<HomeController>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -104,7 +105,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ItemsMenuHome(
                         onTap: () {
-                          context.read<HomeController>().listarAllCoros('');
+                          resetsForms.resetFormCoros();
+                          resetsForms.listarAllCoros('');
+                          // context.read<HomeController>().listarAllCoros('');
 
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -117,7 +120,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          context.read<HomeController>().listarAllHimnos('');
+                          resetsForms.resetFormCoros();
+                          resetsForms.listarAllHimnos('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) =>
@@ -132,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          context.read<HomeController>().listarAllAlabanzas('');
+                          resetsForms.resetFormCoros();
+                          resetsForms.listarAllAlabanzas('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => const ListaAlabanzas()),
@@ -144,7 +149,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                         context.read<HomeController>().listarAllInfantiles('');
+                          resetsForms.resetFormCoros();
+                          resetsForms.listarAllInfantiles('');
+
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) =>
@@ -175,6 +182,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+         
     );
   }
 }

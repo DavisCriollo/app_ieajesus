@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/utils/dialogs.dart';
 
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
@@ -9,9 +10,9 @@ import 'package:ieanjesus/src/utils/theme.dart';
 //
 
 class MenuPrincipal extends StatelessWidget {
-   MenuPrincipal({Key? key}) : super(key: key);
+  MenuPrincipal({Key? key}) : super(key: key);
 
-  final controllerHome=HomeController();
+  final controllerHome = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,32 @@ class MenuPrincipal extends StatelessWidget {
                   //   backgroundColor:
                   //       MaterialStateProperty.all<Color>(Colors.green),
                   // ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    // ProgressDialog.show(context);
+                   await controllerHome.listarAllParaGuardar('');
+                    final response = await controllerHome.saveData();
+                    // ProgressDialog.dissmiss(context);
+                    // if (response != null) {
+
+                    // final snackBar = _sNackInfo(
+                    //     '${response}', size, Colors.green);
+
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // }
+                    // else{
+                    // final snackBar = _sNackInfo(
+                    //     '${response}', size, Colors.red);
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                    // }
+
+                    Navigator.pop(context);
+
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+                  },
+
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: size.iScreen(0.3)),
                     child: Row(
@@ -107,7 +133,9 @@ class MenuPrincipal extends StatelessWidget {
                                 fontWeight: FontWeight.bold
                                 // color: Colors.white,
                                 )),
-                               SizedBox(width: size.iScreen(0.1),),
+                        SizedBox(
+                          width: size.iScreen(0.1),
+                        ),
                         const Icon(
                           Icons.upload_outlined,
                           // size:size.wScreen(10.0),
@@ -117,13 +145,17 @@ class MenuPrincipal extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue.shade700),
-                  ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.blue.shade700),
+                    ),
                     onPressed: () {
-
                       controllerHome.getAllData();
+
+
+
+
+
 
                     },
                     child: Container(
@@ -137,7 +169,9 @@ class MenuPrincipal extends StatelessWidget {
                                   fontWeight: FontWeight.bold
                                   // color: Colors.white,
                                   )),
-                                   SizedBox(width: size.iScreen(0.1),),
+                          SizedBox(
+                            width: size.iScreen(0.1),
+                          ),
                           const Icon(
                             Icons.download_outlined,
                           ),
@@ -162,8 +196,6 @@ class MenuPrincipal extends StatelessWidget {
 
           //     Navigator.pushNamed(context, 'acercaDePage');
 
-
-
           //   },
           // ),
           ListTile(
@@ -185,6 +217,17 @@ class MenuPrincipal extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  SnackBar _sNackInfo(String _info, Responsive size, Color _color) {
+    return SnackBar(
+      backgroundColor: _color,
+      content: Text(_info,
+          style: GoogleFonts.roboto(
+              fontSize: size.iScreen(2.0), fontWeight: FontWeight.bold
+              // color: Colors.white,
+              )),
     );
   }
 }

@@ -5,12 +5,10 @@ import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:provider/provider.dart';
 
 class DetalleLibro extends StatefulWidget {
- final MapEntry<String, dynamic> libro;
+  final MapEntry<String, dynamic> libro;
   // final int idLibro;
   // final String nombreLibro;
-  const DetalleLibro(
-      {Key? key, required  this.libro})
-      : super(key: key);
+  const DetalleLibro({Key? key, required this.libro}) : super(key: key);
 
   @override
   State<DetalleLibro> createState() => _DetalleLibroState();
@@ -62,8 +60,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 left: size.iScreen(0.0),
               ),
               child: ListView.builder(
-                itemCount:
-                    widget.libro.value.length,
+                itemCount: widget.libro.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   final List<dynamic> _capitulo = widget.libro.value[index];
 
@@ -93,7 +90,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                   vertical: size.iScreen(0.0)),
                               child: Text.rich(
                                 TextSpan(
-                                  // text: '${index + 1}', // default text style
                                   children: <TextSpan>[
                                     TextSpan(
                                         text: '${index + 1} ',
@@ -109,8 +105,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                           fontWeight: FontWeight.normal,
                                           // color: Colors.grey,
                                         )),
-                                    // )),
-                                    // TextSpan(text: 'world', style: TextStyle(fontWeight: FontWeight.bold)),
                                   ],
                                 ),
                               ));

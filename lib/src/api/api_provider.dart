@@ -4,23 +4,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as _http;
+import 'package:ieanjesus/src/models/letra_musica_model.dart';
 
 class ApiProvider {
-
-
 // //================================= RECUPERA DATA ==============================//
-Future getAllData() async {
+  Future getAllData() async {
     try {
-    
-      final url = Uri.parse(
-          'https://ieanjesusbackend.neitor.com/api/general/filtro/0');
+      final url =
+          Uri.parse('https://ieanjesusbackend.neitor.com/api/general/filtro/0');
 
       final dataResp = await _http.get(
         url,
         // headers: {"x-auth-token": '$token'},
       );
 
-     if (dataResp.statusCode == 200) {
+      if (dataResp.statusCode == 200) {
         final responseData = jsonDecode(dataResp.body);
         // print('INFORMACION DATA   $responseData');
         // print('RESPONSE:DSDSD ${dataResp.body}');
@@ -37,8 +35,8 @@ Future getAllData() async {
       }
       if (dataResp.statusCode == 401) {
         //  Auth.instance.deleteSesion(context!);
-                  // Auth.instance.deleteIdRegistro();
-                  // Auth.instance.deleteTurnoSesion();
+        // Auth.instance.deleteIdRegistro();
+        // Auth.instance.deleteTurnoSesion();
         return null;
       }
     } catch (e) {
@@ -47,21 +45,27 @@ Future getAllData() async {
       return null;
     }
   }
+
 // //================================= GUARDA LA  DATA ==============================//
-Future saveAllData() async {
-    try {
-    
-      final url = Uri.parse(
-          'https://ieanjesusbackend.neitor.com/api/general');
+  Future saveAllData(List? _dataList) async {
+// print('DATA EN LA API: $_dataList');
 
-      final dataResp = await _http.get(
+    try {
+      final url = Uri.parse('https://ieanjesusbackend.neitor.com/api/general');
+
+      final dataResp = await _http.post(
         url,
-        // headers: {"x-auth-token": '$token'},
+        headers: <String, String>{
+          'Content-Type': 'application/json; ',
+        },
+        body: _dataList
       );
 
-     if (dataResp.statusCode == 200) {
+      print('INFORMACION DATA   $dataResp');
+
+      if (dataResp.statusCode == 200) {
         final responseData = jsonDecode(dataResp.body);
-        // print('INFORMACION DATA   $responseData');
+        print('INFORMACION DATA   $responseData');
         // print('RESPONSE:DSDSD ${dataResp.body}');
         // print('si se ejecuta la accion ');
         return responseData;
@@ -76,8 +80,8 @@ Future saveAllData() async {
       }
       if (dataResp.statusCode == 401) {
         //  Auth.instance.deleteSesion(context!);
-                  // Auth.instance.deleteIdRegistro();
-                  // Auth.instance.deleteTurnoSesion();
+        // Auth.instance.deleteIdRegistro();
+        // Auth.instance.deleteTurnoSesion();
         return null;
       }
     } catch (e) {
@@ -86,11 +90,6 @@ Future saveAllData() async {
       return null;
     }
   }
-
-
-
-
-
 
   //  Future<AuthResponse?> login({BuildContext? context,
   //   String? usuario,
