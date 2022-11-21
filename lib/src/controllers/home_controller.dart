@@ -108,7 +108,7 @@ class HomeController extends ChangeNotifier {
 
     _errorLibrosBliblia = true;
 
-    final dataRespose = BibliaLibrosController.fromJson(response);
+    // final dataRespose = BibliaLibrosController.fromJson(response);
 
 // setListaLibrosBibliaCompleta(jsonDecode(response));
 final _resp=(jsonDecode(response));
@@ -116,17 +116,17 @@ final _resp=(jsonDecode(response));
 // print('lllll: ${_resp['biblia']} ');
 
 
-_resp['biblia'].forEach((key, value) {
-print('lllll: ${key} - ${value.runtimeType} ');
+// _resp['biblia'].forEach((key, value) {
+// print('lllll: ${key} - ${value.runtimeType} ');
   
-  });
+//   });
 
 
 
 
 setListaLibrosBibliaCompleta(_resp['biblia']);
-    setListaLibrosBiblia(dataRespose.biblia.keys.toList());
-    setDetalleLibroBiblia(dataRespose.biblia.values.toList());
+    // setListaLibrosBiblia(dataRespose.biblia.keys.toList());
+    // setDetalleLibroBiblia(dataRespose.biblia.values.toList());
 
     notifyListeners();
     return response;
@@ -139,7 +139,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
-   print('objeto de la biblia:${_listaLibrosCompleta}');
+  //  print('objeto de la biblia:${_listaLibrosCompleta}');
   //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][0]}');
   //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
     notifyListeners();
@@ -250,7 +250,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     if (_nameSearchBiblia.length >= 2) {
       _deboucerSearchBuscaBiblia?.cancel();
       _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
-        print('================================ DATA BIBLIA:$_nameSearchBiblia ');
+        // print('================================ DATA BIBLIA:$_nameSearchBiblia ');
        getTodosLosibrosBiblia();
       });
     } else {
@@ -755,41 +755,41 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     }
   }
 //================================= OBTIENE  LA DATA  ===========================================//
-  Map<String, dynamic>?_listaGetAllData = {};
-  // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
-  Map<String, dynamic>? get getListaGetAllData => _listaGetAllData;
+  // Map<String, dynamic>?_listaGetAllData = {};
+  // // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
+  // Map<String, dynamic>? get getListaGetAllData => _listaGetAllData;
 
-  void setListaGetAllData(Map<String, dynamic>? data) {
-    _listaGetAllData= {};
-    _listaGetAllData= data;
-    print('Lista _listaGetAllData : ${_listaAllData}');
-    notifyListeners();
-  }
+  // void setListaGetAllData(Map<String, dynamic>? data) {
+  //   _listaGetAllData= {};
+  //   _listaGetAllData= data;
+  //   print('Lista _listaGetAllData : ${_listaAllData}');
+  //   notifyListeners();
+  // }
 
-  bool? _errorListaGetAllData; // sera nulo la primera vez
-  bool? get getErrorListaGetAllData => _errorListaGetAllData;
-  set setErrorListaGetAllData(bool? value) {
-    _errorListaGetAllData = value;
-    notifyListeners();
-  }
+  // bool? _errorListaGetAllData; // sera nulo la primera vez
+  // bool? get getErrorListaGetAllData => _errorListaGetAllData;
+  // set setErrorListaGetAllData(bool? value) {
+  //   _errorListaGetAllData = value;
+  //   notifyListeners();
+  // }
 
-  Future sendAllData() async {
+  // Future sendAllData() async {
    
-    final response = await _api.getAllData();
-    if (response != null) {
-      _errorListaGetAllData = true;
+  //   final response = await _api.getAllData();
+  //   if (response != null) {
+  //     _errorListaGetAllData = true;
   
-      setListaAllData(response);
+  //     setListaAllData(response);
 
-      notifyListeners();
-      return response;
-    }
-    if (response == null) {
-      _errorListaGetAllData = false;
-      notifyListeners();
-      return null;
-    }
-  }
+  //     notifyListeners();
+  //     return response;
+  //   }
+  //   if (response == null) {
+  //     _errorListaGetAllData = false;
+  //     notifyListeners();
+  //     return null;
+  //   }
+  // }
 
 
 

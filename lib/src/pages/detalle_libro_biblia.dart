@@ -98,14 +98,14 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                     TextSpan(
                                         text: '${index + 1} ',
                                         style: GoogleFonts.roboto(
-                                          fontSize: size.iScreen(1.6),
+                                          fontSize: size.iScreen(1.8),
                                           fontWeight: FontWeight.bold,
                                           // color: Colors.grey,
                                         )),
                                     TextSpan(
                                         text: ' $e ',
                                         style: GoogleFonts.roboto(
-                                          fontSize: size.iScreen(1.6),
+                                          fontSize: size.iScreen(1.8),
                                           fontWeight: FontWeight.normal,
                                           // color: Colors.grey,
                                         )),

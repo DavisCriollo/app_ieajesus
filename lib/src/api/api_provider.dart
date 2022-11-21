@@ -47,6 +47,45 @@ Future getAllData() async {
       return null;
     }
   }
+// //================================= GUARDA LA  DATA ==============================//
+Future saveAllData() async {
+    try {
+    
+      final url = Uri.parse(
+          'https://ieanjesusbackend.neitor.com/api/general');
+
+      final dataResp = await _http.get(
+        url,
+        // headers: {"x-auth-token": '$token'},
+      );
+
+     if (dataResp.statusCode == 200) {
+        final responseData = jsonDecode(dataResp.body);
+        // print('INFORMACION DATA   $responseData');
+        // print('RESPONSE:DSDSD ${dataResp.body}');
+        // print('si se ejecuta la accion ');
+        return responseData;
+      }
+      if (dataResp.statusCode == 401) {
+        // Map<String, dynamic> message = jsonDecode(dataResp.body);
+        // NotificatiosnService.showSnackBarError(message['msg']);
+        return null;
+      }
+      if (dataResp.statusCode == 404) {
+        return null;
+      }
+      if (dataResp.statusCode == 401) {
+        //  Auth.instance.deleteSesion(context!);
+                  // Auth.instance.deleteIdRegistro();
+                  // Auth.instance.deleteTurnoSesion();
+        return null;
+      }
+    } catch (e) {
+      // snaks.NotificatiosnService.showSnackBarError("DATA INFO  1  ");
+      // print('-ERROR -> $e');
+      return null;
+    }
+  }
 
 
 
