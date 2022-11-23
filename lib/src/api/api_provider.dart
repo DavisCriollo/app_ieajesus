@@ -2,28 +2,37 @@
 import 'dart:convert';
 // import 'dart:js';
 
-import 'package:flutter/material.dart';
+
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as _http;
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 
 class ApiProvider {
+ final Dio _dio=Dio(BaseOptions(baseUrl:'https://ieanjesusbackend.neitor.com' ));
+
+
+
+
 // //================================= RECUPERA DATA ==============================//
   Future getAllData() async {
     try {
-      final url =
-          Uri.parse('https://ieanjesusbackend.neitor.com/api/general/filtro/0');
+      // final url =
+      //     Uri.parse('https://ieanjesusbackend.neitor.com/api/general/filtro/0');
 
-      final dataResp = await _http.get(
-        url,
-        // headers: {"x-auth-token": '$token'},
-      );
+      // final dataResp = await _http.get(
+      //   url,
+      //   // headers: {"x-auth-token": '$token'},
+      // );
+
+final dataResp = await _dio.get('/api/general/filtro/0');
+
 
       if (dataResp.statusCode == 200) {
-        final responseData = jsonDecode(dataResp.body);
+        // final responseData = jsonDecode(dataResp.body);
         // print('INFORMACION DATA   $responseData');
-        // print('RESPONSE:DSDSD ${dataResp.body}');
+        // print('RESPONSE:DSDSD ${dataResp}');
         // print('si se ejecuta la accion ');
-        return responseData;
+        return dataResp;
       }
       if (dataResp.statusCode == 401) {
         // Map<String, dynamic> message = jsonDecode(dataResp.body);
@@ -51,24 +60,47 @@ class ApiProvider {
 // print('DATA EN LA API: $_dataList');
 
     try {
-      final url = Uri.parse('https://ieanjesusbackend.neitor.com/api/general');
+      // final url = Uri.parse('https://ieanjesusbackend.neitor.com/api/general');
 
-      final dataResp = await _http.post(
-        url,
-        headers: <String, String>{
-          'Content-Type': 'application/json; ',
-        },
-        body: _dataList
-      );
+  //     final dataResp = await _http.post(
+  //       url,
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; ',
+  //       },
+  //       // body: _dataList
+  //       body:  {[{
+  //     "genId": 1,
+  //     "genTipo": "COROS",
+  //     "genTitulo": "Coro 1",
+  //     "genDescripcion": "PRUEBA OK",
+  //     "genFecReg": "2022-11-12T18:32:46.000Z"
+  //  }]}
+  //     );
 
-      print('INFORMACION DATA   $dataResp');
+  
+
+
+    final dataResp = await _dio.post(
+      '/api/general',
+      data:
+       _dataList
+  // [{
+  //     "genId": 1,
+  //     "genTipo": "COROS",
+  //     "genTitulo": "Coro 1",
+  //     "genDescripcion": "PRUEBA OK 2",
+  //     "genFecReg": "2022-11-12T18:32:46.000Z"
+  //  }]
+    );
+
+      // print('INFORMACION DATA   $dataResp');
 
       if (dataResp.statusCode == 200) {
-        final responseData = jsonDecode(dataResp.body);
-        print('INFORMACION DATA   $responseData');
+        // final responseData = jsonDecode(dataResp.body);
+        // print('INFORMACION DATA   $responseData');
         // print('RESPONSE:DSDSD ${dataResp.body}');
         // print('si se ejecuta la accion ');
-        return responseData;
+        return dataResp;
       }
       if (dataResp.statusCode == 401) {
         // Map<String, dynamic> message = jsonDecode(dataResp.body);

@@ -8,6 +8,7 @@ import 'package:ieanjesus/src/Data/data_local_provider.dart';
 import 'package:ieanjesus/src/api/api_provider.dart';
 import 'package:ieanjesus/src/models/biblia_libros_model.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/lista_de_Musicas_model.dart';
 
 class HomeController extends ChangeNotifier {
   GlobalKey<FormState> coroFormKey = GlobalKey<FormState>();
@@ -721,12 +722,12 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 //================================= PETICION DE LA DATA  ===========================================//
 //============================================================================//
 
-  Map<String, dynamic>?_listaAllData = {};
+  List<dynamic>? _listaAllData = [];
   // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
-  Map<String, dynamic>? get getListaAllData => _listaAllData;
+  List<dynamic>?  get getListaAllData => _listaAllData;
 
-  void setListaAllData(Map<String, dynamic>? data) {
-    _listaAllData= {};
+  void setListaAllData(List<dynamic>?  data) {
+    _listaAllData= [];
     _listaAllData= data;
     print('Lista _listaAllData : ${_listaAllData}');
     notifyListeners();
@@ -745,7 +746,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     if (response != null) {
       _errorListaAllData = true;
   
-      setListaAllData(response);
+      setListaAllData(response.data['data']);
 
       notifyListeners();
       return response;
@@ -756,42 +757,6 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
       return null;
     }
   }
-//================================= OBTIENE  LA DATA  ===========================================//
-  // Map<String, dynamic>?_listaGetAllData = {};
-  // // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
-  // Map<String, dynamic>? get getListaGetAllData => _listaGetAllData;
-
-  // void setListaGetAllData(Map<String, dynamic>? data) {
-  //   _listaGetAllData= {};
-  //   _listaGetAllData= data;
-  //   print('Lista _listaGetAllData : ${_listaAllData}');
-  //   notifyListeners();
-  // }
-
-  // bool? _errorListaGetAllData; // sera nulo la primera vez
-  // bool? get getErrorListaGetAllData => _errorListaGetAllData;
-  // set setErrorListaGetAllData(bool? value) {
-  //   _errorListaGetAllData = value;
-  //   notifyListeners();
-  // }
-
-  // Future sendAllData() async {
-   
-  //   final response = await _api.getAllData();
-  //   if (response != null) {
-  //     _errorListaGetAllData = true;
-  
-  //     setListaAllData(response);
-
-  //     notifyListeners();
-  //     return response;
-  //   }
-  //   if (response == null) {
-  //     _errorListaGetAllData = false;
-  //     notifyListeners();
-  //     return null;
-  //   }
-  // }
 
   //===================================LISTA TODOS LOS COROS==========================================//
   List? _listaParaGuardar = [];
@@ -799,13 +764,20 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   void setListaParaGuardar(List? _lista) {
 
-    _listaParaGuardar = _lista;
 
 
-
-    
-    print('LISTA PARA GUARDAR: ${_listaParaGuardar!.length}');
-    // print('LISTA PARA GUARDAR:$_listaParaGuardar');
+for (var e in _lista!) { 
+_listaParaGuardar!.addAll({
+{
+      "genId": 0,
+      "genTipo": e.tipo,
+      "genTitulo": e.titulo,
+      "genDescripcion": e.letra,
+      "genFecReg": ""
+   }
+});
+  
+}
     notifyListeners();
   }
 
@@ -833,27 +805,36 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
       return null;
     }
   }
-  //===================================GUARDA LA DATA==========================================//
+  //===================================SUBE LA DATA AL SERVIDOR==========================================//
   Future saveData() async {
     // final _listAuxParaGuardar = await DB.letrasMusicas(search);
 
-    // print('SAVE DATA $getListaParaGuardar');
-  // final response = await _api.saveAllData(_listaParaGuardar);
-   await _api.saveAllData(_listaParaGuardar);
+    // print('SAVE DATA $_listaParaGuardar');
+  final response = await _api.saveAllData(_listaParaGuardar);
+  //  await _api.saveAllData(_listaParaGuardar);
 
-  //   if (response != null) {
+    if (response != null) {
      
-  //        return response;
-  //   }
-  //   if (response == null) {
+         return response;
+    }
+    if (response == null) {
      
-  //     notifyListeners();
-  //     return null;
-  //   }
-  //   return null;
+      return null;
+    }
+      notifyListeners();
+    return null;
   }
 
+  //===================================SUBE LA DATA AL SERVIDOR==========================================//
+//===================================CREAR ALABANZAS==========================================//
+//=======================================================================================//
 
+  // Future crearAllData( List<Musicas> _data) async {
+  //   await DB.insertAll(
+  //     LetraMusicaList(data: _data)
+  //    );
+  //   // await listarAllAlabanzas('');
+  // }
 
 
 

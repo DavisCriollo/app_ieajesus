@@ -1,4 +1,5 @@
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/lista_de_Musicas_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -13,6 +14,16 @@ class DB {
       );
     }, version: 1);
   }
+
+
+  // static Future insertAll(LetraMusicaList _letraMusica) async {
+  //   Database database = await _openDB();
+
+  //   return database.insert("letrasMusicas", _letraMusica.toMap());
+  // }
+
+
+
 
   static Future insert(LetraMusica _letraMusica) async {
     Database database = await _openDB();

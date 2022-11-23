@@ -98,23 +98,23 @@ class MenuPrincipal extends StatelessWidget {
                   //       MaterialStateProperty.all<Color>(Colors.green),
                   // ),
                   onPressed: () async {
-                    // ProgressDialog.show(context);
+                    ProgressDialog.show(context);
                    await controllerHome.listarAllParaGuardar('');
                     final response = await controllerHome.saveData();
-                    // ProgressDialog.dissmiss(context);
-                    // if (response != null) {
+                    ProgressDialog.dissmiss(context);
+                    if (response != null) {
 
-                    // final snackBar = _sNackInfo(
-                    //     '${response}', size, Colors.green);
+                    final snackBar = _sNackInfo(
+                        'Datos subidos correctamente', size, Colors.green);
 
-                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    // }
-                    // else{
-                    // final snackBar = _sNackInfo(
-                    //     '${response}', size, Colors.red);
-                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    else{
+                    final snackBar = _sNackInfo(
+                        'Error al subir los datos', size, Colors.red);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                    // }
+                    }
 
                     Navigator.pop(context);
 
