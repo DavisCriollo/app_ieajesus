@@ -71,7 +71,7 @@ class MenuPrincipal extends StatelessWidget {
                     alignment: Alignment.center,
                     // color:Colors .red,
                     margin: EdgeInsets.only(top: size.iScreen(0.5)),
-                    child: Text('David',
+                    child: Text('',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.roboto(
                             fontSize: size.iScreen(1.7),
@@ -99,25 +99,21 @@ class MenuPrincipal extends StatelessWidget {
                   // ),
                   onPressed: () async {
                     ProgressDialog.show(context);
-                   await controllerHome.listarAllParaGuardar('');
+                    await controllerHome.listarAllParaGuardar('');
                     final response = await controllerHome.saveData();
                     ProgressDialog.dissmiss(context);
                     if (response != null) {
+                      final snackBar = _sNackInfo(
+                          'Datos subidos correctamente', size, Colors.green);
 
-                    final snackBar = _sNackInfo(
-                        'Datos subidos correctamente', size, Colors.green);
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                    else{
-                    final snackBar = _sNackInfo(
-                        'Error al subir los datos', size, Colors.red);
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      final snackBar = _sNackInfo(
+                          'Error al subir los datos', size, Colors.red);
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
 
                     Navigator.pop(context);
-
 
                     // Find the ScaffoldMessenger in the widget tree
                     // and use it to show a SnackBar.
@@ -149,14 +145,20 @@ class MenuPrincipal extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.blue.shade700),
                     ),
-                    onPressed: () {
-                      controllerHome.getAllData();
+                    onPressed: () async {
+                      ProgressDialog.show(context);
+                      await controllerHome.deleteAllLocal();
+                      await controllerHome.getAllData();
+                      ProgressDialog.dissmiss(context);
 
+                      final snackBar = _sNackInfo(
+                          'Datos Actualizados correctamente',
+                          size,
+                          Colors.green);
 
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-
-
-
+                      Navigator.pop(context);
                     },
                     child: Container(
                       padding:

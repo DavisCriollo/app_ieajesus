@@ -16,21 +16,50 @@ class DB {
   }
 
 
-  // static Future insertAll(LetraMusicaList _letraMusica) async {
-  //   Database database = await _openDB();
+  static Future<bool> insertAll(List<dynamic> _letraMusicas) async {
 
-  //   return database.insert("letrasMusicas", _letraMusica.toMap());
-  // }
+    try {
+       Database database = await _openDB();
+  //  print('Lista _getListaAllData : ${_letraMusicas.length}');
+  //  print('Lista _getListaAllData : ${_letraMusicas}');
+  //  print('Lista _getListaAllData : ${{ 'id': _letraMusicas[0]["genId"], 'tipo': _letraMusicas[0]["genTipo"], 'titulo': _letraMusicas[0]["genTitulo"],'letra': _letraMusicas[0]["genDescripcion"]}}');
+
+// var _data = {  'tipo': _letraMusicas[0]["genTipo"], 'titulo': _letraMusicas[0]["genTitulo"],'letra': _letraMusicas[0]["genDescripcion"]};
+   
+  //  print('info: $_data');
+   
+   for (var i = 0; i < _letraMusicas.length; i++) {
+     database.insert("letrasMusicas",{'tipo': _letraMusicas[i]["genTipo"], 'titulo': _letraMusicas[i]["genTitulo"],'letra': _letraMusicas[i]["genDescripcion"]});
+   }
+  
+   return true;
+      
+    } catch (e) {
+
+return false;
+    }
+   
+    // return database.insert("letrasMusicas",{'tipo': _letraMusicas[0]["genTipo"], 'titulo': _letraMusicas[0]["genTitulo"],'letra': _letraMusicas[0]["genDescripcion"]}
+    
+    
+    
+    
+
+  }
 
 
 
 
   static Future insert(LetraMusica _letraMusica) async {
     Database database = await _openDB();
-
     return database.insert("letrasMusicas", _letraMusica.toMap());
   }
 
+  static Future deleteAllTable() async {
+    Database database = await _openDB();
+print('TABLA INFO ELIMINADA');
+    return database.delete("letrasMusicas");
+  }
   static Future delete(LetraMusica _letra) async {
     Database database = await _openDB();
 

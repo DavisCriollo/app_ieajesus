@@ -47,38 +47,17 @@ class DetalleCoro extends StatelessWidget {
             width: size.wScreen(100.0),
             height: size.hScreen(100),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: size.iScreen(1.0)),
-                    width: size.wScreen(100.0),
-                    child: Text(
-                      // 'item Novedad: ${controllerActividades.getItemMulta}',
-                      musica.titulo!,
-                      textAlign: TextAlign.center,
-                      //
-                      style: GoogleFonts.lexendDeca(
-                          fontSize: size.iScreen(2.3),
-                          // color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-
-                  //==========================================//
-                  Container(
-                    // margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
-                    width: size.wScreen(100.0),
-                    child: SelectableText(
-                      musica.letra!,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.lexendDeca(
-                          fontSize: size.iScreen(1.8),
-                          // color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                  //*****************************************/
-                ],
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
+                width: size.wScreen(100.0),
+                child: SelectableText(
+                  '${musica.titulo}\n\n ${musica.letra!}',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.lexendDeca(
+                      fontSize: size.iScreen(1.8),
+                      // color: Colors.white,
+                      fontWeight: FontWeight.normal),
+                ),
               ),
             )));
   }

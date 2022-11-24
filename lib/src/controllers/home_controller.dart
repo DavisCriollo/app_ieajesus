@@ -527,7 +527,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     await listarAllHimnos('');
   }
 
-//===================================LISTA TODOS LOS COROS==========================================//
+//===================================LISTA TODOS LOS HIMNOS==========================================//
   List<LetraMusica> _listaHimnos = [];
   List<LetraMusica> get getListaHimnos => _listaHimnos;
 
@@ -726,10 +726,13 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
   List<dynamic>?  get getListaAllData => _listaAllData;
 
-  void setListaAllData(List<dynamic>?  data) {
+  void setListaAllData(List<dynamic>?  data)  {
     _listaAllData= [];
     _listaAllData= data;
-    print('Lista _listaAllData : ${_listaAllData}');
+
+DB.insertAll(_listaAllData!);
+
+    // print('Lista _getListaAllData : ${_listaAllData}');
     notifyListeners();
   }
 
@@ -825,7 +828,16 @@ _listaParaGuardar!.addAll({
     return null;
   }
 
-  //===================================SUBE LA DATA AL SERVIDOR==========================================//
+  //===================================DELETA ALL INFO BASE LOCAL ==========================================//
+
+ Future deleteAllLocal() async {
+     DB.deleteAllTable();
+     print('TABLA ELIMINADA');
+
+
+ }
+
+
 //===================================CREAR ALABANZAS==========================================//
 //=======================================================================================//
 
