@@ -54,7 +54,7 @@ class DetalleCoro extends StatelessWidget {
                   '${musica.titulo}\n\n ${musica.letra!}',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lexendDeca(
-                      fontSize: size.iScreen(1.8),
+                      fontSize: size.iScreen(1.9),
                       // color: Colors.white,
                       fontWeight: FontWeight.normal),
                 ),

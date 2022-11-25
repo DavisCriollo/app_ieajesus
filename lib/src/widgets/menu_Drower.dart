@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +25,7 @@ class MenuPrincipal extends StatelessWidget {
     // final socketService = Provider.of<SocketService>(context);
     // final usuario = authService.usuario;
 
-      // print('object: ${users.usuario}');
+      print('object: ${users.usuario[0]}');
 
 
     final Responsive size = Responsive.of(context);
@@ -48,18 +50,27 @@ class MenuPrincipal extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                       border: Border.all(
-                        color: const Color(0xFF04559D),
+                        color: primaryColor,
+                        width: size.iScreen(0.5)
                       ),
                     ),
                     width: size.iScreen(13),
                     height: size.iScreen(13),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: const Image(
-                        // image: AssetImage('assets/imgs/Me.jpg'),
-                        image: AssetImage('assets/imgs/no-image.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      child: Center(
+                        child: Text(users.usuario[0], style: GoogleFonts.roboto(
+                              fontSize: size.iScreen(8.0),
+                              
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor,
+                              )),
+                      )
+                      // const Image(
+                      //   // image: AssetImage('assets/imgs/Me.jpg'),
+                      //   image: AssetImage('assets/imgs/no-image.png'),
+                      //   fit: BoxFit.cover,
+                      // ),
                     ),
                   ),
                   Container(
@@ -77,11 +88,11 @@ class MenuPrincipal extends StatelessWidget {
                   Container(
                     alignment: Alignment.center,
                     // color:Colors .red,
-                    margin: EdgeInsets.only(top: size.iScreen(0.5)),
+                    margin: EdgeInsets.only(top: size.iScreen(1.0)),
                     child: Text('${users.usuario}',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.roboto(
-                            fontSize: size.iScreen(1.7),
+                            fontSize: size.iScreen(1.8),
                             fontWeight: FontWeight.bold
                             // color: Colors.white,
                             )),
@@ -272,29 +283,9 @@ class _ListaOpciones extends StatelessWidget {
           page: 'dedicatoria',
           size: size,
         ),
-        // _ItemsMenu(
-        //   enabled: true,
-        //   icon: FontAwesomeIcons.book,
-        //   title: 'Añadir Himno',
-        //   page: '',
-        //   size: size,
-        // ),
-        // _ItemsMenu(
-        //   enabled: true,
-        //   icon: FontAwesomeIcons.music,
-        //   title: 'Añadir Alabanza',
-        //   page: '',
-        //   size: size,
-        // ),
-        // _ItemsMenu(
-        //   enabled: true,
-        //   icon: FontAwesomeIcons.children,
-        //   title: 'Añadir Coro Niños',
-        //   page: '',
-        //   size: size,
-        // ),
+      
         _ItemsMenu(
-          enabled: true,
+          enabled: false,
           icon: FontAwesomeIcons.shareAlt,
           title: 'Compartir',
           page: '',
@@ -325,8 +316,9 @@ class _ItemsMenu extends StatelessWidget {
       children: [
         Ink(
           color:
-              (enabled == false) ? const Color(0xFFcdd0cb) : Colors.transparent,
+              (enabled == false) ? Color.fromARGB(255, 236, 241, 241) : Colors.transparent,
           child: ListTile(
+            selectedTileColor: Colors.grey,
             enabled: enabled,
             dense: true,
             leading: Icon(
