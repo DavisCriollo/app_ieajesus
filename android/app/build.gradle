@@ -46,8 +46,10 @@ android {
         applicationId "com.example.ieanjesus"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName '1.0.0'
     }
 
     buildTypes {

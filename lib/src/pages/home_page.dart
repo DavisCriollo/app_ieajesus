@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
+import 'package:ieanjesus/src/models/session.dart';
 import 'package:ieanjesus/src/pages/lista_alabanzas_page.dart';
 import 'package:ieanjesus/src/pages/lista_congregacionales_page.dart';
 import 'package:ieanjesus/src/pages/lista_coros_infantiles_page.dart';
@@ -13,7 +14,8 @@ import 'package:ieanjesus/src/widgets/menu_Drower.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final Session? user;
+   const HomePage({Key? key,  this.user}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     print('====== RELOADS ========');
+    print('====== RELOADS ${widget.user!.usuario} ========');
     final Responsive size = Responsive.of(context);
     final controllerInfo = context.read<HomeController>();
     return GestureDetector(
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        drawer: MenuPrincipal(),
+        drawer: MenuPrincipal(users:widget.user!),
         body: Container(
           color: Colors.white,
           width: size.wScreen(100.0),

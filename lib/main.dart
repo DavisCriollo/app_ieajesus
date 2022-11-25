@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           // floatingActionButtonTheme:FloatingActionButtonThemeData(backgroundColor: secondaryColor),
           colorScheme: ColorScheme.fromSeed(seedColor: primaryColor,secondary: primaryColor,tertiary: tercearyColor),
           ),
-        initialRoute: 'home',
+        initialRoute: 'splash',
     
         // initialRoute: 'compras',
         routes: appRoutes,

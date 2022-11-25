@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ieanjesus/src/Data/data_local_provider.dart';
@@ -15,7 +14,7 @@ class HomeController extends ChangeNotifier {
   GlobalKey<FormState> himnoFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> alabanzaFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> coroNinoFormKey = GlobalKey<FormState>();
- final _api = ApiProvider();
+  final _api = ApiProvider();
   bool validateFormCoro() {
     if (coroFormKey.currentState!.validate()) {
       return true;
@@ -64,7 +63,6 @@ class HomeController extends ChangeNotifier {
     setTipoInfantiles(null);
     setTituloCoroNino(null);
     setLetraCoroNino(null);
-    
 
     LetraMusica(
       id: 0,
@@ -112,44 +110,34 @@ class HomeController extends ChangeNotifier {
     // final dataRespose = BibliaLibrosController.fromJson(response);
 
 // setListaLibrosBibliaCompleta(jsonDecode(response));
-final _resp=(jsonDecode(response));
+    final _resp = (jsonDecode(response));
 
 // print('lllll: ${_resp['biblia']} ');
 
-
 // _resp['biblia'].forEach((key, value) {
 // print('lllll: ${key} - ${value.runtimeType} ');
-  
+
 //   });
 
-
-
-
-setListaLibrosBibliaCompleta(_resp['biblia']);
+    setListaLibrosBibliaCompleta(_resp['biblia']);
     // setListaLibrosBiblia(dataRespose.biblia.keys.toList());
     // setDetalleLibroBiblia(dataRespose.biblia.values.toList());
 
     notifyListeners();
     return response;
-
   }
 //================================== OBTENEMOS TODOS LOS LIBROS DE LA BIBLIA COMPLETO  ==============================//
 
-  Map<String, dynamic> _listaLibrosCompleta={};
+  Map<String, dynamic> _listaLibrosCompleta = {};
   Map<String, dynamic> get getlistalibrosBibliaCompleta => _listaLibrosCompleta;
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
-  //  print('objeto de la biblia:${_listaLibrosCompleta}');
-  //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][0]}');
-  //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][0]}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
     notifyListeners();
-
   }
-
- 
-
-  
 
 //  =================  CREO DEBOUNCE  PARA BUSQUEDAS ==================//
 
@@ -180,7 +168,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   String? get getTipoCoro => _tipoCoro;
   void setTipoCoro(String? _textTipo) {
     _tipoCoro = _textTipo;
-   
+
     notifyListeners();
   }
 
@@ -188,7 +176,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   String? get getTituloCoro => _tituloCoro;
   void setTituloCoro(String? _textCoro) {
     _tituloCoro = _textCoro;
-   
+
     notifyListeners();
   }
 
@@ -196,7 +184,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   String? get getletraCoro => _letraCoro;
   void setLetraCoro(String? _textCoro) {
     _letraCoro = _textCoro;
-   
+
     notifyListeners();
   }
 
@@ -209,7 +197,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   void setBtnSearch(bool action) {
     _btnSearchCoros = action;
-    // 
+    //
     notifyListeners();
   }
 
@@ -238,7 +226,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   void setBtnSearchBiblia(bool action) {
     _btnSearchBiblia = action;
-    // 
+    //
     notifyListeners();
   }
 
@@ -252,10 +240,10 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
       _deboucerSearchBuscaBiblia?.cancel();
       _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
         // print('================================ DATA BIBLIA:$_nameSearchBiblia ');
-       getTodosLosibrosBiblia();
+        getTodosLosibrosBiblia();
       });
     } else {
-     getTodosLosibrosBiblia();
+      getTodosLosibrosBiblia();
       // buscaAusencias('','false');
     }
     notifyListeners();
@@ -299,7 +287,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   void setBtnSearchHimno(bool action) {
     _btnSearchHimnos = action;
-    // 
+    //
     notifyListeners();
   }
 
@@ -312,8 +300,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
     if (_nameSearchHimno.length >= 2) {
       _deboucerSearchBuscaHimno?.cancel();
       _deboucerSearchBuscaHimno = Timer(const Duration(milliseconds: 700), () {
-     
-             listarAllHimnos(data);
+        listarAllHimnos(data);
       });
     } else {
       listarAllHimnos('');
@@ -344,7 +331,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   String? get getletraAlabanza => _letraAlabanza;
   void setLetraAlabanza(String? _textAlabanza) {
     _letraAlabanza = _textAlabanza;
-      notifyListeners();
+    notifyListeners();
   }
 
 //===================BOTON SEARCH ALABANZAS ==========================//
@@ -391,14 +378,14 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
   String? get getTituloCoroNino => _tituloCoroNino;
   void setTituloCoroNino(String? _textCoroNino) {
     _tituloCoroNino = _textCoroNino;
-      notifyListeners();
+    notifyListeners();
   }
 
   String? _letraCoroNino;
   String? get getletraCoroNino => _letraCoroNino;
   void setLetraCoroNino(String? _textCoroNino) {
     _letraCoroNino = _textCoroNino;
-       notifyListeners();
+    notifyListeners();
   }
 
 //====================================//
@@ -423,7 +410,6 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
       _deboucerSearchBuscaInfantiles?.cancel();
       _deboucerSearchBuscaInfantiles =
           Timer(const Duration(milliseconds: 700), () {
-       
         listarAllInfantiles(data);
       });
     } else {
@@ -474,7 +460,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   Future listarAllCoros(String? search) async {
     final _listAuxCoros = await DB.letrasMusicas(search);
- 
+
     if (_listAuxCoros.isNotEmpty) {
       _errorListaCoros = true;
       _listAuxCoros.removeWhere((e) => e.tipo != 'coro');
@@ -550,6 +536,10 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
       _errorListaHimnos = true;
       _listAuxHimnos.removeWhere((e) => e.tipo != 'himno');
 
+      //  List dataSort = [];
+      // dataSort = _listAuxHimnos;
+      // dataSort.sort((a, b) => b['genTitulo']!.compareTo(a['genTitulo']!));
+
       setListaHimnos(_listAuxHimnos);
 
       notifyListeners();
@@ -578,9 +568,7 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 //=======================================================================================//
 
   Future crearAlabanza() async {
-    await DB.insert(
-      
-      LetraMusica(
+    await DB.insert(LetraMusica(
         tipo: 'alabanza', titulo: _tituloAlabanza, letra: _letraAlabanza));
     await listarAllAlabanzas('');
   }
@@ -724,13 +712,13 @@ setListaLibrosBibliaCompleta(_resp['biblia']);
 
   List<dynamic>? _listaAllData = [];
   // List<TipoMulta> get getListaTodosLosTiposDeMultas => _listaTodosLosTiposDeMultas;
-  List<dynamic>?  get getListaAllData => _listaAllData;
+  List<dynamic>? get getListaAllData => _listaAllData;
 
-  void setListaAllData(List<dynamic>?  data)  {
-    _listaAllData= [];
-    _listaAllData= data;
+  void setListaAllData(List<dynamic>? data) {
+    _listaAllData = [];
+    _listaAllData = data;
 
-DB.insertAll(_listaAllData!);
+    DB.insertAll(_listaAllData!);
 
     // print('Lista _getListaAllData : ${_listaAllData}');
     notifyListeners();
@@ -744,11 +732,10 @@ DB.insertAll(_listaAllData!);
   }
 
   Future getAllData() async {
-   
     final response = await _api.getAllData();
     if (response != null) {
       _errorListaAllData = true;
-  
+
       setListaAllData(response.data['data']);
 
       notifyListeners();
@@ -766,21 +753,17 @@ DB.insertAll(_listaAllData!);
   List? get getListaParaGuardar => _listaParaGuardar;
 
   void setListaParaGuardar(List? _lista) {
-
-
-
-for (var e in _lista!) { 
-_listaParaGuardar!.addAll({
-{
-      "genId": 0,
-      "genTipo": e.tipo,
-      "genTitulo": e.titulo,
-      "genDescripcion": e.letra,
-      "genFecReg": ""
-   }
-});
-  
-}
+    for (var e in _lista!) {
+      _listaParaGuardar!.addAll({
+        {
+          "genId": 0,
+          "genTipo": e.tipo,
+          "genTitulo": e.titulo,
+          "genDescripcion": e.letra,
+          "genFecReg": ""
+        }
+      });
+    }
     notifyListeners();
   }
 
@@ -793,10 +776,10 @@ _listaParaGuardar!.addAll({
 
   Future listarAllParaGuardar(String? search) async {
     final _listAuxParaGuardar = await DB.letrasMusicas(search);
- 
+
     if (_listAuxParaGuardar.isNotEmpty) {
       _errorListaParaGuardar = true;
-          setListaParaGuardar(_listAuxParaGuardar);
+      setListaParaGuardar(_listAuxParaGuardar);
 
       notifyListeners();
       return _listAuxParaGuardar;
@@ -808,35 +791,31 @@ _listaParaGuardar!.addAll({
       return null;
     }
   }
+
   //===================================SUBE LA DATA AL SERVIDOR==========================================//
   Future saveData() async {
     // final _listAuxParaGuardar = await DB.letrasMusicas(search);
 
     // print('SAVE DATA $_listaParaGuardar');
-  final response = await _api.saveAllData(_listaParaGuardar);
-  //  await _api.saveAllData(_listaParaGuardar);
+    final response = await _api.saveAllData(_listaParaGuardar);
+    //  await _api.saveAllData(_listaParaGuardar);
 
     if (response != null) {
-     
-         return response;
+      return response;
     }
     if (response == null) {
-     
       return null;
     }
-      notifyListeners();
+    notifyListeners();
     return null;
   }
 
   //===================================DELETA ALL INFO BASE LOCAL ==========================================//
 
- Future deleteAllLocal() async {
-     DB.deleteAllTable();
-     print('TABLA ELIMINADA');
-
-
- }
-
+  Future deleteAllLocal() async {
+    DB.deleteAllTable();
+    print('TABLA ELIMINADA');
+  }
 
 //===================================CREAR ALABANZAS==========================================//
 //=======================================================================================//
@@ -847,8 +826,5 @@ _listaParaGuardar!.addAll({
   //    );
   //   // await listarAllAlabanzas('');
   // }
-
-
-
 
 }

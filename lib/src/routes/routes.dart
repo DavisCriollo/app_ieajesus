@@ -11,9 +11,9 @@ import 'package:ieanjesus/src/pages/splash_page.dart';
 
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-  'splash': (_) =>  SplashScreen(),
+  'splash': (_) =>  SplashPage(),
   'login': (_) =>  LoginPage(),
-  'home': (_) =>  const HomePage(),
+  'home': (_) =>   const HomePage(),
   'listaCoros': (_) =>  const ListaCoros(),
   // 'crearCoros': (_) =>  const CrearCoro(),
   'acercaDePage': (_) =>  const AcercaDePage(),

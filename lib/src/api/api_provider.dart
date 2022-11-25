@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as _http;
+import 'package:ieanjesus/src/api/auth.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 
 class ApiProvider {
@@ -159,40 +160,43 @@ final dataResp = await _dio.get('/api/general/filtro/0');
   // }
 }
 // //================================= LOGIN ==============================//
-//   // Future<AuthResponse?> login({BuildContext? context,
-//   //   String? usuario,
-//   //   String? password,
-//   //   String? empresa,
-//   // }) async {
-//   //   try {
-//   //     final dataResp = await _http.post(
-//   //         Uri.parse('https://backsigeop.neitor.com/api/auth/login'),
-//   //         body: {"usuario": usuario, "password": password, "empresa": empresa});
-//   //     final respo = jsonDecode(dataResp.body);
+  // Future<Auth?> loginApp(
+  //   String? usuario,
+  //   String? clave,
+   
+  // ) async {
+  //   try {
+  //     // final dataResp = await _http.post(
+  //     //     Uri.parse('https://backsigeop.neitor.com/api/auth/login'),
+  //     //     body: {"usuario": usuario, "password": password, "empresa": empresa});
+  //     // final respo = jsonDecode(dataResp.body);
 
-//   //   print('-OKkkkkkR->$respo');
+  //   // print('-OKkkkkkR->$respo');
 
-//   //     if (dataResp.statusCode == 404) {
-//   //       // print('-OKkkkkkR->$respo');
-//   //       snaks.NotificatiosnService.showSnackBarDanger("${respo["msg"]}");
-//   //       return null;
-//   //     }
-//   //     if (dataResp.statusCode == 200) {
-//   //       // snaks.NotificatiosnService.showSnackBarDanger("${respo["msg"]}");
-//   //       final responsData = AuthResponse.fromMap(respo);
-//   //       return responsData;
-//   //     }
-//   //     if (dataResp.statusCode == 401) {
-//   //        Auth.instance.deleteSesion(context!);
-//   //                 // Auth.instance.deleteIdRegistro();
-//   //                 // Auth.instance.deleteTurnoSesion();
-//   //       return null;
-//   //     }
-//   //   } catch (e) {
-//   //     // snaks.NotificatiosnService.showSnackBarError("SIN RESPUESTA");
-//   //     // return null;
-//   //   }
-//   // }
+  //     // if (dataResp.statusCode == 404) {
+  //     //   // print('-OKkkkkkR->$respo');
+  //     //   snaks.NotificatiosnService.showSnackBarDanger("${respo["msg"]}");
+  //     //   return null;
+  //     // }
+  //     // if (dataResp.statusCode == 200) {
+  //     //   // snaks.NotificatiosnService.showSnackBarDanger("${respo["msg"]}");
+  //     //   final responsData = AuthResponse.fromMap(respo);
+  //     //   return responsData;
+  //     // }
+  //     // if (dataResp.statusCode == 401) {
+  //     //   //  Auth.instance.deleteSesion(context!);
+  //     //             // Auth.instance.deleteIdRegistro();
+  //     //             // Auth.instance.deleteTurnoSesion();
+  //     //   return null;
+  //     // }
+
+  //       return null;
+
+  //   } catch (e) {
+  //     // snaks.NotificatiosnService.showSnackBarError("SIN RESPUESTA");
+  //     return null;
+  //   }
+  // }
 
 // //================================= RECUPERA CLAVE ==============================//
 //   Future recuperaClave({BuildContext? context,
