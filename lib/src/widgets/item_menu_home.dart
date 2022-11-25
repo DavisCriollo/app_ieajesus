@@ -55,6 +55,7 @@ class ItemsMenuHome extends StatelessWidget {
                     color:(alerta)?Colors.white:Colors.black87,
                     fontWeight: FontWeight.bold),
               ),
+              
             ],
           ),)
         ),

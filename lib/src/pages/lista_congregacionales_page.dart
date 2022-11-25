@@ -126,7 +126,7 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                             alignment: Alignment.center,
                             width: size.wScreen(90.0),
                             child: Text(
-                              'HIMNOS',
+                              'HIMNOS ${providerSearch.getListaHimnos.length}',
                               style: GoogleFonts.lexendDeca(
                                   fontSize: size.iScreen(2.45),
                                   color: Colors.white,

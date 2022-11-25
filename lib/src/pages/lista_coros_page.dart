@@ -100,7 +100,7 @@ class _ListaCorosState extends State<ListaCoros> {
                               alignment: Alignment.center,
                               width: size.wScreen(90.0),
                               child: Text(
-                                'COROS',
+                                'COROS  ${providerSearch.getListaCoros.length}' ,
                                 style: GoogleFonts.lexendDeca(
                                     fontSize: size.iScreen(2.45),
                                     color: Colors.white,

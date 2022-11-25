@@ -95,7 +95,7 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                             alignment: Alignment.center,
                             width: size.wScreen(90.0),
                             child: Text(
-                              'INFANTILES',
+                              'INFANTILES  ${providerSearch.getListaInfantiles.length}',
                               style: GoogleFonts.lexendDeca(
                                   fontSize: size.iScreen(2.45),
                                   color: Colors.white,

@@ -101,7 +101,7 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                                   alignment: Alignment.center,
                                   width: size.wScreen(90.0),
                                   child: Text(
-                                    'ALABANZAS',
+                                    'ALABANZAS  ${providerSearch.getListaAlabanzas.length}',
                                     style: GoogleFonts.lexendDeca(
                                         fontSize: size.iScreen(2.45),
                                         color: Colors.white,
