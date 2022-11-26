@@ -30,72 +30,96 @@ class DetalleCoro extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const Spacer(),
-              Container(
-                width: size.iScreen(10.0),
-                // color: Colors.red,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                          if(_musica.getBtnSize>=1.5){
-                         
-                        _musica.setBtnSize(_musica.getBtnSize - 0.5);
-                        
-                            }
-                      },
-                      child: Text(
-                        "A",
-                        style: GoogleFonts.roboto(
-                            fontSize: size.iScreen(1.5),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
+              Consumer<HomeController>(
+                builder: (_, valueSize, __) {
+                  return Container(
+                    width: size.iScreen(10.0),
+                    // color: Colors.green,
+                    child: Expanded(
+                      child: Container(
+                        // color: Colors.red,
+                        child: Slider(
+                            activeColor: Colors.green,
+                            thumbColor: Colors.white,
+                            inactiveColor: Colors.grey,
+                            min: 2,
+                            max: 10,
+                            value: valueSize.getBtnSize,
+                            onChanged: (_value) {
+                              valueSize.setBtnSize(_value);
+                            }),
                       ),
                     ),
-                    //***********************************************/
-                    SizedBox(
-                      width: size.iScreen(0.5),
-                    ),
-                    //*****************************************/
-                    GestureDetector(
-                      onTap: () {
-                        _musica.setBtnSize(1.9);
-                      },
-                      child: Text(
-                        "--",
-                        style: GoogleFonts.roboto(
-                            fontSize: size.iScreen(1.5),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    //***********************************************/
-                    SizedBox(
-                      width: size.iScreen(0.5),
-                    ),
-                    //*****************************************/
-                    GestureDetector(
-                      onTap: () {
-                         if(_musica.getBtnSize>=1.5 &&_musica.getBtnSize<=5.0){
-                         
-                           _musica.setBtnSize(_musica.getBtnSize + 0.5);
-                        
-                            }
-                      },
-                      child: Text(
-                        "A ",
-                        style: GoogleFonts.roboto(
-                            fontSize: size.iScreen(2.0),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
+
+              // Container(
+              //   width: size.iScreen(10.0),
+              //   // color: Colors.red,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       GestureDetector(
+              //         onTap: () {
+              //             if(_musica.getBtnSize>=1.5){
+
+              //           _musica.setBtnSize(_musica.getBtnSize - 0.5);
+
+              //               }
+              //         },
+              //         child: Text(
+              //           "A",
+              //           style: GoogleFonts.roboto(
+              //               fontSize: size.iScreen(1.5),
+              //               color: Colors.white,
+              //               fontWeight: FontWeight.bold),
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //       ),
+              //       //***********************************************/
+              //       SizedBox(
+              //         width: size.iScreen(0.5),
+              //       ),
+              //       //*****************************************/
+              //       GestureDetector(
+              //         onTap: () {
+              //           _musica.setBtnSize(1.9);
+              //         },
+              //         child: Text(
+              //           "--",
+              //           style: GoogleFonts.roboto(
+              //               fontSize: size.iScreen(1.5),
+              //               color: Colors.white,
+              //               fontWeight: FontWeight.bold),
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //       ),
+              //       //***********************************************/
+              //       SizedBox(
+              //         width: size.iScreen(0.5),
+              //       ),
+              //       //*****************************************/
+              //       GestureDetector(
+              //         onTap: () {
+              //            if(_musica.getBtnSize>=1.5 &&_musica.getBtnSize<=5.0){
+
+              //              _musica.setBtnSize(_musica.getBtnSize + 0.5);
+
+              //               }
+              //         },
+              //         child: Text(
+              //           "A ",
+              //           style: GoogleFonts.roboto(
+              //               fontSize: size.iScreen(2.0),
+              //               color: Colors.white,
+              //               fontWeight: FontWeight.bold),
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
           flexibleSpace: Container(
@@ -125,15 +149,15 @@ class DetalleCoro extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
                 width: size.wScreen(100.0),
                 child: Consumer<HomeController>(
-                  builder: (_, sizes,__) {
+                  builder: (_, sizes, __) {
                     return GestureDetector(
-                      onLongPress: () async{
-                          await Clipboard.setData(ClipboardData(text: "${musica.titulo}\n\n ${musica.letra!}"));
-                          
-                         final snackBar = _sNackCopyLetra(
+                      onLongPress: () async {
+                        await Clipboard.setData(ClipboardData(
+                            text: "${musica.titulo}\n\n ${musica.letra!}"));
+
+                        final snackBar = _sNackCopyLetra(
                             'Letra copiada', size, Colors.green);
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Text(
                         '${musica.titulo}\n\n ${musica.letra!}',
@@ -149,6 +173,7 @@ class DetalleCoro extends StatelessWidget {
               ),
             )));
   }
+
   //========================COPIA TEXTO=========================//
   SnackBar _sNackCopyLetra(String _info, Responsive size, Color _color) {
     return SnackBar(

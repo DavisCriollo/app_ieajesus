@@ -866,7 +866,7 @@ notifyListeners();
 
 //===================TAMANIO DE LETRA==========================//
 
-  double _btnSize = 1.9;
+  double _btnSize = 2;
   double get getBtnSize => _btnSize;
 
   void setBtnSize(double _sizes) {

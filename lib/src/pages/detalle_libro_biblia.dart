@@ -69,69 +69,17 @@ class _DetalleLibroState extends State<DetalleLibro> {
                   SizedBox(
                     width: size.iScreen(10.0),
                     // color: Colors.green,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (itemValue.getBtnSize >= 1.9 &&
-                                itemValue.getBtnSize <= 5.0) {
-                              itemValue.setBtnSize(itemValue.getBtnSize - 0.5);
-                            }
-                          },
-                          child: Container(
-                            // color: Colors.blue,
-                            padding: EdgeInsets.all(size.iScreen(1.0)),
-                            child: Text(
-                              "A",
-                              style: GoogleFonts.roboto(
-                                  fontSize: size.iScreen(1.5),
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                        //***********************************************/
-                        // SizedBox(
-                        //   width: size.iScreen(0.5),
-                        // ),
-                        //*****************************************/
-                        GestureDetector(
-                          onTap: () {
-                            itemValue.setBtnSize(1.9);
-                          },
-                          child: Text(
-                            "--",
-                            style: GoogleFonts.roboto(
-                                fontSize: size.iScreen(1.5),
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        //***********************************************/
-                        SizedBox(
-                          width: size.iScreen(0.5),
-                        ),
-                        //*****************************************/
-                        GestureDetector(
-                          onTap: () {
-                            if (itemValue.getBtnSize >= 1.9 &&
-                                itemValue.getBtnSize <= 5.0) {
-                              itemValue.setBtnSize(itemValue.getBtnSize + 0.5);
-                            }
-                          },
-                          child: Text(
-                            "A ",
-                            style: GoogleFonts.roboto(
-                                fontSize: size.iScreen(2.0),
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                    child: Expanded(
+                      child: Slider(
+                          activeColor: Colors.green,
+                          thumbColor: Colors.white,
+                          inactiveColor: Colors.grey,
+                          min: 2,
+                          max: 10,
+                          value: itemValue.getBtnSize,
+                          onChanged: (_value) {
+                            itemValue.setBtnSize(_value);
+                          }),
                     ),
                   ),
                 ],
