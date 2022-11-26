@@ -168,11 +168,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ItemsMenuHome(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ListaLibrosBiblia()),
-                          );
+                             controllerInfo.getTodosLosibrosBiblia();
+                          Navigator.pushNamed(context, 'librosBiblia');
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           const ListaLibrosBiblia()),
+                          // );
                         },
                         label: 'Santa Biblia',
                         icon: 'biblia.png',

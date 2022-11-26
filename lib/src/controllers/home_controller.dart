@@ -63,6 +63,7 @@ class HomeController extends ChangeNotifier {
     setTipoInfantiles(null);
     setTituloCoroNino(null);
     setLetraCoroNino(null);
+    _pageCapitulo=0;
 
     LetraMusica(
       id: 0,
@@ -134,7 +135,7 @@ class HomeController extends ChangeNotifier {
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
     //  print('objeto de la biblia:${_listaLibrosCompleta}');
-    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][0]}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
     notifyListeners();
   }
@@ -239,7 +240,27 @@ class HomeController extends ChangeNotifier {
     if (_nameSearchBiblia.length >= 2) {
       _deboucerSearchBuscaBiblia?.cancel();
       _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
-        // print('================================ DATA BIBLIA:$_nameSearchBiblia ');
+        print('================================ DATA BIBLIA:$_nameSearchBiblia ');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         getTodosLosibrosBiblia();
       });
     } else {
@@ -820,11 +841,13 @@ class HomeController extends ChangeNotifier {
 //===================================CREAR ALABANZAS==========================================//
 //=======================================================================================//
 
-  // Future crearAllData( List<Musicas> _data) async {
-  //   await DB.insertAll(
-  //     LetraMusicaList(data: _data)
-  //    );
-  //   // await listarAllAlabanzas('');
-  // }
+   int? _pageCapitulo=0;
+  int? get getPageCapotulo=>_pageCapitulo;
+
+  void setPageCapitulo(int? _item){
+_pageCapitulo=_item;
+   print('LA PAGINA ES: $_item');
+notifyListeners();
+  }
 
 }

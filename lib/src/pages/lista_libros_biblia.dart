@@ -28,7 +28,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
     final controllerHome = context.read<HomeController>();
-    controllerHome.getTodosLosibrosBiblia();
+    // controllerHome.getTodosLosibrosBiblia();
 //  print('object asdasd ${controllerHome.getlistalibrosBiblia.length}');
 
     return SafeArea(
@@ -42,6 +42,22 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                 fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
           ),
+          // actions: [
+          //   IconButton(
+          //             splashRadius: 2.0,
+          //            icon: Icon(
+          //                     Icons.search,
+          //                     size: size.iScreen(3.5),
+          //                     color: Colors.white,
+          //                   ),
+          //             onPressed: () {
+          //               Navigator.pushNamed(context, 'buscarBiblia');
+          //               // providerSearchBiblia.listarAllCoros('');
+          //               // providerSearchBiblia.setBtnSearchBiblia(!providerSearchBiblia.btnSearchBiblia);
+          //               // _textSearchBibliaController.text = "";
+          //             }),
+          // ],
+     
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -265,55 +281,56 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                 //     ],
                 //   );
 
-                //   return
-                //   ListView.builder(
-                //      physics: const BouncingScrollPhysics(),
-                //   itemCount:valueLibros.getlistalibrosBibliaCompleta.entries.length,
-                //   itemBuilder: (BuildContext context, int index) {
+//                   return
+//                   ListView.builder(
+//                      physics: const BouncingScrollPhysics(),
+//                   itemCount:valueLibros.getlistalibrosBibliaCompleta.keys.length,
+//                   itemBuilder: (BuildContext context, int index) {
 
-                //           // final _libro=valueLibros.getlistalibrosBiblia[index];
-                //           final _libro=valueLibros.getlistalibrosBibliaCompleta[index];
+//                           final _libro;
+// valueLibros.getlistalibrosBibliaCompleta.map((key, value) => print(key))));
+//                           // final _libro=valueLibros.getlistalibrosBibliaCompleta[index];
 
-                //     return
+//                     return
 
-                //         Column(
-                //       children: [
-                //         Container(
-                //          color: Colors.white,
-                //           child: ListTile(
-                //             dense: true,
-                //             visualDensity:VisualDensity.compact,
-                //             title: Text(
-                //               // '${_libro}',
-                //               '${valueLibros.getlistalibrosBibliaCompleta[0]}',
-                //               overflow: TextOverflow.ellipsis,
-                //               style: GoogleFonts.roboto(
-                //                   fontSize: size.iScreen(1.8),
-                //                   color: index>38?Colors.red:Colors.black87,
-                //                   fontWeight: FontWeight.bold),
-                //             ),
-                //             // subtitle: Text(
-                //             //   'Tono: Do+',
-                //             //   overflow: TextOverflow.ellipsis,
-                //             //   style: GoogleFonts.roboto(
-                //             //       // fontSize: size.iScreen(1.8),
-                //             //       // color: Colors.black87,
-                //             //       fontWeight: FontWeight.normal),
-                //             // ),
-                //             trailing: const Icon(Icons.chevron_right),
-                //             onTap: (){
-                //                Navigator.of(context).push(
-                //               MaterialPageRoute(builder: (context) =>  DetalleLibro( idLibro: index, nombreLibro: '$_libro',)),
-                //             );
-                //             },
-                //           ),
-                //         ),
-                //        Container(width: size.wScreen(100),height:size.iScreen(0.2),)
-                //       ],
-                //     );
+//                         Column(
+//                       children: [
+//                         Container(
+//                          color: Colors.white,
+//                           child: ListTile(
+//                             dense: true,
+//                             visualDensity:VisualDensity.compact,
+//                             title: Text(
+//                               '${valueLibros.getlistalibrosBibliaCompleta.keys}',
+//                               // '${valueLibros.getlistalibrosBibliaCompleta}',
+//                               overflow: TextOverflow.ellipsis,
+//                               style: GoogleFonts.roboto(
+//                                   fontSize: size.iScreen(1.8),
+//                                   color: index>38?Colors.red:Colors.black87,
+//                                   fontWeight: FontWeight.bold),
+//                             ),
+//                             // subtitle: Text(
+//                             //   'Tono: Do+',
+//                             //   overflow: TextOverflow.ellipsis,
+//                             //   style: GoogleFonts.roboto(
+//                             //       // fontSize: size.iScreen(1.8),
+//                             //       // color: Colors.black87,
+//                             //       fontWeight: FontWeight.normal),
+//                             // ),
+//                             trailing: const Icon(Icons.chevron_right),
+//                             onTap: (){
+//                             //    Navigator.of(context).push(
+//                             //   MaterialPageRoute(builder: (context) =>  DetalleLibro( idLibro: index, nombreLibro: '$_libro',)),
+//                             // );
+//                             },
+//                           ),
+//                         ),
+//                        Container(width: size.wScreen(100),height:size.iScreen(0.2),)
+//                       ],
+//                     );
 
-                //   },
-                // );
+//                   },
+//                 );
 
                 return SingleChildScrollView(
                   child: Wrap(
@@ -329,7 +346,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                           dense: false,
                           visualDensity: VisualDensity.compact,
                           title: Text(
-                            "${e.key}",
+                            e.key,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
                                 fontSize: size.iScreen(1.8),
@@ -338,6 +355,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                           ),
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () {
+                            controllerHome.resetFormCoros();
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => DetalleLibro(libro: e)),
