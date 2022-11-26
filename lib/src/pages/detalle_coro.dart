@@ -35,20 +35,18 @@ class DetalleCoro extends StatelessWidget {
                   return Container(
                     width: size.iScreen(10.0),
                     // color: Colors.green,
-                    child: Expanded(
-                      child: Container(
-                        // color: Colors.red,
-                        child: Slider(
-                            activeColor: Colors.green,
-                            thumbColor: Colors.white,
-                            inactiveColor: Colors.grey,
-                            min: 2,
-                            max: 10,
-                            value: valueSize.getBtnSize,
-                            onChanged: (_value) {
-                              valueSize.setBtnSize(_value);
-                            }),
-                      ),
+                    child: Container(
+                      // color: Colors.red,
+                      child: Slider(
+                          activeColor: Colors.green,
+                          thumbColor: Colors.white,
+                          inactiveColor: Colors.grey,
+                          min: 2,
+                          max: 10,
+                          value: valueSize.getBtnSize,
+                          onChanged: (_value) {
+                            valueSize.setBtnSize(_value);
+                          }),
                     ),
                   );
                 },

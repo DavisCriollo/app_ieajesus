@@ -41,15 +41,13 @@ class _DetalleLibroState extends State<DetalleLibro> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Text(
-                      widget.libro.key,
-                      style: GoogleFonts.roboto(
-                          fontSize: size.iScreen(2.5),
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                      overflow: TextOverflow.fade,
-                    ),
+                  Text(
+                    widget.libro.key,
+                    style: GoogleFonts.roboto(
+                        fontSize: size.iScreen(2.5),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.fade,
                   ),
                   // const Spacer(),
                   TextButton(
@@ -69,18 +67,16 @@ class _DetalleLibroState extends State<DetalleLibro> {
                   SizedBox(
                     width: size.iScreen(10.0),
                     // color: Colors.green,
-                    child: Expanded(
-                      child: Slider(
-                          activeColor: Colors.green,
-                          thumbColor: Colors.white,
-                          inactiveColor: Colors.grey,
-                          min: 2,
-                          max: 10,
-                          value: itemValue.getBtnSize,
-                          onChanged: (_value) {
-                            itemValue.setBtnSize(_value);
-                          }),
-                    ),
+                    child: Slider(
+                        activeColor: Colors.green,
+                        thumbColor: Colors.white,
+                        inactiveColor: Colors.grey,
+                        min: 2,
+                        max: 10,
+                        value: itemValue.getBtnSize,
+                        onChanged: (_value) {
+                          itemValue.setBtnSize(_value);
+                        }),
                   ),
                 ],
               );
