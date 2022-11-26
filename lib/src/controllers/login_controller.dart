@@ -55,32 +55,6 @@ class LoginController extends ChangeNotifier {
       return false;
     }
 
-//     final response = (
-//         empresa: _ona!.trim(), usuario: _usuario!.trim(), password: _clave!.trim());
-
-//     if (response != null) {
-
-//         _creddenciales.addAll(['$_recuerdaCredenciales','$_textNombreEmpresa','$_usuario','$_clave']);
-//  await Auth.instance.deleteDataRecordarme();
-
-    // await Auth.instance.saveSession(response);
-//       infoUser = await Auth.instance.getSession();
-//       //  print('=========++ > ${infoUser}');
-//       //  print('=========++ > ${infoUser!.rol}');
-//       //  print('====las credenciales de loguearse =====++ > $_creddenciales');
-//       if(_recuerdaCredenciales==true){
-//       //  getCredenciales(_creddenciales);
-//        await Auth.instance.saveDataRecordarme(_creddenciales);
-
-//         }
-//       _dataLogin = response;
-
-//  _rondaSave = jsonEncode(tablaActividades);
-//     await Auth.instance.saveRondasActividad(_rondaSave);
-
-    return true;
   }
-  // if (response == null) {
-  //   return null;
-  // }
+
 }

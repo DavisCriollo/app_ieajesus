@@ -55,7 +55,7 @@ Session? _user;
  Session?  get getSesion=>_user;
   void  setSesion(Session? _inf){
       _user=_inf;
-      print('usuario get:${_user!.usuario}');
+      // print('usuario get:${_user!.usuario}');
       notifyListeners();
   }
 
@@ -860,7 +860,7 @@ Session? _user;
 
   void setPageCapitulo(int? _item){
 _pageCapitulo=_item;
-   print('LA PAGINA ES: $_item');
+  //  print('LA PAGINA ES: $_item');
 notifyListeners();
   }
 

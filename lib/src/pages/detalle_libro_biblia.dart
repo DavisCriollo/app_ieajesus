@@ -41,13 +41,15 @@ class _DetalleLibroState extends State<DetalleLibro> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    widget.libro.key,
-                    style: GoogleFonts.roboto(
-                        fontSize: size.iScreen(2.5),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.fade,
+                  Expanded(
+                    child: Text(
+                      widget.libro.key,
+                      style: GoogleFonts.roboto(
+                          fontSize: size.iScreen(2.5),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.fade,
+                    ),
                   ),
                   // const Spacer(),
                   TextButton(
@@ -121,7 +123,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           onLongPress: () async {
                             await Clipboard.setData(ClipboardData(
                                 text:
-                                    "${widget.libro.key} - ${i + 1} -  ${_capitulo[i].replaceAll("/n", "")}"));
+                                    "${widget.libro.key} ${controllerHome.getPageCapotulo! + 1}:${i + 1} ${_capitulo[i].replaceAll("/n", "")}"));
 
                             final snackBar =
                                 _sNackCopy('Verso copiado', size, Colors.green);
