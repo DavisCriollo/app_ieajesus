@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/session.dart';
 import 'package:ieanjesus/src/pages/crear_coro.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
@@ -12,7 +13,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class ListaCoros extends StatefulWidget {
-  const ListaCoros({Key? key}) : super(key: key);
+  final Session? user;
+  const ListaCoros({Key? key, this.user}) : super(key: key);
 
   @override
   State<ListaCoros> createState() => _ListaCorosState();
@@ -27,9 +29,14 @@ class _ListaCorosState extends State<ListaCoros> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
+// print('EL USUARIO ES:${widget.user!.usuario}');
+
+
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -109,7 +116,7 @@ class _ListaCorosState extends State<ListaCoros> {
                             ),
                     ),
                   ),
-                  IconButton(
+                 IconButton(
                       splashRadius: 2.0,
                       icon: (!providerSearch.btnSearch)
                           ? Icon(
@@ -282,7 +289,8 @@ class _ListaCorosState extends State<ListaCoros> {
         
         
         
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: widget.user!.tipo=='master'
+                  ?FloatingActionButton(
             child: const Icon(
               Icons.add,
               color: Colors.white,
@@ -296,7 +304,7 @@ class _ListaCorosState extends State<ListaCoros> {
                   MaterialPageRoute(builder: (BuildContext context) {
                 return const CrearCoro(estado: 'new');
               }));
-            }),
+            }):Container(),
       ),
     );
   }

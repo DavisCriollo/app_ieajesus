@@ -29,14 +29,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initData() async {
-// final controller=HomeController();
+final controller=HomeController();
 
-// controller.getTodosLosibrosBiblia();
+controller.setSesion(widget.user);
   }
   @override
   Widget build(BuildContext context) {
-    print('====== RELOADS ========');
-    print('====== RELOADS ${widget.user!.usuario} ========');
+  
     final Responsive size = Responsive.of(context);
     final controllerInfo = context.read<HomeController>();
     return GestureDetector(
@@ -114,7 +113,7 @@ class _HomePageState extends State<HomePage> {
 
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const ListaCoros()),
+                                builder: (context) =>  ListaCoros(user: widget.user,)),
                           );
                         },
                        
@@ -129,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const ListaCongregacionales()),
+                                     ListaCongregacionales(user: widget.user, )),
                           );
                           // Navigator.pushNamed(
                           //     context, 'novedades');
@@ -144,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                           controllerInfo.listarAllAlabanzas('');
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const ListaAlabanzas()),
+                                builder: (context) =>  ListaAlabanzas(user: widget.user,)),
                           );
                         },
                         label: 'Alabanzas',
@@ -159,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const ListaCorosInfantiles()),
+                                     ListaCorosInfantiles(user: widget.user,)),
                           );
                         },
                         label: 'Coros Niños',
@@ -182,6 +181,16 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
+  //***********************************************/
+                  SizedBox(
+                    height: size.iScreen(1.0),
+                  ),
+                  //*****************************************/
+                 
+                  Text('© ${DateTime.now().year} DavisSoft. Todos los rerechos reservados.',style: GoogleFonts.roboto(
+                fontSize: size.iScreen(1.5),
+                color: Colors.grey,
+                fontWeight: FontWeight.bold),),
                 ],
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/session.dart';
 import 'package:ieanjesus/src/pages/crear_coro_nino.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
@@ -11,7 +12,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class ListaCorosInfantiles extends StatefulWidget {
-  const ListaCorosInfantiles({Key? key}) : super(key: key);
+    final Session? user;
+  const ListaCorosInfantiles({Key? key, this.user}) : super(key: key);
 
   @override
   State<ListaCorosInfantiles> createState() => _ListaCorosInfantilesState();
@@ -104,6 +106,7 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                           ),
                   ),
                 ),
+                
                 IconButton(
                     splashRadius: 2.0,
                     icon: (!providerSearch.btnSearchInfantiles)
@@ -278,7 +281,9 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: 
+       widget.user!.tipo=='master'
+                  ?FloatingActionButton(
           child: const Icon(
             Icons.add,
             color: Colors.white,
@@ -290,7 +295,7 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                 MaterialPageRoute(builder: (BuildContext context) {
               return const CrearCoroNino(estado: 'new',);
             }));
-          }),
+          }):Container(),
     );
   }
 }

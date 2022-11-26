@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 // import 'package:ieanjesus/src/controllers/home_controller.dart';
@@ -38,62 +39,101 @@ class _DetalleLibroState extends State<DetalleLibro> {
           title: Consumer<HomeController>(
             builder: (_, itemValue, __) {
               return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "${widget.libro.key}",
-                    style: GoogleFonts.roboto(
-                        fontSize: size.iScreen(2.5),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Text(
+                      widget.libro.key,
+                      style: GoogleFonts.roboto(
+                          fontSize: size.iScreen(2.5),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.fade,
+                    ),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   TextButton(
                     onPressed: () {
-                      _showMyDialog(size ,widget.libro.value.length);
+                      _showMyDialog(size, widget.libro.value.length);
                     },
                     child: Text(
-                      "Verso :   ${itemValue.getPageCapotulo! + 1}   ",
+                      "Capítulo : ${itemValue.getPageCapotulo! + 1}   ",
                       style: GoogleFonts.roboto(
                           fontSize: size.iScreen(2.0),
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  )
+                  ),
 
-                  // const Spacer(),
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(5.0),
-                  //   child: Container(
-                  //     width:size.wScreen(25) ,
-                  //                       // margin: EdgeInsets.symmetric(
-                  //                       //     horizontal: size.iScreen(0.0)),
-                  //                       padding: EdgeInsets.symmetric(
-                  //                           horizontal: size.iScreen(1.5)),
-                  //                       color: Colors.white,
-                  //                       height: size.iScreen(4.0),
-                  //                       child: TextField(
-                  //                         controller: _textCapitulo,
-                  //                         textAlign: TextAlign.center,
-                  //                         // controller: _textSearchControllerBiblia,
-                  //                         autofocus: true,
-                  //                         onChanged: (text) {
-                  //                           if(int.parse(text.trim())>0){
-                  //                           controllerHome.setPageCapitulo(int.parse(text));
-                  //                             _controllerPage.animateToPage(controllerHome.getPageCapotulo!.toInt(), duration: Duration(milliseconds: 50), curve: Curves.easeIn);
-
-                  //                           }
-
-                  //                         },
-                  //                         decoration: const InputDecoration(
-                  //                           // icon: Icon(Icons.search),
-                  //                           border: InputBorder.none,
-                  //                           hintText: 'Capítulo',
-                  //                         ),
-                  //                       ),
-                  //                     ),
-                  // ),
+                  SizedBox(
+                    width: size.iScreen(10.0),
+                    // color: Colors.green,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            if (itemValue.getBtnSize >= 1.9 &&
+                                itemValue.getBtnSize <= 5.0) {
+                              itemValue.setBtnSize(itemValue.getBtnSize - 0.5);
+                            }
+                          },
+                          child: Container(
+                            // color: Colors.blue,
+                            padding: EdgeInsets.all(size.iScreen(1.0)),
+                            child: Text(
+                              "A",
+                              style: GoogleFonts.roboto(
+                                  fontSize: size.iScreen(1.5),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        //***********************************************/
+                        // SizedBox(
+                        //   width: size.iScreen(0.5),
+                        // ),
+                        //*****************************************/
+                        GestureDetector(
+                          onTap: () {
+                            itemValue.setBtnSize(1.9);
+                          },
+                          child: Text(
+                            "--",
+                            style: GoogleFonts.roboto(
+                                fontSize: size.iScreen(1.5),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        //***********************************************/
+                        SizedBox(
+                          width: size.iScreen(0.5),
+                        ),
+                        //*****************************************/
+                        GestureDetector(
+                          onTap: () {
+                            if (itemValue.getBtnSize >= 1.9 &&
+                                itemValue.getBtnSize <= 5.0) {
+                              itemValue.setBtnSize(itemValue.getBtnSize + 0.5);
+                            }
+                          },
+                          child: Text(
+                            "A ",
+                            style: GoogleFonts.roboto(
+                                fontSize: size.iScreen(2.0),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             },
@@ -133,86 +173,54 @@ class _DetalleLibroState extends State<DetalleLibro> {
                       physics: const BouncingScrollPhysics(),
                       itemCount: _capitulo.length,
                       itemBuilder: (context, i) {
-                        return Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: size.iScreen(0.1),
-                                vertical: size.iScreen(0.5)),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.iScreen(0.5),
-                                vertical: size.iScreen(0.0)),
-                            child: Text.rich(
-                              TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '${i + 1} ',
-                                      style: GoogleFonts.roboto(
-                                        fontSize: size.iScreen(1.8),
-                                        fontWeight: FontWeight.bold,
-                                        // color: Colors.grey,
-                                      )),
-                                  TextSpan(
-                                      text: ' ${_capitulo[i].replaceAll("/n","")} ',
-                                      style: GoogleFonts.roboto(
-                                        fontSize: size.iScreen(1.8),
-                                        fontWeight: FontWeight.normal,
-                                        // color: Colors.grey,
-                                      )),
-                                ],
-                              ),
-                            )
+                        return GestureDetector(
+                          onLongPress: () async {
+                            await Clipboard.setData(ClipboardData(
+                                text:
+                                    "${widget.libro.key} - ${i + 1} -  ${_capitulo[i].replaceAll("/n", "")}"));
 
-                            //          Wrap(
-                            //     children: _capitulo.map((e) {
-                            //   var index = _capitulo.indexOf(e);
-                            //   return Container(
-                            //       margin: EdgeInsets.symmetric(
-                            //           horizontal: size.iScreen(0.1),
-                            //           vertical: size.iScreen(0.5)),
-                            //       padding: EdgeInsets.symmetric(
-                            //           horizontal: size.iScreen(0.5),
-                            //           vertical: size.iScreen(0.0)),
-                            //       child: Text.rich(
-                            //         TextSpan(
-                            //           children: <TextSpan>[
-                            //             TextSpan(
-                            //                 text: '${index + 1} ',
-                            //                 style: GoogleFonts.roboto(
-                            //                   fontSize: size.iScreen(1.8),
-                            //                   fontWeight: FontWeight.bold,
-                            //                   // color: Colors.grey,
-                            //                 )),
-                            //             TextSpan(
-                            //                 text: ' ${_capitulo[index]} ',
-                            //                 style: GoogleFonts.roboto(
-                            //                   fontSize: size.iScreen(1.8),
-                            //                   fontWeight: FontWeight.normal,
-                            //                   // color: Colors.grey,
-                            //                 )),
-                            //           ],
-                            //         ),
-                            //       ));
-                            // }).toList())
-                            // Text.rich(
-                            //   TextSpan(
-                            //     children: <TextSpan>[
-                            //       TextSpan(
-                            //           text: '${index + 1} ',
-                            //           style: GoogleFonts.roboto(
-                            //             fontSize: size.iScreen(1.8),
-                            //             fontWeight: FontWeight.bold,
-                            //             // color: Colors.grey,
-                            //           )),
-                            //       TextSpan(
-                            //           text: '\n${index + 1} ${_capitulo[index]} ',
-                            //           style: GoogleFonts.roboto(
-                            //             fontSize: size.iScreen(1.8),
-                            //             fontWeight: FontWeight.normal,
-                            //             // color: Colors.grey,
-                            //           )),
-                            //     ],
-                            //   ),
-                            // ),
-                            );
+                            final snackBar =
+                                _sNackCopy('Verso copiado', size, Colors.green);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+
+                            // print('COPIADO: ${widget.libro.key} - ${i + 1} -  ${_capitulo[i].replaceAll("/n","")} ');
+                          },
+                          child: Consumer<HomeController>(
+                            builder: (_, valueSize, __) {
+                              return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.iScreen(0.1),
+                                      vertical: size.iScreen(0.5)),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.iScreen(0.5),
+                                      vertical: size.iScreen(0.0)),
+                                  child: Text.rich(
+                                    TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '${i + 1} ',
+                                            style: GoogleFonts.roboto(
+                                              fontSize: size.iScreen(
+                                                  valueSize.getBtnSize),
+                                              fontWeight: FontWeight.bold,
+                                              // color: Colors.grey,
+                                            )),
+                                        TextSpan(
+                                            text:
+                                                ' ${_capitulo[i].replaceAll("/n", "")} ',
+                                            style: GoogleFonts.roboto(
+                                              fontSize: size.iScreen(
+                                                  valueSize.getBtnSize),
+                                              fontWeight: FontWeight.normal,
+                                              // color: Colors.grey,
+                                            )),
+                                      ],
+                                    ),
+                                  ));
+                            },
+                          ),
+                        );
                       });
                 },
                 itemCount: widget.libro.value.length,
@@ -224,91 +232,33 @@ class _DetalleLibroState extends State<DetalleLibro> {
 
                   //  _controllerPage.animateTo(offset, duration: duration, curve: curve);
                 } // Can be null
-                )
-
-            // ListView.builder(
-            //   itemCount: widget.libro.value.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     final List<dynamic> _capitulo = widget.libro.value[index];
-
-            //     return
-            //     ExpansionTile(
-            //         childrenPadding: EdgeInsets.symmetric(
-            //             horizontal: size.iScreen(0.5),
-            //             vertical: size.iScreen(0.0)),
-            //         tilePadding: EdgeInsets.symmetric(
-            //             horizontal: size.iScreen(1.0),
-            //             vertical: size.iScreen(0.0)),
-            //         title: Text('Capítulo ${index + 1}',
-            //             style: GoogleFonts.roboto(
-            //               fontSize: size.iScreen(1.8),
-            //               fontWeight: FontWeight.bold,
-            //               // color: Colors.grey,
-            //             )),
-            //         children: [
-            //           Wrap(
-            //               children: _capitulo.map((e) {
-            //             var index = _capitulo.indexOf(e);
-            //             return Container(
-            //                 margin: EdgeInsets.symmetric(
-            //                     horizontal: size.iScreen(0.1),
-            //                     vertical: size.iScreen(0.5)),
-            //                 padding: EdgeInsets.symmetric(
-            //                     horizontal: size.iScreen(0.5),
-            //                     vertical: size.iScreen(0.0)),
-            //                 child: Text.rich(
-            //                   TextSpan(
-            //                     children: <TextSpan>[
-            //                       TextSpan(
-            //                           text: '${index + 1} ',
-            //                           style: GoogleFonts.roboto(
-            //                             fontSize: size.iScreen(1.8),
-            //                             fontWeight: FontWeight.bold,
-            //                             // color: Colors.grey,
-            //                           )),
-            //                       TextSpan(
-            //                           text: ' $e ',
-            //                           style: GoogleFonts.roboto(
-            //                             fontSize: size.iScreen(1.8),
-            //                             fontWeight: FontWeight.normal,
-            //                             // color: Colors.grey,
-            //                           )),
-            //                     ],
-            //                   ),
-            //                 ));
-            //           }).toList())
-            //         ]);
-
-            //   },
-            // ),
-
-            ),
-        //  floatingActionButton:  FloatingActionButton(
-        //        child: const Icon(
-        //                 Icons.add,
-        //                 color: Colors.white,
-        //               ),
-        //         onPressed:
-        //              () {
-
-        //               controllerHome.setPageCapitulo(3);
-        //                    _controllerPage.animateToPage(controllerHome.getPageCapotulo!.toInt(), duration: Duration(milliseconds: 50), curve: Curves.easeIn);
-
-        //               }
-
-        //       ),
+                )),
       ),
     );
   }
 
-  Future<void> _showMyDialog(Responsive size,int _libro) async {
-   final contexto= context.read<HomeController>();
+//========================COPIA TEXTO=========================//
+  SnackBar _sNackCopy(String _info, Responsive size, Color _color) {
+    return SnackBar(
+      backgroundColor: _color,
+      content: Text(_info,
+          style: GoogleFonts.roboto(
+              fontSize: size.iScreen(2.0), fontWeight: FontWeight.bold
+              // color: Colors.white,
+              )),
+    );
+  }
+
+//=================================================//
+
+  Future<void> _showMyDialog(Responsive size, int _libro) async {
+    // final contexto = context.read<HomeController>();
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: const Text('Versículos')),
+          title: const Center(child: Text('Capítulos')),
           content: Container(
             width: size.wScreen(20),
             height: size.hScreen(50),
@@ -316,14 +266,15 @@ class _DetalleLibroState extends State<DetalleLibro> {
               shrinkWrap: true,
               itemCount: _libro,
               itemBuilder: (BuildContext context, int index) {
-
-                    final _item=index+1;
+                final _item = index + 1;
 
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     //  contexto.setPageCapitulo(index);
-                     _controllerPage.animateToPage(index, duration: Duration(milliseconds: 50), curve: Curves.easeIn);
-                      Navigator.of(context).pop();
+                    _controllerPage.animateToPage(index,
+                        duration: Duration(milliseconds: 50),
+                        curve: Curves.easeIn);
+                    Navigator.of(context).pop();
                   },
                   child: Container(
                       margin: EdgeInsets.symmetric(
@@ -331,11 +282,12 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           vertical: size.iScreen(0.5)),
                       // color: Colors.red,
                       child: Center(
-                        child: Text('$_item' ,style: GoogleFonts.roboto(
-                                          fontSize: size.iScreen(1.8),
-                                          fontWeight: FontWeight.bold,
-                                          // color: Colors.grey,
-                                        )),
+                        child: Text('$_item',
+                            style: GoogleFonts.roboto(
+                              fontSize: size.iScreen(1.8),
+                              fontWeight: FontWeight.bold,
+                              // color: Colors.grey,
+                            )),
                       )),
                 );
               },

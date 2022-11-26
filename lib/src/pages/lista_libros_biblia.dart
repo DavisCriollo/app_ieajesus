@@ -346,7 +346,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                           dense: false,
                           visualDensity: VisualDensity.compact,
                           title: Text(
-                            e.key,
+                          '${e.key}',
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
                                 fontSize: size.iScreen(1.8),
@@ -355,6 +355,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                           ),
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () {
+                          
                             controllerHome.resetFormCoros();
                             Navigator.of(context).push(
                               MaterialPageRoute(

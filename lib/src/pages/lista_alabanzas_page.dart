@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/session.dart';
 import 'package:ieanjesus/src/pages/crear_alabanza.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
@@ -11,7 +12,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class ListaAlabanzas extends StatefulWidget {
-  const ListaAlabanzas({Key? key}) : super(key: key);
+    final Session? user;
+  const ListaAlabanzas({Key? key, this.user}) : super(key: key);
 
   @override
   State<ListaAlabanzas> createState() => _ListaAlabanzasState();
@@ -110,6 +112,7 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                                 ),
                         ),
                       ),
+                    
                       IconButton(
                           splashRadius: 2.0,
                           icon: (!providerSearch.btnSearchAlabanza)
@@ -286,7 +289,9 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
        
         
         
-         floatingActionButton:  FloatingActionButton(
+         floatingActionButton: 
+          widget.user!.tipo=='master'
+                  ? FloatingActionButton(
                    child: const Icon(
                             Icons.add,
                             color: Colors.white,
@@ -303,7 +308,7 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                             }));
                           }
                        
-                  ),
+                  ):Container(),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -8,6 +9,7 @@ import 'package:ieanjesus/src/api/api_provider.dart';
 import 'package:ieanjesus/src/models/biblia_libros_model.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/models/lista_de_Musicas_model.dart';
+import 'package:ieanjesus/src/models/session.dart';
 
 class HomeController extends ChangeNotifier {
   GlobalKey<FormState> coroFormKey = GlobalKey<FormState>();
@@ -46,6 +48,18 @@ class HomeController extends ChangeNotifier {
       return false;
     }
   }
+
+
+Session? _user;
+ 
+ Session?  get getSesion=>_user;
+  void  setSesion(Session? _inf){
+      _user=_inf;
+      print('usuario get:${_user!.usuario}');
+      notifyListeners();
+  }
+
+
 
   void resetFormCoros() {
     setTipoCoro(null);
@@ -848,6 +862,17 @@ class HomeController extends ChangeNotifier {
 _pageCapitulo=_item;
    print('LA PAGINA ES: $_item');
 notifyListeners();
+  }
+
+//===================TAMANIO DE LETRA==========================//
+
+  double _btnSize = 1.9;
+  double get getBtnSize => _btnSize;
+
+  void setBtnSize(double _sizes) {
+    _btnSize = _sizes;
+    //
+    notifyListeners();
   }
 
 }

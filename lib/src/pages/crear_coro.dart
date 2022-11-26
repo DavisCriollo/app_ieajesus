@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class CrearCoro extends StatefulWidget {
   final String estado;
+  
   const CrearCoro({Key? key, required this.estado}) : super(key: key);
 
   @override

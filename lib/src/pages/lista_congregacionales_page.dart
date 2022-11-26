@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
+import 'package:ieanjesus/src/models/session.dart';
 import 'package:ieanjesus/src/pages/crear_himno.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
@@ -11,7 +12,8 @@ import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class ListaCongregacionales extends StatefulWidget {
-  const ListaCongregacionales({Key? key}) : super(key: key);
+  final Session? user;
+  const ListaCongregacionales({Key? key, this.user}) : super(key: key);
 
   @override
   State<ListaCongregacionales> createState() => _ListaCongregacionalesState();
@@ -135,25 +137,26 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                           ),
                   ),
                 ),
-                IconButton(
-                    splashRadius: 2.0,
-                    icon: (!providerSearch.btnSearcHimno)
-                        ? Icon(
-                            Icons.search,
-                            size: size.iScreen(3.5),
-                            color: Colors.white,
-                          )
-                        : Icon(
-                            Icons.clear,
-                            size: size.iScreen(3.5),
-                            color: Colors.white,
-                          ),
-                    onPressed: () {
-                      providerSearch.listarAllHimnos('');
-                      providerSearch
-                          .setBtnSearchHimno(!providerSearch.btnSearcHimno);
-                      _textSearchController.text = "";
-                    }),
+               IconButton(
+                        splashRadius: 2.0,
+                        icon: (!providerSearch.btnSearcHimno)
+                            ? Icon(
+                                Icons.search,
+                                size: size.iScreen(3.5),
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                Icons.clear,
+                                size: size.iScreen(3.5),
+                                color: Colors.white,
+                              ),
+                        onPressed: () {
+                          providerSearch.listarAllHimnos('');
+                          providerSearch
+                              .setBtnSearchHimno(!providerSearch.btnSearcHimno);
+                          _textSearchController.text = "";
+                        })
+                    ,
               ],
             );
           },
@@ -242,7 +245,8 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                             onPressed: (context) {
                               valueListaHimnos.getInfoDelHimno(_himno);
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const CrearHimno(estado: 'edit')));
+                                  builder: (context) =>
+                                      const CrearHimno(estado: 'edit')));
                             },
                           ),
                           SlidableAction(
@@ -277,7 +281,7 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                               '${_himno.titulo}',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.roboto(
-                            fontSize: size.iScreen(1.7),
+                                  fontSize: size.iScreen(1.7),
                                   // color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -306,19 +310,21 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          onPressed: () {
-         LetraMusica(id:0,tipo:"",titulo:"",letra: "");
-         context.read<HomeController>().resetFormCoros();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return const CrearHimno(estado: 'new');
-            }));
-          }),
+      floatingActionButton: widget.user!.tipo == 'master'
+          ? FloatingActionButton(
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                LetraMusica(id: 0, tipo: "", titulo: "", letra: "");
+                context.read<HomeController>().resetFormCoros();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return const CrearHimno(estado: 'new');
+                }));
+              })
+          : Container(),
     );
   }
 }
