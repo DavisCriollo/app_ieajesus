@@ -40,7 +40,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
               return Row(
                 children: [
                   Text(
-                    "${widget.libro.key} ${itemValue.getPageCapotulo! + 1} ",
+                    "${widget.libro.key}",
                     style: GoogleFonts.roboto(
                         fontSize: size.iScreen(2.5),
                         color: Colors.white,
@@ -53,7 +53,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                       _showMyDialog(size ,widget.libro.value.length);
                     },
                     child: Text(
-                      "Verso",
+                      "Verso :   ${itemValue.getPageCapotulo! + 1}   ",
                       style: GoogleFonts.roboto(
                           fontSize: size.iScreen(2.0),
                           color: Colors.white,
@@ -151,7 +151,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                         // color: Colors.grey,
                                       )),
                                   TextSpan(
-                                      text: ' ${_capitulo[i]} ',
+                                      text: ' ${_capitulo[i].replaceAll("/n","")} ',
                                       style: GoogleFonts.roboto(
                                         fontSize: size.iScreen(1.8),
                                         fontWeight: FontWeight.normal,
@@ -316,6 +316,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
               shrinkWrap: true,
               itemCount: _libro,
               itemBuilder: (BuildContext context, int index) {
+
+                    final _item=index+1;
+
                 return InkWell(
                   onTap: (){
                     //  contexto.setPageCapitulo(index);
@@ -328,7 +331,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           vertical: size.iScreen(0.5)),
                       // color: Colors.red,
                       child: Center(
-                        child: Text('$index' ,style: GoogleFonts.roboto(
+                        child: Text('$_item' ,style: GoogleFonts.roboto(
                                           fontSize: size.iScreen(1.8),
                                           fontWeight: FontWeight.bold,
                                           // color: Colors.grey,
