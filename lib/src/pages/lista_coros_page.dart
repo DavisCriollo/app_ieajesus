@@ -215,7 +215,8 @@ class _ListaCorosState extends State<ListaCoros> {
                           motion: const ScrollMotion(),
 
                           children: [
-                            SlidableAction(
+                           widget.user!.tipo=='master'
+                  ? SlidableAction(
                               backgroundColor: tercearyColor,
                               foregroundColor: Colors.white,
                               icon: Icons.edit,
@@ -225,8 +226,9 @@ class _ListaCorosState extends State<ListaCoros> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => const CrearCoro(estado: 'edit')));
                               },
-                            ),
-                            SlidableAction(
+                            ):Container(),
+                            widget.user!.tipo=='master'
+                  ?SlidableAction(
                               onPressed: (context) async {
                                 valueListaCoros.eliminaCoro(_coro);
                               },
@@ -234,7 +236,7 @@ class _ListaCorosState extends State<ListaCoros> {
                               foregroundColor: Colors.white,
                               icon: Icons.delete_forever_outlined,
                               // label: 'Eliminar',
-                            ),
+                            ):Container(),
                           ],
                         ),
                         child: GestureDetector(

@@ -214,7 +214,8 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                           motion: const ScrollMotion(),
 
                           children: [
-                            SlidableAction(
+                            widget.user!.tipo=='master'
+                  ?SlidableAction(
                               backgroundColor: tercearyColor,
                               foregroundColor: Colors.white,
                               icon: Icons.edit,
@@ -224,8 +225,9 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => const CrearAlabanza(estado: 'edit',)));
                               },
-                            ),
-                            SlidableAction(
+                            ):Container(),
+                            widget.user!.tipo=='master'
+                  ?SlidableAction(
                               onPressed: (context) async {
                                 valueListaAlabanza.eliminaAlabanza(_alabanza);
                               },
@@ -233,7 +235,7 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                               foregroundColor: Colors.white,
                               icon: Icons.delete_forever_outlined,
                               // label: 'Eliminar',
-                            ),
+                            ):Container(),
                           ],
                         ),
                         child: GestureDetector(

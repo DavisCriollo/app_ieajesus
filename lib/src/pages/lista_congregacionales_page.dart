@@ -237,7 +237,8 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                         motion: const ScrollMotion(),
 
                         children: [
-                          SlidableAction(
+                         widget.user!.tipo=='master'
+                  ?SlidableAction(
                             backgroundColor: tercearyColor,
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
@@ -248,8 +249,9 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                                   builder: (context) =>
                                       const CrearHimno(estado: 'edit')));
                             },
-                          ),
-                          SlidableAction(
+                          ):Container(),
+                          widget.user!.tipo=='master'
+                  ?SlidableAction(
                             onPressed: (context) async {
                               valueListaHimnos.eliminaHimno(_himno);
                             },
@@ -257,7 +259,7 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                             foregroundColor: Colors.white,
                             icon: Icons.delete_forever_outlined,
                             // label: 'Eliminar',
-                          ),
+                          ):Container(),
                         ],
                       ),
                       child: GestureDetector(

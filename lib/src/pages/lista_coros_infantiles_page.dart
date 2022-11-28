@@ -209,7 +209,8 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                         motion: const ScrollMotion(),
 
                         children: [
-                          SlidableAction(
+                          widget.user!.tipo=='master'
+                  ?SlidableAction(
                             backgroundColor: tercearyColor,
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
@@ -220,8 +221,9 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const CrearCoroNino(estado: 'edit')));
                             },
-                          ),
-                          SlidableAction(
+                          ):Container(),
+                          widget.user!.tipo=='master'
+                  ?SlidableAction(
                             onPressed: (context) async {
                               valueListaInfantiles.eliminaInfantil(_infantil);
                             },
@@ -229,7 +231,7 @@ class _ListaCorosInfantilesState extends State<ListaCorosInfantiles> {
                             foregroundColor: Colors.white,
                             icon: Icons.delete_forever_outlined,
                             // label: 'Eliminar',
-                          ),
+                          ):Container(),
                         ],
                       ),
                       child: GestureDetector(
