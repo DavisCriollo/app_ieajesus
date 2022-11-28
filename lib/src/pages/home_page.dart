@@ -195,7 +195,7 @@ controller.setSesion(widget.user);
                     child: Container( 
                       width: size.wScreen(100.0),
                       // color: Colors.red,
-                      child: Text('© ${DateTime.now().year} DavisSoft. Todos los rerechos reservados.',
+                      child: Text('© ${DateTime.now().year} DavisSoft. Todos los derechos reservados.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                                     fontSize: size.iScreen(1.5),
