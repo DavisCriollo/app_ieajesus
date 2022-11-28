@@ -204,13 +204,17 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                               "versiculo":_libro['libro'],
 
                             };
+                              //  controllerHome.setPageCapitulo(controllerHome.getPageCapitulo! + 1);
                             valueSearch.setPageCapitulo(_libro['capitulo']-1);
+                            // valueSearch.setPageCapitulo(5);
+
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => DetalleLibro(
-                                    libro:
-
-                                   _data)
+                                    libro:_data,
+                                    searchPage:_libro['capitulo']-1,
+                                    searchVersoPage:_libro['verso'])
+                                    
                             ),
                             );
 
@@ -236,7 +240,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                                   fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                              '${_libro['nombrelibro']} ${_libro['capitulo']}:${_libro['verso']}',
+                              '${_libro['nombrelibro'].replaceAll('Ê', "É")} ${_libro['capitulo']}:${_libro['verso']}',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.roboto(
                                   // fontSize: size.iScreen(1.8),

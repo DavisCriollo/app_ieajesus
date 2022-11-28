@@ -8,15 +8,18 @@ import 'package:provider/provider.dart';
 
 class DetalleLibro extends StatefulWidget {
   final Map<String, dynamic> libro;
+  final int searchPage;
+  final int? searchVersoPage;
   // final int idLibro;
   // final String nombreLibro;
-  const DetalleLibro({Key? key, required this.libro}) : super(key: key);
+  const DetalleLibro({Key? key, required this.libro, required this.searchPage,  this.searchVersoPage}) : super(key: key);
 
   @override
   State<DetalleLibro> createState() => _DetalleLibroState();
 }
 
 class _DetalleLibroState extends State<DetalleLibro> {
+  final controllerHome = HomeController();
   final PageController _controllerPage = PageController();
   final TextEditingController _textCapitulo = TextEditingController();
   @override
@@ -26,11 +29,43 @@ class _DetalleLibroState extends State<DetalleLibro> {
     super.dispose();
   }
 
+@override
+  void initState() {
+  WidgetsBinding.instance!.addPostFrameCallback((_){ 
+
+      if (_controllerPage.hasClients)   {
+           _controllerPage.jumpToPage(widget.searchPage);
+      }
+
+    });
+    super.initState();
+  }
+
+//  @override
+//   void didChangeDependencies() {
+    
+//     WidgetsBinding.instance!.addPostFrameCallback((_){ 
+
+//       if (_controllerPage.hasClients)   {
+//         final _pagina=  controllerHome.getPageCapitulo!;
+//         // final _pagina= 4;
+        
+//         _controllerPage.jumpToPage(widget.searchPage=='search'?_pagina:0);
+//       }
+
+//     });
+
+//     super.didChangeDependencies();
+//   }
+
+
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
     final controllerHome = context.read<HomeController>();
 // print('DETALLE: ${widget.libro}');
+// print('DETALLE: ${widget.searchVersoPage}');
+
 
     return SafeArea(
       child: Scaffold(
@@ -42,7 +77,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 children: [
                   Expanded(
                     child: Text(
-                      '${widget.libro['libro']}',
+                      '${widget.libro['libro'].replaceAll('Ê', "É")}',
                       style: GoogleFonts.roboto(
                           fontSize: size.iScreen(2.5),
                           color: Colors.white,
@@ -140,6 +175,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                               child: Consumer<HomeController>(
                                 builder: (_, valueSize, __) {
                                   return Container(
+                                    color: widget.searchVersoPage==i+1?Colors.green[100]:Colors.transparent,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: size.iScreen(0.1),
                                           vertical: size.iScreen(0.5)),
@@ -178,6 +214,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     onPageChanged: (_page) {
                       // print('LA PAAGINA ES:$_page');
                       controllerHome.setPageCapitulo(_page);
+
                       // PageController(keepPage: true,initialPage: controllerHome.getPageCapotulo!.toInt());
                       // _controllerPage.animateToPage(4, duration: Duration(milliseconds: 2000), curve: Curves.easeIn);
 

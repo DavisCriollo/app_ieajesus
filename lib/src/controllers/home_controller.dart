@@ -902,9 +902,9 @@ Session? _user;
    int? _pageCapitulo=0;
   int? get getPageCapitulo=>_pageCapitulo;
 
-  void setPageCapitulo(int? _item){
+  Future setPageCapitulo(int? _item) async{
 _pageCapitulo=_item;
-  //  print('LA PAGINA ES: $_item');
+   print('LA PAGINA ES: $_item');
 notifyListeners();
   }
 

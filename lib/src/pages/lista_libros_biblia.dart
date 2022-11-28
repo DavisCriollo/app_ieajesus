@@ -348,7 +348,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                           dense: false,
                           visualDensity: VisualDensity.compact,
                           title: Text(
-                          '${e.key}',
+                          e.key.replaceAll('Ê', "É"),
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
                                 fontSize: size.iScreen(1.8),
@@ -366,14 +366,12 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
 
                             };
                             
-
+                             
                             // print('TIPO: ${_data.runtimeType}');
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => DetalleLibro(
-                                    libro:
-
-                                   _data)
+                                    libro:_data,searchPage: 0,)
                             ),
                             );
                           },
