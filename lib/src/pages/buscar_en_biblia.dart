@@ -6,6 +6,7 @@ import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/pages/crear_coro.dart';
 import 'package:ieanjesus/src/pages/detalle_coro.dart';
+import 'package:ieanjesus/src/pages/detalle_libro_biblia.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
@@ -19,7 +20,8 @@ class BusquedasBiblia extends StatefulWidget {
 }
 
 class _BusquedasBibliaState extends State<BusquedasBiblia> {
-  final TextEditingController _textSearchControllerBiblia = TextEditingController();
+  final TextEditingController _textSearchControllerBiblia =
+      TextEditingController();
 //  Map<String, dynamic> ? _textosBiblia={};
 
   @override
@@ -31,111 +33,106 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
-      final controllerHome = context.read<HomeController>();
-    
-    controllerHome.getTodosLosibrosBiblia();
+    final controllerHome = context.read<HomeController>();
 
-
+    // controllerHome.getTodosLosibrosBiblia();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Colors.green.shade50,
         appBar: AppBar(
-        
           title: Consumer<HomeController>(
             builder: (_, providerSearch, __) {
               return Row(
                 children: [
                   Expanded(
                     child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: size.iScreen(0.1)),
-                      child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      // margin: EdgeInsets.symmetric(
-                                      //     horizontal: size.iScreen(0.0)),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.iScreen(1.5)),
-                                      color: Colors.white,
-                                      height: size.iScreen(4.0),
-                                      child: TextField(
-                                        controller: _textSearchControllerBiblia,
-                                        autofocus: true,
-                                        onChanged: (text) {
-                                          providerSearch.onSearchTextBiblia(text);
-                                        },
-                                        decoration: const InputDecoration(
-                                          // icon: Icon(Icons.search),
-                                          border: InputBorder.none,
-                                          hintText: 'Buscar...',
-                                        ),
-                                      ),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: size.iScreen(0.1)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  // margin: EdgeInsets.symmetric(
+                                  //     horizontal: size.iScreen(0.0)),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.iScreen(1.5)),
+                                  color: Colors.white,
+                                  height: size.iScreen(4.0),
+                                  child: TextField(
+                                    controller: _textSearchControllerBiblia,
+                                    autofocus: true,
+                                    onChanged: (text) {
+                                      providerSearch.onSearchTextBiblia(text);
+                                    },
+                                    decoration: const InputDecoration(
+                                      // icon: Icon(Icons.search),
+                                      border: InputBorder.none,
+                                      hintText: 'Buscar...',
                                     ),
                                   ),
-                                  GestureDetector(
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.grey,
-                                        border:
-                                            // Border.all(
-                                            //     color: Colors.white)
-                                            Border(
-                                          left: BorderSide(
-                                              width: 0.0, color: Colors.grey),
-                                        ),
-                                      ),
-                                      height: size.iScreen(4.0),
-                                      width: size.iScreen(3.0),
-                                      child: const Icon(Icons.search,
-                                          color: Colors.white),
-                                    ),
-                                    onTap: () {
-                                      print('BUSCAR');
-                                      // _textSearchController.text = '';
-                                    },
-                                  )
-                                ],
+                                ),
                               ),
-                            )
-                      // (providerSearch.btnSearch)
-                          // ? 
-                          // : 
-                          // Container(
-                          //     alignment: Alignment.center,
-                          //     width: size.wScreen(90.0),
-                          //     child: Text(
-                          //       'Buscar texto',
-                          //       style: GoogleFonts.lexendDeca(
-                          //           fontSize: size.iScreen(2.45),
-                          //           color: Colors.white,
-                          //           fontWeight: FontWeight.normal),
-                          //     ),
-                          //   ),
+                              GestureDetector(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.grey,
+                                    border:
+                                        // Border.all(
+                                        //     color: Colors.white)
+                                        Border(
+                                      left: BorderSide(
+                                          width: 0.0, color: Colors.grey),
+                                    ),
+                                  ),
+                                  height: size.iScreen(4.0),
+                                  width: size.iScreen(3.0),
+                                  child: const Icon(Icons.search,
+                                      color: Colors.white),
+                                ),
+                                onTap: () {
+                                  print('BUSCAR');
+                                  // _textSearchController.text = '';
+                                },
+                              )
+                            ],
+                          ),
+                        )
+                        // (providerSearch.btnSearch)
+                        // ?
+                        // :
+                        // Container(
+                        //     alignment: Alignment.center,
+                        //     width: size.wScreen(90.0),
+                        //     child: Text(
+                        //       'Buscar texto',
+                        //       style: GoogleFonts.lexendDeca(
+                        //           fontSize: size.iScreen(2.45),
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.normal),
+                        //     ),
+                        //   ),
+                        ),
+                  ),
+                  //***********************************************/
+                  SizedBox(
+                    width: size.iScreen(1.0),
+                  ),
+                  //*****************************************/
+                    Container(
+                    alignment: Alignment.center,
+                    // width: size.wScreen(90.0),
+                    child: Text(
+                      'Total: ${providerSearch.getlistaBibliaSearch.length}',
+                      style: GoogleFonts.lexendDeca(
+                          fontSize: size.iScreen(1.5),
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal),
                     ),
                   ),
-                  // IconButton(
-                  //     splashRadius: 2.0,
-                  //     icon: (!providerSearch.btnSearch)
-                  //         ? Icon(
-                  //             Icons.search,
-                  //             size: size.iScreen(3.5),
-                  //             color: Colors.white,
-                  //           )
-                  //         : Icon(
-                  //             Icons.clear,
-                  //             size: size.iScreen(3.5),
-                  //             color: Colors.white,
-                  //           ),
-                  //     onPressed: () {
-                  //       providerSearch.listarAllCoros('');
-                  //       providerSearch.setBtnSearch(!providerSearch.btnSearch);
-                  //       _textSearchControllerBiblia.text = "";
-                  //     }),
                 ],
               );
             },
@@ -158,8 +155,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
             ),
           ),
         ),
-        body: 
-        Container(
+        body: Container(
           color: Colors.grey.shade100,
           width: size.wScreen(100.0),
           height: size.hScreen(100.0),
@@ -169,36 +165,13 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
             left: size.iScreen(0.0),
           ),
           child: Consumer<HomeController>(
-            builder: (_, valueListaCoros, __) {
-              if (valueListaCoros.getErrorListaCoros == null) {
-                return Center(
-                  // child: CircularProgressIndicator(),
-                  child: 
-                  // Column(
-                  //   mainAxisSize: MainAxisSize.min,
-                  //   children: [
-                      Text(
-                        'Escriba el texto que desea buscar',
-                        style: GoogleFonts.lexendDeca(
-                            fontSize: size.iScreen(2.0),
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold),
-                      ),
-                  //     //***********************************************/
-                  //     SizedBox(
-                  //       height: size.iScreen(1.0),
-                  //     ),
-                  //     //*****************************************/
-                  //     const CircularProgressIndicator(),
-                  //   ],
-                  // ),
-                );
-              } else if (valueListaCoros.getErrorListaCoros == false) {
+            builder: (_, valueSearch, __) {
+              if (valueSearch.getlistaBibliaSearch.isEmpty) {
                 return const NoData(
                   label: 'No existen datos para mostar',
                 );
                 // Text("Error al cargar los datos");
-              } else if (valueListaCoros.getListaCoros.isEmpty) {
+              } else if (valueSearch.getlistaBibliaSearch.isEmpty) {
                 return const NoData(
                   label: 'No existen datos para mostar',
                 );
@@ -206,20 +179,45 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
 
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: valueListaCoros.getListaCoros.length,
+                itemCount: valueSearch.getlistaBibliaSearch.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final _coro = valueListaCoros.getListaCoros[index];
+                  final _libro = valueSearch.getlistaBibliaSearch[index];
 
                   return Column(
                     children: [
                       GestureDetector(
                         onTap: () {
-                    
+
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => DetalleCoro(
                           //           titulo: 'Coro',
                           //           musica: _coro,
                           //         )));
+
+                          // print('ESTE ES EL LIBRO:${_libro['libro']}');
+
+
+
+  final _data=
+                            {
+                              "libro":_libro['nombrelibro'],
+                              "versiculo":_libro['libro'],
+
+                            };
+                            valueSearch.setPageCapitulo(_libro['capitulo']-1);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => DetalleLibro(
+                                    libro:
+
+                                   _data)
+                            ),
+                            );
+
+                          // print('ESTE ES EL LIBRO:${_data}');
+
+
+
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(
@@ -230,26 +228,25 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                             dense: true,
                             visualDensity: VisualDensity.compact,
                             title: Text(
-                              '${_coro.titulo}',
+                              '${_libro['texto'].replaceAll("/n", "")}',
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.roboto(
                                   fontSize: size.iScreen(1.7),
                                   // color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
-                            // subtitle: Text(
-                            //   'Tono: Do+',
-                            //   overflow: TextOverflow.ellipsis,
-                            //   style: GoogleFonts.roboto(
-                            //       // fontSize: size.iScreen(1.8),
-                            //       // color: Colors.black87,
-                            //       fontWeight: FontWeight.normal),
-                            // ),
+                            subtitle: Text(
+                              '${_libro['nombrelibro']} ${_libro['capitulo']}:${_libro['verso']}',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.roboto(
+                                  // fontSize: size.iScreen(1.8),
+                                  // color: Colors.black87,
+                                  fontWeight: FontWeight.normal),
+                            ),
                             trailing: const Icon(Icons.chevron_right),
                           ),
                         ),
                       ),
-                     
                     ],
                   );
                 },
@@ -257,10 +254,6 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
             },
           ),
         ),
-        
-        
-        
-       
       ),
     );
   }

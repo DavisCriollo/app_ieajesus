@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ieanjesus/src/Data/data_local_provider.dart';
 import 'package:ieanjesus/src/api/api_provider.dart';
-import 'package:ieanjesus/src/models/biblia_libros_model.dart';
+// import 'package:ieanjesus/src/models/biblia_model..dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/models/lista_de_Musicas_model.dart';
 import 'package:ieanjesus/src/models/session.dart';
@@ -147,7 +147,7 @@ Session? _user;
   Map<String, dynamic> get getlistalibrosBibliaCompleta => _listaLibrosCompleta;
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
-    _listaLibrosCompleta = data;
+  _listaLibrosCompleta = data;
     //  print('objeto de la biblia:${_listaLibrosCompleta}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
@@ -246,6 +246,21 @@ Session? _user;
   }
 
   //===================INPUT SEARCH BIBLIA==========================//
+
+ List _bibliasearch=[];
+  List get getlistaBibliaSearch=> _bibliasearch;
+
+  void setlistaBibliaSearch(List data) {
+
+    _bibliasearch = data;
+    //  print('objeto de la biblia:${_listaLibrosCompleta}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
+    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
+    notifyListeners();
+  }
+
+
+// Map<dynamic, dynamic> _bibliaTemp={};
   String _nameSearchBiblia = "";
   String get nameSearchBiblia => _nameSearchBiblia;
 
@@ -254,7 +269,38 @@ Session? _user;
     if (_nameSearchBiblia.length >= 2) {
       _deboucerSearchBuscaBiblia?.cancel();
       _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
-        print('================================ DATA BIBLIA:$_nameSearchBiblia ');
+        _bibliasearch=[];
+
+      _listaLibrosCompleta;
+     
+
+            _listaLibrosCompleta.forEach((key, value) {
+
+        
+          for (var k = 0; k < _listaLibrosCompleta[key].length; k++) {
+          
+          for (var i = 0; i < _listaLibrosCompleta[key][k].length; i++) {
+        
+
+            if(_listaLibrosCompleta[key][k][i].contains(data)){
+
+              _bibliasearch.add(
+                {
+                  "nombrelibro":key,
+                  "capitulo":k+1,
+                  "verso":i+1,
+                  "texto":_listaLibrosCompleta[key][k][i],
+                  "libro":_listaLibrosCompleta[key],
+
+                });
+
+            }
+
+          }
+          }
+
+ })   ;
+  
 
 
 
@@ -269,19 +315,17 @@ Session? _user;
 
 
 
+ notifyListeners();
 
-
-
-
-
-
-        getTodosLosibrosBiblia();
+ 
+        // getTodosLosibrosBiblia();
       });
     } else {
-      getTodosLosibrosBiblia();
+   setlistaBibliaSearch([]);
+      // getTodosLosibrosBiblia();
       // buscaAusencias('','false');
     }
-    notifyListeners();
+    // notifyListeners();
   }
 
 //=============================================================================//
@@ -856,7 +900,7 @@ Session? _user;
 //=======================================================================================//
 
    int? _pageCapitulo=0;
-  int? get getPageCapotulo=>_pageCapitulo;
+  int? get getPageCapitulo=>_pageCapitulo;
 
   void setPageCapitulo(int? _item){
 _pageCapitulo=_item;
