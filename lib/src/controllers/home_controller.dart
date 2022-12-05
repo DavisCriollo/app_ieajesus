@@ -273,6 +273,9 @@ class HomeController extends ChangeNotifier {
             for (var i = 0; i < _listaLibrosCompleta[key][k].length; i++) {
               if (_listaLibrosCompleta[key][k][i]
                   .toLowerCase()
+                  .replaceAll(',', '')
+                  .replaceAll(':', '')
+                  .replaceAll(';', '')
                   .replaceAll('á', 'a')
                   .replaceAll('é', 'e')
                   .replaceAll('í', 'i')
