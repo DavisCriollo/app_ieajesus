@@ -59,7 +59,8 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                                   // margin: EdgeInsets.symmetric(
                                   //     horizontal: size.iScreen(0.0)),
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: size.iScreen(1.5)),
+                                      horizontal: size.iScreen(0.5),
+                                      vertical: size.iScreen(0.0)),
                                   color: Colors.white,
                                   height: size.iScreen(4.0),
                                   child: TextField(
@@ -95,7 +96,8 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                                 ),
                                 onTap: () {
                                   print('BUSCAR');
-                                  // _textSearchController.text = '';
+                                  _textSearchControllerBiblia.text = '';
+                                  providerSearch.setlistaBibliaSearch([]);
                                 },
                               )
                             ],
@@ -122,7 +124,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                     width: size.iScreen(1.0),
                   ),
                   //*****************************************/
-                    Container(
+                  Container(
                     alignment: Alignment.center,
                     // width: size.wScreen(90.0),
                     child: Text(
@@ -187,41 +189,23 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          final _data = {
+                            "libro": _libro['nombrelibro'],
+                            "versiculo": _libro['libro'],
+                          };
+                          //  controllerHome.setPageCapitulo(controllerHome.getPageCapitulo! + 1);
+                          valueSearch.setPageCapitulo(_libro['capitulo'] - 1);
+                          // valueSearch.setPageCapitulo(5);
 
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) => DetalleCoro(
-                          //           titulo: 'Coro',
-                          //           musica: _coro,
-                          //         )));
-
-                          // print('ESTE ES EL LIBRO:${_libro['libro']}');
-
-
-
-  final _data=
-                            {
-                              "libro":_libro['nombrelibro'],
-                              "versiculo":_libro['libro'],
-
-                            };
-                              //  controllerHome.setPageCapitulo(controllerHome.getPageCapitulo! + 1);
-                            valueSearch.setPageCapitulo(_libro['capitulo']-1);
-                            // valueSearch.setPageCapitulo(5);
-
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleLibro(
-                                    libro:_data,
-                                    searchPage:_libro['capitulo']-1,
-                                    searchVersoPage:_libro['verso'])
-                                    
-                            ),
-                            );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => DetalleLibro(
+                                    libro: _data,
+                                    searchPage: _libro['capitulo'] - 1,
+                                    searchVersoPage: _libro['verso'])),
+                          );
 
                           // print('ESTE ES EL LIBRO:${_data}');
-
-
-
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(

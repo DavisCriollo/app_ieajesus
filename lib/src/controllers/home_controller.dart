@@ -49,17 +49,14 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+  Session? _user;
 
-Session? _user;
- 
- Session?  get getSesion=>_user;
-  void  setSesion(Session? _inf){
-      _user=_inf;
-      // print('usuario get:${_user!.usuario}');
-      notifyListeners();
+  Session? get getSesion => _user;
+  void setSesion(Session? _inf) {
+    _user = _inf;
+    // print('usuario get:${_user!.usuario}');
+    notifyListeners();
   }
-
-
 
   void resetFormCoros() {
     setTipoCoro(null);
@@ -77,7 +74,7 @@ Session? _user;
     setTipoInfantiles(null);
     setTituloCoroNino(null);
     setLetraCoroNino(null);
-    _pageCapitulo=0;
+    _pageCapitulo = 0;
 
     LetraMusica(
       id: 0,
@@ -147,7 +144,7 @@ Session? _user;
   Map<String, dynamic> get getlistalibrosBibliaCompleta => _listaLibrosCompleta;
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
-  _listaLibrosCompleta = data;
+    _listaLibrosCompleta = data;
     //  print('objeto de la biblia:${_listaLibrosCompleta}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
@@ -247,18 +244,16 @@ Session? _user;
 
   //===================INPUT SEARCH BIBLIA==========================//
 
- List _bibliasearch=[];
-  List get getlistaBibliaSearch=> _bibliasearch;
+  List _bibliasearch = [];
+  List get getlistaBibliaSearch => _bibliasearch;
 
   void setlistaBibliaSearch(List data) {
-
-    _bibliasearch = data;
+    _bibliasearch = data.reversed.toList();
     //  print('objeto de la biblia:${_listaLibrosCompleta}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
     //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
     notifyListeners();
   }
-
 
 // Map<dynamic, dynamic> _bibliaTemp={};
   String _nameSearchBiblia = "";
@@ -269,59 +264,45 @@ Session? _user;
     if (_nameSearchBiblia.length >= 2) {
       _deboucerSearchBuscaBiblia?.cancel();
       _deboucerSearchBuscaBiblia = Timer(const Duration(milliseconds: 700), () {
-        _bibliasearch=[];
+        _bibliasearch = [];
 
-      _listaLibrosCompleta;
-     
+        _listaLibrosCompleta;
 
-            _listaLibrosCompleta.forEach((key, value) {
-
-        
+        _listaLibrosCompleta.forEach((key, value) {
           for (var k = 0; k < _listaLibrosCompleta[key].length; k++) {
-          
-          for (var i = 0; i < _listaLibrosCompleta[key][k].length; i++) {
-        
-
-            if(_listaLibrosCompleta[key][k][i].contains(data)){
-
-              _bibliasearch.add(
-                {
-                  "nombrelibro":key,
-                  "capitulo":k+1,
-                  "verso":i+1,
-                  "texto":_listaLibrosCompleta[key][k][i],
-                  "libro":_listaLibrosCompleta[key],
-
+            for (var i = 0; i < _listaLibrosCompleta[key][k].length; i++) {
+              if (_listaLibrosCompleta[key][k][i]
+                  .toLowerCase()
+                  .replaceAll('á', 'a')
+                  .replaceAll('é', 'e')
+                  .replaceAll('í', 'i')
+                  .replaceAll('ó', 'o')
+                  .replaceAll('ú', 'u')
+                  .replaceAll('ú', 'u')
+                  .replaceAll('Á', 'A')
+                  .replaceAll('É', 'E')
+                  .replaceAll('Í', 'I')
+                  .replaceAll('Ó', 'O')
+                  .replaceAll('Ú', 'U')
+                  .contains(data.toLowerCase())) {
+                _bibliasearch.add({
+                  "nombrelibro": key,
+                  "capitulo": k + 1,
+                  "verso": i + 1,
+                  "texto": _listaLibrosCompleta[key][k][i],
+                  "libro": _listaLibrosCompleta[key],
                 });
-
+              }
             }
-
           }
-          }
+        });
 
- })   ;
-  
+        notifyListeners();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- notifyListeners();
-
- 
         // getTodosLosibrosBiblia();
       });
     } else {
-   setlistaBibliaSearch([]);
+      setlistaBibliaSearch([]);
       // getTodosLosibrosBiblia();
       // buscaAusencias('','false');
     }
@@ -899,13 +880,13 @@ Session? _user;
 //===================================CREAR ALABANZAS==========================================//
 //=======================================================================================//
 
-   int? _pageCapitulo=0;
-  int? get getPageCapitulo=>_pageCapitulo;
+  int? _pageCapitulo = 0;
+  int? get getPageCapitulo => _pageCapitulo;
 
-  Future setPageCapitulo(int? _item) async{
-_pageCapitulo=_item;
-   print('LA PAGINA ES: $_item');
-notifyListeners();
+  Future setPageCapitulo(int? _item) async {
+    _pageCapitulo = _item;
+    print('LA PAGINA ES: $_item');
+    notifyListeners();
   }
 
 //===================TAMANIO DE LETRA==========================//
@@ -918,5 +899,4 @@ notifyListeners();
     //
     notifyListeners();
   }
-
 }
