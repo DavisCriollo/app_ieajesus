@@ -43,6 +43,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controllerPage.hasClients) {
         _controllerPage.jumpToPage(widget.searchPage);
+      
       }
     });
     super.initState();
@@ -71,6 +72,13 @@ class _DetalleLibroState extends State<DetalleLibro> {
     final controllerHome = context.read<HomeController>();
 // print('DETALLE: ${widget.libro}');
 // print('DETALLE: ${widget.searchVersoPage}');
+// final _capituloBiblia=[];
+// // //= widget.libro['versiculo'].replaceAll('\n', "");
+// for (var item in  widget.libro['versiculo']) {
+
+//   _capituloBiblia.add(item.replaceAll('/n', ""));
+   
+//  };
 
     return SafeArea(
       child: Scaffold(
@@ -159,6 +167,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 PageView.builder(
                     controller: _controllerPage,
                     itemBuilder: (context, index) {
+
+
+
                       final List<dynamic> _capitulo =
                           widget.libro['versiculo'][index];
 //  _controllerPage.animateToPage(controllerHome.getPageCapitulo!=null?controllerHome.getPageCapitulo!.toInt():0,
