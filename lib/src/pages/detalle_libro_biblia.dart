@@ -286,9 +286,19 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           });
                     },
                     itemCount: widget.libro['versiculo'].length,
-                    onPageChanged: (_page) {
+                    onPageChanged: (_page)  async{
                       // print('LA PAAGINA ES:$_page');
+                      
                       controllerHome.setPageCapitulo(_page);
+                      if( controllerHome.getAaction){
+                     await _flutterTts.stop();
+                     await _flutterTts.speak('${widget.libro['versiculo'][_page]}');
+                     controllerHome.setAction(true);
+                      }else{
+                                    controllerHome.setAction(false);
+
+                      }
+
 
                       // PageController(keepPage: true,initialPage: controllerHome.getPageCapotulo!.toInt());
                       // _controllerPage.animateToPage(4, duration: Duration(milliseconds: 2000), curve: Curves.easeIn);
@@ -300,37 +310,31 @@ class _DetalleLibroState extends State<DetalleLibro> {
                   builder: (_, valueStates, __) {
                     return valueStates.getAaction
                         ? Positioned(
-                            bottom: 0.5,
-                            left: size.iScreen(20.0),
-                            right: size.iScreen(20.0),
-                            child: Container(
-                              // width: size.wScreen(100),
-                              // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
-                              child: Center(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Container(
-                                      width: size.wScreen(100),
-                                      // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.iScreen(0.0),
-                                          vertical: size.iScreen(0)),
-                                      color: Color.fromARGB(72, 88, 85, 85),
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              _flutterTts.stop();
-                                              controllerHome.setAction(false);
-                                            },
-                                            icon: Icon(
-                                              Icons.stop_circle_outlined,
-                                              size: size.iScreen(4.0),
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
+                            bottom: 5.0,
+                            left: size.iScreen(18.0),
+                            right: size.iScreen(18.0),
+                            child: Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Container(
+                                    width: size.wScreen(100),
+                                    // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.iScreen(0.0),
+                                        vertical: size.iScreen(0.0)),
+                                    color: Color.fromARGB(72, 88, 85, 85),
+                                    child: IconButton(
+                                      padding: EdgeInsets.all(0.0),
+                                      onPressed: () {
+                                        _flutterTts.stop();
+                                        controllerHome.setAction(false);
+                                      },
+                                      icon: Icon(
+                                        Icons.stop_circle_outlined,
+                                        size: size.iScreen(4.5),
+                                        // color: Colors.blue[900],
+                                      ),
+                                    )),
                               ),
                             ))
                         : Container();

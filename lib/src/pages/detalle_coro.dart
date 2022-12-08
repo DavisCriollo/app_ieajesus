@@ -21,13 +21,17 @@ class DetalleCoro extends StatelessWidget {
         appBar: AppBar(
           title: Row(
             children: [
-              Text(
-                'Letra de $titulo',
-                style: GoogleFonts.roboto(
-                    fontSize: size.iScreen(2.5),
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-                overflow: TextOverflow.ellipsis,
+              Container(
+                // color: Colors.red,
+                // width: size.wScreen(50),
+                child: Text(
+                  titulo=='Coros Infantiles'?'Letra Coro Infantil':'Letra de $titulo',
+                  style: GoogleFonts.roboto(
+                      fontSize: size.iScreen(2.5),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const Spacer(),
               Consumer<HomeController>(
