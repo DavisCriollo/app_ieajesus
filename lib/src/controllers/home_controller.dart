@@ -54,7 +54,7 @@ class HomeController extends ChangeNotifier {
   Session? get getSesion => _user;
   void setSesion(Session? _inf) {
     _user = _inf;
-    // print('usuario get:${_user!.usuario}');
+    //
     notifyListeners();
   }
 
@@ -124,10 +124,10 @@ class HomeController extends ChangeNotifier {
 // setListaLibrosBibliaCompleta(jsonDecode(response));
     final _resp = (jsonDecode(response));
 
-// print('lllll: ${_resp['biblia']} ');
+//
 
 // _resp['biblia'].forEach((key, value) {
-// print('lllll: ${key} - ${value.runtimeType} ');
+//
 
 //   });
 
@@ -145,9 +145,9 @@ class HomeController extends ChangeNotifier {
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
-    //  print('objeto de la biblia:${_listaLibrosCompleta}');
-    //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
-    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
+    // 
+    // 
+    // 
     notifyListeners();
   }
 
@@ -249,9 +249,9 @@ class HomeController extends ChangeNotifier {
 
   void setlistaBibliaSearch(List data) {
     _bibliasearch = data.reversed.toList();
-    //  print('objeto de la biblia:${_listaLibrosCompleta}');
-    //  print('objeto de la biblia:${_listaLibrosCompleta['Génesis'][0]}');
-    //  print('objeto de la biblia:${_listaLibrosCompleta['biblia']['Génesis'][1]}');
+    // 
+    // 
+    // 
     notifyListeners();
   }
 
@@ -379,7 +379,7 @@ class HomeController extends ChangeNotifier {
   String? get getTipoAlabanza => _tipoAlabanza;
   void setTipoAlabanza(String? _textTipo) {
     _tipoAlabanza = _textTipo;
-    // print('TITULO Alabanza: $_tipoHimno');
+    //
     notifyListeners();
   }
 
@@ -404,7 +404,7 @@ class HomeController extends ChangeNotifier {
 
   void setBtnSearchAlabanza(bool action) {
     _btnSearchAlabanzas = action;
-    //  print('==_btnSearchCoros===> $_btnSearchCoros');    notifyListeners();
+    // 
   }
 
   //===================INPUT SEARCH COROSE==========================//
@@ -433,7 +433,7 @@ class HomeController extends ChangeNotifier {
   String? get getTipoInfantiles => _tipoInfantiles;
   void setTipoInfantiles(String? _textTipo) {
     _tipoInfantiles = _textTipo;
-    // print('TITULO Alabanza: $_tipoHimno');
+    //
     notifyListeners();
   }
 
@@ -460,7 +460,7 @@ class HomeController extends ChangeNotifier {
 
   void setBtnSearchInfantiles(bool action) {
     _btnSearchInfantiles = action;
-    //  print('==_btnSearchCoros===> $_btnSearchCoros');    notifyListeners();
+    // 
   }
 
   //===================INPUT SEARCH COROSE==========================//
@@ -783,7 +783,7 @@ class HomeController extends ChangeNotifier {
 
     DB.insertAll(_listaAllData!);
 
-    // print('Lista _getListaAllData : ${_listaAllData}');
+    //
     notifyListeners();
   }
 
@@ -859,7 +859,7 @@ class HomeController extends ChangeNotifier {
   Future saveData() async {
     // final _listAuxParaGuardar = await DB.letrasMusicas(search);
 
-    // print('SAVE DATA $_listaParaGuardar');
+    //
     final response = await _api.saveAllData(_listaParaGuardar);
     //  await _api.saveAllData(_listaParaGuardar);
 
@@ -877,7 +877,7 @@ class HomeController extends ChangeNotifier {
 
   Future deleteAllLocal() async {
     DB.deleteAllTable();
-    print('TABLA ELIMINADA');
+   
   }
 
 //===================================CREAR ALABANZAS==========================================//
@@ -888,7 +888,7 @@ class HomeController extends ChangeNotifier {
 
   Future setPageCapitulo(int? _item) async {
     _pageCapitulo = _item;
-    print('LA PAGINA ES: $_item');
+   
     notifyListeners();
   }
 
@@ -902,4 +902,30 @@ class HomeController extends ChangeNotifier {
     //
     notifyListeners();
   }
+
+
+
+
+
+
+
+//==============CONTROLLE LECTURA TEXTO================//
+
+
+bool _action=false;
+bool get getAaction=>_action;
+void setAction(bool _state){
+
+  _action=_state;
+ 
+  notifyListeners();
+
+}
+
+
+
+
+//====================================================//
+
+
 }

@@ -45,6 +45,7 @@ dependencies:
   flutter_slidable: ^1.1.0
   dio: ^4.0.6
   flutter_secure_storage: ^5.0.2
+  flutter_tts: ^3.6.2
 
 
 

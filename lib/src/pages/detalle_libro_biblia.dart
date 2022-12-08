@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 // import 'package:ieanjesus/src/controllers/home_controller.dart';
@@ -12,7 +14,12 @@ class DetalleLibro extends StatefulWidget {
   final int? searchVersoPage;
   // final int idLibro;
   // final String nombreLibro;
-  const DetalleLibro({Key? key, required this.libro, required this.searchPage,  this.searchVersoPage}) : super(key: key);
+  const DetalleLibro(
+      {Key? key,
+      required this.libro,
+      required this.searchPage,
+      this.searchVersoPage})
+      : super(key: key);
 
   @override
   State<DetalleLibro> createState() => _DetalleLibroState();
@@ -22,34 +29,34 @@ class _DetalleLibroState extends State<DetalleLibro> {
   final controllerHome = HomeController();
   final PageController _controllerPage = PageController();
   final TextEditingController _textCapitulo = TextEditingController();
+  final FlutterTts _flutterTts = FlutterTts();
   @override
   void dispose() {
     _controllerPage.dispose();
     _textCapitulo.clear();
+    _flutterTts.stop();
     super.dispose();
   }
 
-@override
+  @override
   void initState() {
-  WidgetsBinding.instance!.addPostFrameCallback((_){ 
-
-      if (_controllerPage.hasClients)   {
-           _controllerPage.jumpToPage(widget.searchPage);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (_controllerPage.hasClients) {
+        _controllerPage.jumpToPage(widget.searchPage);
       }
-
     });
     super.initState();
   }
 
 //  @override
 //   void didChangeDependencies() {
-    
-//     WidgetsBinding.instance!.addPostFrameCallback((_){ 
+
+//     WidgetsBinding.instance!.addPostFrameCallback((_){
 
 //       if (_controllerPage.hasClients)   {
 //         final _pagina=  controllerHome.getPageCapitulo!;
 //         // final _pagina= 4;
-        
+
 //         _controllerPage.jumpToPage(widget.searchPage=='search'?_pagina:0);
 //       }
 
@@ -58,14 +65,12 @@ class _DetalleLibroState extends State<DetalleLibro> {
 //     super.didChangeDependencies();
 //   }
 
-
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
     final controllerHome = context.read<HomeController>();
 // print('DETALLE: ${widget.libro}');
 // print('DETALLE: ${widget.searchVersoPage}');
-
 
     return SafeArea(
       child: Scaffold(
@@ -88,6 +93,8 @@ class _DetalleLibroState extends State<DetalleLibro> {
                   // const Spacer(),
                   TextButton(
                     onPressed: () {
+                          _flutterTts.stop();
+                    controllerHome.setAction(false);
                       _showMyDialog(size, widget.libro['versiculo'].length);
                     },
                     child: Text(
@@ -147,6 +154,8 @@ class _DetalleLibroState extends State<DetalleLibro> {
             ),
             child:
                 // Text('data')
+                Stack(
+              children: [
                 PageView.builder(
                     controller: _controllerPage,
                     itemBuilder: (context, index) {
@@ -161,21 +170,87 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           itemBuilder: (context, i) {
                             return GestureDetector(
                               onLongPress: () async {
-                                await Clipboard.setData(ClipboardData(
-                                    text:
-                                        "${widget.libro['libro']} ${controllerHome.getPageCapitulo! + 1}:${i + 1} ${_capitulo[i].replaceAll("/n", "")}"));
+                                showCupertinoModalPopup(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      CupertinoActionSheet(
+                                    // title: const Text('Selecciones Acción'),
+                                    actions: <Widget>[
+                                      CupertinoActionSheetAction(
+                                        child: Text(
+                                          'Copiar Verso',
+                                          style: GoogleFonts.roboto(
+                                              fontSize: size.iScreen(2.0),
+                                              // color: Colors.white,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                        onPressed: () async {
+                                          await Clipboard.setData(ClipboardData(
+                                              text:
+                                                  "${widget.libro['libro']} ${controllerHome.getPageCapitulo! + 1}:${i + 1} ${_capitulo[i].replaceAll("/n", "")}"));
 
-                                final snackBar = _sNackCopy(
-                                    'Verso copiado', size, Colors.green);
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
+                                          final snackBar = _sNackCopy(
+                                              'Verso copiado',
+                                              size,
+                                              Colors.green);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                      ),
+                                      CupertinoActionSheetAction(
+                                        child: Text(
+                                          'Escuchar Capítulo',
+                                          style: GoogleFonts.roboto(
+                                              fontSize: size.iScreen(2.0),
+                                              // color: Colors.white,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                        onPressed: () async {
+                                          await _flutterTts
+                                              .setLanguage('es-ES');
+                                          await _flutterTts.setPitch(1);
+                                          await _flutterTts.setVolume(10);
 
-                                // print('COPIADO: ${widget.libro.key} - ${i + 1} -  ${_capitulo[i].replaceAll("/n","")} ');
+                                          await _flutterTts
+                                              .speak('$_capitulo ');
+                                          controllerHome.setAction(true);
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                      )
+                                    ],
+                                    // cancelButton: CupertinoActionSheetAction(
+                                    //   child: const Text('Cancel'),
+                                    //   isDefaultAction: true,
+                                    //   onPressed: () {
+                                    //     Navigator.pop(context, 'Cancel');
+                                    //   },
+                                    // )
+                                  ),
+                                );
+
+                                // await _flutterTts.setLanguage('es-ES');
+                                // await _flutterTts.setPitch(1);
+                                // await _flutterTts.setVolume(10);
+
+                                // await _flutterTts.speak('$_capitulo ');
+                                // controllerHome.setAction(true);
+
+                                // await Clipboard.setData(ClipboardData(
+                                //     text:
+                                //         "${widget.libro['libro']} ${controllerHome.getPageCapitulo! + 1}:${i + 1} ${_capitulo[i].replaceAll("/n", "")}"));
+
+                                // final snackBar = _sNackCopy(
+                                //     'Verso copiado', size, Colors.green);
+                                // ScaffoldMessenger.of(context)
+                                //     .showSnackBar(snackBar);
                               },
                               child: Consumer<HomeController>(
                                 builder: (_, valueSize, __) {
                                   return Container(
-                                    color: widget.searchVersoPage==i+1?Colors.green[100]:Colors.transparent,
+                                      color: widget.searchVersoPage == i + 1
+                                          ? Colors.green[100]
+                                          : Colors.transparent,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: size.iScreen(0.1),
                                           vertical: size.iScreen(0.5)),
@@ -220,7 +295,49 @@ class _DetalleLibroState extends State<DetalleLibro> {
 
                       //  _controllerPage.animateTo(offset, duration: duration, curve: curve);
                     } // Can be null
-                    )),
+                    ),
+                Consumer<HomeController>(
+                  builder: (_, valueStates, __) {
+                    return valueStates.getAaction
+                        ? Positioned(
+                            bottom: 0.5,
+                            left: size.iScreen(20.0),
+                            right: size.iScreen(20.0),
+                            child: Container(
+                              // width: size.wScreen(100),
+                              // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Container(
+                                      width: size.wScreen(100),
+                                      // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: size.iScreen(0.0),
+                                          vertical: size.iScreen(0)),
+                                      color: Color.fromARGB(72, 88, 85, 85),
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              _flutterTts.stop();
+                                              controllerHome.setAction(false);
+                                            },
+                                            icon: Icon(
+                                              Icons.stop_circle_outlined,
+                                              size: size.iScreen(4.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                            ))
+                        : Container();
+                  },
+                ),
+              ],
+            )),
       ),
     );
   }
@@ -265,6 +382,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 return InkWell(
                   onTap: () {
                     //  contexto.setPageCapitulo(index);
+                
                     _controllerPage.animateToPage(index,
                         duration: Duration(milliseconds: 50),
                         curve: Curves.easeIn);
