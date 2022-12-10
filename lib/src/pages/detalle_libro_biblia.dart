@@ -43,7 +43,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controllerPage.hasClients) {
         _controllerPage.jumpToPage(widget.searchPage);
-      
       }
     });
     super.initState();
@@ -77,7 +76,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
 // for (var item in  widget.libro['versiculo']) {
 
 //   _capituloBiblia.add(item.replaceAll('/n', ""));
-   
+
 //  };
 
     return SafeArea(
@@ -101,8 +100,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
                   // const Spacer(),
                   TextButton(
                     onPressed: () {
-                          _flutterTts.stop();
-                    controllerHome.setAction(false);
+                      _flutterTts.stop();
+                      controllerHome.setAction(false);
+                      controllerHome.setTextSelect(false);
                       _showMyDialog(size, widget.libro['versiculo'].length);
                     },
                     child: Text(
@@ -167,9 +167,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 PageView.builder(
                     controller: _controllerPage,
                     itemBuilder: (context, index) {
-
-
-
                       final List<dynamic> _capitulo =
                           widget.libro['versiculo'][index];
 //  _controllerPage.animateToPage(controllerHome.getPageCapitulo!=null?controllerHome.getPageCapitulo!.toInt():0,
@@ -187,6 +184,43 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                       CupertinoActionSheet(
                                     // title: const Text('Selecciones Acción'),
                                     actions: <Widget>[
+                                      CupertinoActionSheetAction(
+                                        child: Container(
+                                          width: size.iScreen(25.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                'Agregar a Favoritos',
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: size.iScreen(2.0),
+                                                    // color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              Icon(
+                                                Icons.favorite,
+                                                color: Colors.red[900],
+                                                size: size.iScreen(4.0),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          controllerHome.setItemFavorito({
+                                            "libro": widget.libro['libro'],
+                                            "capitulo": controllerHome
+                                                    .getPageCapitulo! +
+                                                1,
+                                            "verso": "${i + 1} ",
+                                            "texto":
+                                                "${_capitulo[i].replaceAll("/n", "")}",
+                                            "data": "$_capitulo",
+                                          });
+                                          Navigator.pop(context, 'Cancel');
+                                        },
+                                      ),
                                       CupertinoActionSheetAction(
                                         child: Text(
                                           'Copiar Verso',
@@ -230,36 +264,17 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                         },
                                       )
                                     ],
-                                    // cancelButton: CupertinoActionSheetAction(
-                                    //   child: const Text('Cancel'),
-                                    //   isDefaultAction: true,
-                                    //   onPressed: () {
-                                    //     Navigator.pop(context, 'Cancel');
-                                    //   },
-                                    // )
+                                  
                                   ),
                                 );
 
-                                // await _flutterTts.setLanguage('es-ES');
-                                // await _flutterTts.setPitch(1);
-                                // await _flutterTts.setVolume(10);
-
-                                // await _flutterTts.speak('$_capitulo ');
-                                // controllerHome.setAction(true);
-
-                                // await Clipboard.setData(ClipboardData(
-                                //     text:
-                                //         "${widget.libro['libro']} ${controllerHome.getPageCapitulo! + 1}:${i + 1} ${_capitulo[i].replaceAll("/n", "")}"));
-
-                                // final snackBar = _sNackCopy(
-                                //     'Verso copiado', size, Colors.green);
-                                // ScaffoldMessenger.of(context)
-                                //     .showSnackBar(snackBar);
+                             
                               },
                               child: Consumer<HomeController>(
                                 builder: (_, valueSize, __) {
                                   return Container(
-                                      color: widget.searchVersoPage == i + 1
+                                      color: widget.searchVersoPage == i + 1 &&
+                                              valueSize.getTextSelect
                                           ? Colors.green[100]
                                           : Colors.transparent,
                                       margin: EdgeInsets.symmetric(
@@ -297,19 +312,17 @@ class _DetalleLibroState extends State<DetalleLibro> {
                           });
                     },
                     itemCount: widget.libro['versiculo'].length,
-                    onPageChanged: (_page)  async{
-                      // print('LA PAAGINA ES:$_page');
-                      
+                    onPageChanged: (_page) async {
+                      controllerHome.setTextSelect(false);
                       controllerHome.setPageCapitulo(_page);
-                      if( controllerHome.getAaction){
-                     await _flutterTts.stop();
-                     await _flutterTts.speak('${widget.libro['versiculo'][_page]}');
-                     controllerHome.setAction(true);
-                      }else{
-                                    controllerHome.setAction(false);
-
+                      if (controllerHome.getAaction) {
+                        await _flutterTts.stop();
+                        await _flutterTts
+                            .speak('${widget.libro['versiculo'][_page]}');
+                        controllerHome.setAction(true);
+                      } else {
+                        controllerHome.setAction(false);
                       }
-
 
                       // PageController(keepPage: true,initialPage: controllerHome.getPageCapotulo!.toInt());
                       // _controllerPage.animateToPage(4, duration: Duration(milliseconds: 2000), curve: Curves.easeIn);
@@ -397,7 +410,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                 return InkWell(
                   onTap: () {
                     //  contexto.setPageCapitulo(index);
-                
+
                     _controllerPage.animateToPage(index,
                         duration: Duration(milliseconds: 50),
                         curve: Curves.easeIn);

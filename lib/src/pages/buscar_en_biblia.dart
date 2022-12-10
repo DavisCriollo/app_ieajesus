@@ -195,6 +195,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                           };
                           //  controllerHome.setPageCapitulo(controllerHome.getPageCapitulo! + 1);
                           valueSearch.setPageCapitulo(_libro['capitulo'] - 1);
+                          valueSearch.setTextSelect(true);
                           // valueSearch.setPageCapitulo(5);
 
                           Navigator.of(context).push(
@@ -202,7 +203,8 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                                 builder: (context) => DetalleLibro(
                                     libro: _data,
                                     searchPage: _libro['capitulo'] - 1,
-                                    searchVersoPage: _libro['verso'])),
+                                    searchVersoPage: _libro['verso'])
+                                    ),
                           );
 
                           // print('ESTE ES EL LIBRO:${_data}');
@@ -212,26 +214,31 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                               vertical: size.iScreen(0.1),
                               horizontal: size.iScreen(1.0)),
                           color: Colors.white,
-                          child: ListTile(
-                            dense: true,
-                            visualDensity: VisualDensity.compact,
-                            title: Text(
-                              '${_libro['texto'].replaceAll("/n", "")}',
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.roboto(
-                                  fontSize: size.iScreen(1.7),
-                                  // color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
+                          child: InkWell(
+                            splashColor: Colors.red,
+                            child: ListTile(
+                                                 
+                              dense: true,
+                              visualDensity: VisualDensity.compact,
+                                    
+                              title: Text(
+                                '${_libro['texto'].replaceAll("/n", "")}',
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.roboto(
+                                    fontSize: size.iScreen(1.7),
+                                    // color: Colors.black87,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '${_libro['nombrelibro'].replaceAll('Ê', "É")} ${_libro['capitulo']}:${_libro['verso']}',
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.roboto(
+                                    // fontSize: size.iScreen(1.8),
+                                    // color: Colors.black87,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              trailing: const Icon(Icons.chevron_right),
                             ),
-                            subtitle: Text(
-                              '${_libro['nombrelibro'].replaceAll('Ê', "É")} ${_libro['capitulo']}:${_libro['verso']}',
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.roboto(
-                                  // fontSize: size.iScreen(1.8),
-                                  // color: Colors.black87,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            trailing: const Icon(Icons.chevron_right),
                           ),
                         ),
                       ),

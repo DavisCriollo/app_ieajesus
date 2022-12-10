@@ -43,6 +43,25 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
             overflow: TextOverflow.ellipsis,
           ),
           actions: [
+            Consumer<HomeController>(builder: (_, _valueLikes, __) { 
+ return  Container(
+              margin: EdgeInsets.symmetric(horizontal: size.iScreen(0.5)),
+              child: IconButton(
+                  splashRadius: 2.0,
+                  icon: 
+                  Icon(
+                   _valueLikes.getListaFavoritos.isNotEmpty?Icons.favorite: Icons.favorite_border,
+                    size: size.iScreen(3.5),
+                    color: _valueLikes.getListaFavoritos.isNotEmpty?Colors.red[900]: Colors.white,
+                  ),
+                  onPressed: _valueLikes.getListaFavoritos.isNotEmpty?() {
+                   controllerHome.listarAllFavoritos('');
+                    Navigator.pushNamed(context, 'favoritosBiblia');
+                   
+                  }:null),
+            );
+             },),
+           
             Container(
               margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0)),
               child: IconButton(

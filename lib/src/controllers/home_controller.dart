@@ -145,9 +145,9 @@ class HomeController extends ChangeNotifier {
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
-    // 
-    // 
-    // 
+    //
+    //
+    //
     notifyListeners();
   }
 
@@ -249,9 +249,9 @@ class HomeController extends ChangeNotifier {
 
   void setlistaBibliaSearch(List data) {
     _bibliasearch = data.reversed.toList();
-    // 
-    // 
-    // 
+    //
+    //
+    //
     notifyListeners();
   }
 
@@ -404,7 +404,7 @@ class HomeController extends ChangeNotifier {
 
   void setBtnSearchAlabanza(bool action) {
     _btnSearchAlabanzas = action;
-    // 
+    //
   }
 
   //===================INPUT SEARCH COROSE==========================//
@@ -460,7 +460,7 @@ class HomeController extends ChangeNotifier {
 
   void setBtnSearchInfantiles(bool action) {
     _btnSearchInfantiles = action;
-    // 
+    //
   }
 
   //===================INPUT SEARCH COROSE==========================//
@@ -877,7 +877,6 @@ class HomeController extends ChangeNotifier {
 
   Future deleteAllLocal() async {
     DB.deleteAllTable();
-   
   }
 
 //===================================CREAR ALABANZAS==========================================//
@@ -888,7 +887,7 @@ class HomeController extends ChangeNotifier {
 
   Future setPageCapitulo(int? _item) async {
     _pageCapitulo = _item;
-   
+
     notifyListeners();
   }
 
@@ -903,29 +902,112 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
-
-
-
 //==============CONTROLLE LECTURA TEXTO================//
 
+  bool _action = false;
+  bool get getAaction => _action;
+  void setAction(bool _state) {
+    _action = _state;
 
-bool _action=false;
-bool get getAaction=>_action;
-void setAction(bool _state){
+    notifyListeners();
+  }
+//==============CONTROLLE LECTURA TEXTO================//
 
-  _action=_state;
- 
-  notifyListeners();
+  bool _textSelect = false;
+  bool get getTextSelect => _textSelect;
+  void setTextSelect(bool _state) {
+    _textSelect = _state;
+
+    notifyListeners();
+  }
+
+//===================================LISTA TODOS OS FAVORITOS==========================================//
+  List<Map<String, dynamic>> _listaFavoritos = [];
+  List<Map<String, dynamic>> get getListaFavoritos => _listaFavoritos;
+
+  void setListaFavoritos(List<Map<String, dynamic>> _likes) {
+    _listaFavoritos.addAll(_likes);
+    // print('FAVORITOS:$_listaFavoritos');
+    notifyListeners();
+  }
+Map<String, dynamic> _itemFavorito = {};
+  Map<String, dynamic> get getItemFavorito => _itemFavorito;
+
+  void setItemFavorito(Map<String, dynamic> _likes) {
+    // _itemFavorito.addAll(_likes);
+    //  _listaFavoritos.removeWhere((e) => e['texto'] == _likes['texto']);
+    _listaFavoritos.add(_likes);
+    // print('FAVORITOS:$_listaFavoritos');
+    notifyListeners();
+  }
+
+
+
+  bool? _errorListaFavoritos; // sera nulo la primera vez
+  bool? get getErrorListaFavoritos => _errorListaFavoritos;
+  set setErrorListaFavoritos(bool? value) {
+    _errorListaFavoritos = value;
+    notifyListeners();
+  }
+
+  Future listarAllFavoritos(String? search) async {
+    // final _listAuxFavoritos = [];
+    final _listAuxFavoritos = _listaFavoritos;
+    // _listAuxFavoritos.removeWhere((e) => e.tipo != 'Favoritos');
+
+    // if (_listAuxFavoritos.isNotEmpty) {
+    //   _errorListaFavoritos = true;
+    //   _listAuxFavoritos.removeWhere((e) => e['texto'] != _itemFavorito['texto']);
+    //   setListaFavoritos(_listAuxFavoritos);
+
+    //   notifyListeners();
+    //   return _listAuxFavoritos;
+    // }
+
+    // setListaFavoritos([
+    //   {
+    //     "libro": "Lucas",
+    //     "capitulo": "2",
+    //     "verso": "3",
+    //     "texto": "Lucas, apostos de jesucristo",
+    //   },
+    //   {
+    //     "libro": "Lucas",
+    //     "capitulo": "2",
+    //     "verso": "3",
+    //     "texto": "Lucas, apostos de jesucristo",
+    //   },
+    //   {
+    //     "libro": "Lucas",
+    //     "capitulo": "2",
+    //     "verso": "3",
+    //     "texto": "Lucas, apostos de jesucristo",
+    //   },
+    //   {
+    //     "libro": "Lucas",
+    //     "capitulo": "2",
+    //     "verso": "3",
+    //     "texto": "Lucas, apostos de jesucristo",
+    //   },
+    // ]);
+    //  _listaFavoritos.add(_itemFavorito);
+    //  _listaFavoritos.removeWhere((e) => e['texto'] != _itemFavorito['texto']);
+    // _listaFavoritos.add(_itemFavorito);
+    _errorListaFavoritos = true;
+
+    if (_listAuxFavoritos.isEmpty) {
+      _errorListaFavoritos = false;
+      notifyListeners();
+      return null;
+    }
+  }
+//====================================================//
+void eliminaFavorito(String? _dato)
+{
+   _listaFavoritos.removeWhere((e) => e['texto'] ==_dato);
+   notifyListeners();
 
 }
-
-
-
-
 //====================================================//
-
 
 }
