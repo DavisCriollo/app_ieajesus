@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 // import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
+import 'package:ieanjesus/src/utils/theme.dart';
 import 'package:provider/provider.dart';
 
 class DetalleLibro extends StatefulWidget {
@@ -48,37 +49,11 @@ class _DetalleLibroState extends State<DetalleLibro> {
     super.initState();
   }
 
-//  @override
-//   void didChangeDependencies() {
-
-//     WidgetsBinding.instance!.addPostFrameCallback((_){
-
-//       if (_controllerPage.hasClients)   {
-//         final _pagina=  controllerHome.getPageCapitulo!;
-//         // final _pagina= 4;
-
-//         _controllerPage.jumpToPage(widget.searchPage=='search'?_pagina:0);
-//       }
-
-//     });
-
-//     super.didChangeDependencies();
-//   }
 
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
     final controllerHome = context.read<HomeController>();
-// print('DETALLE: ${widget.libro}');
-// print('DETALLE: ${widget.searchVersoPage}');
-// final _capituloBiblia=[];
-// // //= widget.libro['versiculo'].replaceAll('\n', "");
-// for (var item in  widget.libro['versiculo']) {
-
-//   _capituloBiblia.add(item.replaceAll('/n', ""));
-
-//  };
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -169,9 +144,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     itemBuilder: (context, index) {
                       final List<dynamic> _capitulo =
                           widget.libro['versiculo'][index];
-//  _controllerPage.animateToPage(controllerHome.getPageCapitulo!=null?controllerHome.getPageCapitulo!.toInt():0,
-//                         duration: Duration(milliseconds: 50),
-//                         curve: Curves.easeIn);
                       return ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: _capitulo.length,
@@ -237,7 +209,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                           final snackBar = _sNackCopy(
                                               'Verso copiado',
                                               size,
-                                              Colors.green);
+                                              tercearyColor);
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
                                           Navigator.pop(context, 'Cancel');

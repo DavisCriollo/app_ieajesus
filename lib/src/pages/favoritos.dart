@@ -119,7 +119,8 @@ class FavoritosBiblia extends StatelessWidget {
                               onPressed: (context) async {
                                 valueFavoritos.eliminaFavorito(_favorito['texto']);
                               },
-                           backgroundColor: const Color(0xFFE61B58),
+                          //  backgroundColor: const Color(0xFFE61B58),
+                           backgroundColor:tercearyColor,
                               foregroundColor: Colors.white,
                               icon: Icons.delete_forever_outlined,
                               // label: 'Eliminar',
