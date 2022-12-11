@@ -169,6 +169,8 @@ controller.setSesion(widget.user);
                           ),
                           ItemsMenuHome(
                             onTap: () {
+
+                                 controllerInfo.validaDataDispositivo();
                                  controllerInfo.getTodosLosibrosBiblia();
                               Navigator.pushNamed(context, 'librosBiblia');
                               // Navigator.of(context).push(

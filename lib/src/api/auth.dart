@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ieanjesus/src/models/favoritos_model.dart';
 import 'package:ieanjesus/src/models/session.dart';
 
 class Auth {
@@ -11,6 +12,7 @@ class Auth {
 
   final _storage = const FlutterSecureStorage();
   final keySESION = 'SESSION';
+  final keyFAVORITOS = 'FAVORITOS';
 
 // GUARDO LA INFORMACION EN EL DISPOSITIVO
   Future<void> saveSession(dynamic _data) async {
@@ -47,7 +49,30 @@ class Auth {
   }
 
 
+//=================== FAVORITOS =====================//
 
+  
+  Future<void> saveFavoritos(String data) async {
+// GUARDAMOS LA INFORMACION DEL DISPOSITIVO
+      await _storage.write(key: keyFAVORITOS, value: data);
+      // print('RONDA GUARDADA: $data');
+    
+  }
+
+  // OBTEMENOS EL Favoritos   DEL DISPOSITIVO
+  Future getFavoritos() async {
+    final String? value = await _storage.read(key: keyFAVORITOS);
+    if (value != null) {
+      return value;
+    }
+    return null;
+  }
+
+  // ELIMINA Favoritos
+  Future<void> deleteFavoritos() async {
+    await _storage.delete(key: keyFAVORITOS);
+    //  print('RONDA ELIMINADA');
+  }
 
 
 

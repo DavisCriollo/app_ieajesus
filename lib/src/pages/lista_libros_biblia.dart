@@ -43,25 +43,32 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
             overflow: TextOverflow.ellipsis,
           ),
           actions: [
-            Consumer<HomeController>(builder: (_, _valueLikes, __) { 
- return  Container(
-              margin: EdgeInsets.symmetric(horizontal: size.iScreen(0.5)),
-              child: IconButton(
-                  splashRadius: 2.0,
-                  icon: 
-                  Icon(
-                   _valueLikes.getListaFavoritos.isNotEmpty?Icons.favorite: Icons.favorite_border,
-                    size: size.iScreen(3.5),
-                    color: _valueLikes.getListaFavoritos.isNotEmpty?Colors.red[900]: Colors.white,
-                  ),
-                  onPressed: _valueLikes.getListaFavoritos.isNotEmpty?() {
-                   controllerHome.listarAllFavoritos('');
-                    Navigator.pushNamed(context, 'favoritosBiblia');
-                   
-                  }:null),
-            );
-             },),
-           
+            Consumer<HomeController>(
+              builder: (_, _valueLikes, __) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: size.iScreen(0.5)),
+                  child: IconButton(
+                      splashRadius: 2.0,
+                      icon: Icon(
+                        _valueLikes.getListAuxFavoritos.isNotEmpty
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        size: size.iScreen(3.5),
+                        color: _valueLikes.getListAuxFavoritos.isNotEmpty
+                            ? Colors.red[900]
+                            : Colors.white,
+                      ),
+                      onPressed: _valueLikes.getListAuxFavoritos.isNotEmpty
+                          ? () {
+                              //  controllerHome.listarAllFavoritos('');
+
+                              controllerHome.validaDataDispositivo();
+                              Navigator.pushNamed(context, 'favoritosBiblia');
+                            }
+                          : null),
+                );
+              },
+            ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0)),
               child: IconButton(
@@ -72,9 +79,8 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-
                     Navigator.pushNamed(context, 'buscarBiblia');
-                     controllerHome.setlistaBibliaSearch([]);
+                    controllerHome.setlistaBibliaSearch([]);
                     // providerSearchBiblia.listarAllCoros('');
                     // providerSearchBiblia.setBtnSearchBiblia(!providerSearchBiblia.btnSearchBiblia);
                     // _textSearchBibliaController.text = "";
@@ -99,7 +105,6 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
           ),
         ),
         //  appBar: AppBar(
-
 
         body: Container(
             color: Colors.grey.shade100,
@@ -146,59 +151,48 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                   // Text("sin datos");
                 }
 
-               
-
-                return 
-               
-                
-                SingleChildScrollView(
-                  child: 
-                  Wrap(
-                      children:
-                          valueLibros.getlistalibrosBibliaCompleta.entries.map(
-                    (e) {
-                    
-                      return
-                          // Text(e.key);
-                          Container(
-                        color: Colors.white,
-                        child: ListTile(
-                          dense: false,
-                          visualDensity: VisualDensity.compact,
-                          title: Text(
+                return SingleChildScrollView(
+                    child: Wrap(
+                        children: valueLibros
+                            .getlistalibrosBibliaCompleta.entries
+                            .map(
+                  (e) {
+                    return
+                        // Text(e.key);
+                        Container(
+                      color: Colors.white,
+                      child: ListTile(
+                        dense: false,
+                        visualDensity: VisualDensity.compact,
+                        title: Text(
                           e.key.replaceAll('Ê', "É"),
-                         
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.roboto(
-                                fontSize: size.iScreen(1.8),
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          trailing: const Icon(Icons.chevron_right),
-                          onTap: () {
-
-                            controllerHome.resetFormCoros();
-                            final _data=
-                            {
-                              "libro":e.key,
-                              "versiculo":e.value,
-
-                            };
-                              Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DetalleLibro(
-                                    libro:_data,searchPage: 0,)
-                            ),
-                            );
-                          },
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.roboto(
+                              fontSize: size.iScreen(1.8),
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold),
                         ),
-                      );
-                    },
-                  ).toList()));
-               
-               
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () {
+                          controllerHome.resetFormCoros();
+                          final _data = {
+                            "libro": e.key,
+                            "versiculo": e.value,
+                          };
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => DetalleLibro(
+                                      libro: _data,
+                                      searchPage: 0,
+                                    )),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ).toList()));
+
                 // );
-               
               },
             )),
       ),

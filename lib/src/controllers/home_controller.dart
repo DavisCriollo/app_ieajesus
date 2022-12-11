@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ieanjesus/src/Data/data_local_provider.dart';
 import 'package:ieanjesus/src/api/api_provider.dart';
+import 'package:ieanjesus/src/api/auth.dart';
 // import 'package:ieanjesus/src/models/biblia_model..dart';
 import 'package:ieanjesus/src/models/letra_musica_model.dart';
 import 'package:ieanjesus/src/models/lista_de_Musicas_model.dart';
@@ -926,22 +927,26 @@ class HomeController extends ChangeNotifier {
   List<Map<String, dynamic>> get getListaFavoritos => _listaFavoritos;
 
   void setListaFavoritos(List<Map<String, dynamic>> _likes) {
-    _listaFavoritos.addAll(_likes);
+    // _listaFavoritos.addAll(_likes);
     // print('FAVORITOS:$_listaFavoritos');
     notifyListeners();
   }
-Map<String, dynamic> _itemFavorito = {};
+
+  Map<String, dynamic> _itemFavorito = {};
   Map<String, dynamic> get getItemFavorito => _itemFavorito;
 
-  void setItemFavorito(Map<String, dynamic> _likes) {
-    // _itemFavorito.addAll(_likes);
-    //  _listaFavoritos.removeWhere((e) => e['texto'] == _likes['texto']);
-    _listaFavoritos.add(_likes);
-    // print('FAVORITOS:$_listaFavoritos');
+  void setItemFavorito(Map<String, dynamic> _likes) async {
+    _likes.removeWhere(
+      (key, value) => key.contains('data'),
+    );
+    _listAuxFavoritos.removeWhere((e) => e['texto'] == _likes['texto']);
+    // _listaFavoritos.add(_likes);
+    _listAuxFavoritos.add(_likes);
+
+    await Auth.instance.saveFavoritos(jsonEncode(_listAuxFavoritos));
+
     notifyListeners();
   }
-
-
 
   bool? _errorListaFavoritos; // sera nulo la primera vez
   bool? get getErrorListaFavoritos => _errorListaFavoritos;
@@ -950,64 +955,29 @@ Map<String, dynamic> _itemFavorito = {};
     notifyListeners();
   }
 
-  Future listarAllFavoritos(String? search) async {
-    // final _listAuxFavoritos = [];
-    final _listAuxFavoritos = _listaFavoritos;
-    // _listAuxFavoritos.removeWhere((e) => e.tipo != 'Favoritos');
+//====================================================//
+  void eliminaFavorito(String? _dato) async {
+    _listAuxFavoritos.removeWhere((e) => e['texto'] == _dato);
 
-    // if (_listAuxFavoritos.isNotEmpty) {
-    //   _errorListaFavoritos = true;
-    //   _listAuxFavoritos.removeWhere((e) => e['texto'] != _itemFavorito['texto']);
-    //   setListaFavoritos(_listAuxFavoritos);
+    await Auth.instance.saveFavoritos(jsonEncode(_listAuxFavoritos));
 
-    //   notifyListeners();
-    //   return _listAuxFavoritos;
-    // }
-
-    // setListaFavoritos([
-    //   {
-    //     "libro": "Lucas",
-    //     "capitulo": "2",
-    //     "verso": "3",
-    //     "texto": "Lucas, apostos de jesucristo",
-    //   },
-    //   {
-    //     "libro": "Lucas",
-    //     "capitulo": "2",
-    //     "verso": "3",
-    //     "texto": "Lucas, apostos de jesucristo",
-    //   },
-    //   {
-    //     "libro": "Lucas",
-    //     "capitulo": "2",
-    //     "verso": "3",
-    //     "texto": "Lucas, apostos de jesucristo",
-    //   },
-    //   {
-    //     "libro": "Lucas",
-    //     "capitulo": "2",
-    //     "verso": "3",
-    //     "texto": "Lucas, apostos de jesucristo",
-    //   },
-    // ]);
-    //  _listaFavoritos.add(_itemFavorito);
-    //  _listaFavoritos.removeWhere((e) => e['texto'] != _itemFavorito['texto']);
-    // _listaFavoritos.add(_itemFavorito);
-    _errorListaFavoritos = true;
-
-    if (_listAuxFavoritos.isEmpty) {
-      _errorListaFavoritos = false;
-      notifyListeners();
-      return null;
-    }
+    notifyListeners();
   }
 //====================================================//
-void eliminaFavorito(String? _dato)
-{
-   _listaFavoritos.removeWhere((e) => e['texto'] ==_dato);
-   notifyListeners();
 
-}
-//====================================================//
+//******************************** VALIDA DATA DEL DISPOSITIVO ********************************** */
+  List _listAuxFavoritos = [];
+  List get getListAuxFavoritos => _listAuxFavoritos;
 
+  void validaDataDispositivo() async {
+    final infoFavoritosMovil = await Auth.instance.getFavoritos();
+
+    if (infoFavoritosMovil != null) {
+      _listAuxFavoritos = json.decode(infoFavoritosMovil);
+
+      _errorListaFavoritos = true;
+
+      notifyListeners();
+    } else {}
+  }
 }

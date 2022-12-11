@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ieanjesus/src/api/auth.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/pages/detalle_libro_biblia.dart';
 import 'package:ieanjesus/src/pages/no_data.dart';
@@ -11,14 +12,19 @@ import 'package:provider/provider.dart';
 class FavoritosBiblia extends StatelessWidget {
   const FavoritosBiblia({Key? key}) : super(key: key);
 
-  get cuaternaryColor => null;
+
 
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
     final controllerHome = context.read<HomeController>();
     final _listaBiblia = controllerHome.getlistalibrosBibliaCompleta;
-    print('ESTA ES LA BIBLIA:$_listaBiblia');
+    // print('ESTA ES LA BIBLIA:$_listaBiblia');
+ 
+
+
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +43,8 @@ class FavoritosBiblia extends StatelessWidget {
               Icons.favorite,
               color: Colors.red[900],
               size: size.iScreen(4.0),
-            )
+            ),
+           
           ],
         ),
         flexibleSpace: Container(
@@ -95,7 +102,7 @@ class FavoritosBiblia extends StatelessWidget {
                 label: 'No tiene Favoritos',
               );
               // Text("Error al cargar los datos");
-            } else if (valueFavoritos.getListaFavoritos.isEmpty) {
+            } else if (valueFavoritos.getListAuxFavoritos.isEmpty) {
               return const NoData(
                 label: 'No tiene Favoritos',
               );
@@ -103,9 +110,13 @@ class FavoritosBiblia extends StatelessWidget {
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: valueFavoritos.getListaFavoritos.length,
+              itemCount: valueFavoritos.getListAuxFavoritos.length,
               itemBuilder: (BuildContext context, int index) {
-                final _favorito = valueFavoritos.getListaFavoritos[index];
+
+                final _favorito = valueFavoritos.getListAuxFavoritos[index];
+                
+
+
 
                 return Column(
                   children: [
