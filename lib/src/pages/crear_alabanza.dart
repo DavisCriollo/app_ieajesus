@@ -111,9 +111,6 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
 
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
                       controllerAlabanza.setTituloAlabanza(text);
@@ -151,9 +148,6 @@ class _CrearAlabanzaState extends State<CrearAlabanza> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
 
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
                         ),
                     onChanged: (text) {
                       controllerAlabanza.setLetraAlabanza(text);

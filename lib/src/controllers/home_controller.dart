@@ -120,21 +120,13 @@ class HomeController extends ChangeNotifier {
 
     _errorLibrosBliblia = true;
 
-    // final dataRespose = BibliaLibrosController.fromJson(response);
 
-// setListaLibrosBibliaCompleta(jsonDecode(response));
     final _resp = (jsonDecode(response));
 
-//
 
-// _resp['biblia'].forEach((key, value) {
-//
-
-//   });
 
     setListaLibrosBibliaCompleta(_resp['biblia']);
-    // setListaLibrosBiblia(dataRespose.biblia.keys.toList());
-    // setDetalleLibroBiblia(dataRespose.biblia.values.toList());
+
 
     notifyListeners();
     return response;
@@ -146,9 +138,7 @@ class HomeController extends ChangeNotifier {
 
   void setListaLibrosBibliaCompleta(Map<String, dynamic> data) {
     _listaLibrosCompleta = data;
-    //
-    //
-    //
+ 
     notifyListeners();
   }
 
@@ -228,7 +218,7 @@ class HomeController extends ChangeNotifier {
       });
     } else {
       listarAllCoros('');
-      // buscaAusencias('','false');
+ 
     }
     notifyListeners();
   }
@@ -250,13 +240,11 @@ class HomeController extends ChangeNotifier {
 
   void setlistaBibliaSearch(List data) {
     _bibliasearch = data.reversed.toList();
-    //
-    //
-    //
+  
     notifyListeners();
   }
 
-// Map<dynamic, dynamic> _bibliaTemp={};
+
   String _nameSearchBiblia = "";
   String get nameSearchBiblia => _nameSearchBiblia;
 
@@ -303,12 +291,11 @@ class HomeController extends ChangeNotifier {
 
         notifyListeners();
 
-        // getTodosLosibrosBiblia();
+ 
       });
     } else {
       setlistaBibliaSearch([]);
-      // getTodosLosibrosBiblia();
-      // buscaAusencias('','false');
+    
     }
     // notifyListeners();
   }
@@ -600,9 +587,6 @@ class HomeController extends ChangeNotifier {
       _errorListaHimnos = true;
       _listAuxHimnos.removeWhere((e) => e.tipo != 'himno');
 
-      //  List dataSort = [];
-      // dataSort = _listAuxHimnos;
-      // dataSort.sort((a, b) => b['genTitulo']!.compareTo(a['genTitulo']!));
 
       setListaHimnos(_listAuxHimnos);
 
@@ -741,7 +725,7 @@ class HomeController extends ChangeNotifier {
 
   Future listarAllInfantiles(String? search) async {
     final _listAuxInfantiles = await DB.letrasMusicas(search);
-    // _listAuxInfantiles.removeWhere((e) => e.tipo != 'Infantiles');
+   
 
     if (_listAuxInfantiles.isNotEmpty) {
       _errorListaInfantiles = true;
@@ -858,11 +842,11 @@ class HomeController extends ChangeNotifier {
 
   //===================================SUBE LA DATA AL SERVIDOR==========================================//
   Future saveData() async {
-    // final _listAuxParaGuardar = await DB.letrasMusicas(search);
+  
 
-    //
+  
     final response = await _api.saveAllData(_listaParaGuardar);
-    //  await _api.saveAllData(_listaParaGuardar);
+
 
     if (response != null) {
       return response;
@@ -918,6 +902,7 @@ class HomeController extends ChangeNotifier {
   bool get getTextSelect => _textSelect;
   void setTextSelect(bool _state) {
     _textSelect = _state;
+    print('_textSelect:$_textSelect');
 
     notifyListeners();
   }
@@ -928,7 +913,6 @@ class HomeController extends ChangeNotifier {
 
   void setListaFavoritos(List<Map<String, dynamic>> _likes) {
     // _listaFavoritos.addAll(_likes);
-    // print('FAVORITOS:$_listaFavoritos');
     notifyListeners();
   }
 

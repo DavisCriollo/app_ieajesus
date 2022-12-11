@@ -35,11 +35,7 @@ class AcercaDePage extends StatelessWidget {
                     Color(0XFF0076A7),
                    
                    
-                   
-                    // Color(0XFF005B97),
-                    // Color(0XFF0075BE),
-                    // Color(0XFF1E9CD7),
-                    // Color(0XFF3DA9F4),
+                  
                   ],
                 ),
               ),
@@ -48,19 +44,7 @@ class AcercaDePage extends StatelessWidget {
       body: SingleChildScrollView(
               child: Column(
           children: [
-            // Container(
-            //   padding: EdgeInsets.all(size.iScreen(1.0)),
-            //   // color: Colors.red,
-            //   width: size.wScreen(100),
-            //   height: size.hScreen(20),
-            //   child: SizedBox(
-            //     width: size.wScreen(40),
-            //     height: size.hScreen(40),
-            //     child: Image.asset(
-            //       'assets/imgs/logoNeitor.png',
-            //     ),
-            //   ),
-            // ),
+       
             SizedBox(
               height: size.iScreen(1),
             ),
@@ -74,17 +58,7 @@ class AcercaDePage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                  //     Container(
-                  //        margin: EdgeInsets.symmetric(
-                  // horizontal: size.iScreen(2.0), vertical: size.iScreen(0.0)),
-                  //       child: Text(
-                  //         'Versión. 1.0.0',
-                  //         style: GoogleFonts.lexendDeca(
-                  //             fontSize: size.iScreen(1.6),
-                  //             color: Colors.black87,
-                  //             fontWeight: FontWeight.normal),
-                  //       ),
-                  //     ),
+                 
                       Container(
                          margin: EdgeInsets.symmetric(
                   vertical: size.iScreen(1.6)),

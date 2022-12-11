@@ -238,8 +238,8 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                               :index>=44 && index<=57
                               ?const Color(0XFFC58940)
                               :index>=58 && index<=64
-                              ?Color.fromARGB(255, 32, 79, 233)
-                              :Color(0XFFFF6D28),
+                              ?const Color.fromARGB(255, 32, 79, 233)
+                              :const Color(0XFFFF6D28),
 
 
 

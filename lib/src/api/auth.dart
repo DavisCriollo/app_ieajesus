@@ -57,6 +57,7 @@ class Auth {
       await _storage.write(key: keyFAVORITOS, value: data);
       // print('RONDA GUARDADA: $data');
     
+    
   }
 
   // OBTEMENOS EL Favoritos   DEL DISPOSITIVO

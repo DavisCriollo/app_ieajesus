@@ -144,7 +144,7 @@ class FavoritosBiblia extends StatelessWidget {
                     
                           controllerHome.resetFormCoros();
                           controllerHome.setTextSelect(true);
-                          //  List _listCapitulo =  List.from(_favorito['data']);
+                        
                     
                           _listaBiblia.forEach((key, value) {
                             if (key == _favorito['libro']) {

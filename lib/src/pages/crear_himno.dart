@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
 import 'package:ieanjesus/src/utils/letras_mayusculas_minusculas.dart';
 import 'package:ieanjesus/src/utils/responsive.dart';
-import 'package:ieanjesus/src/utils/theme.dart';
+
 import 'package:provider/provider.dart';
 
 class CrearHimno extends StatefulWidget {
@@ -115,9 +115,7 @@ class _CrearHimnoState extends State<CrearHimno> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
 
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
+                 
                         ),
                     onChanged: (text) {
                       controllerHimno.setTituloHimno(text);
@@ -155,9 +153,7 @@ class _CrearHimnoState extends State<CrearHimno> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
 
-                        // fontSize: size.iScreen(3.5),
-                        // fontWeight: FontWeight.bold,
-                        // letterSpacing: 2.0,
+                   
                         ),
                     onChanged: (text) {
                       controllerHimno.setLetraHimno(text);

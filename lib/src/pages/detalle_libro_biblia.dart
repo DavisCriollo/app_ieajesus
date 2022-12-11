@@ -36,7 +36,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     _controllerPage.dispose();
     _textCapitulo.clear();
     _flutterTts.stop();
-         controllerHome.setAction(false);
+        //  controllerHome.setAction(false);
     super.dispose();
   }
 
@@ -159,7 +159,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                     // title: const Text('Selecciones Acción'),
                                     actions: <Widget>[
                                       CupertinoActionSheetAction(
-                                        child: Container(
+                                        child: SizedBox(
                                           width: size.iScreen(25.0),
                                           child: Row(
                                             mainAxisAlignment:
@@ -192,6 +192,12 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                                 "${_capitulo[i].replaceAll("/n", "")}",
                                             "data": "$_capitulo",
                                           });
+                                           final snackBar = _sNackCopy(
+                                              'Agregado a favoritos',
+                                              size,
+                                              tercearyColor);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
                                           Navigator.pop(context, 'Cancel');
                                         },
                                       ),
@@ -297,11 +303,6 @@ class _DetalleLibroState extends State<DetalleLibro> {
                       } else {
                         controllerHome.setAction(false);
                       }
-
-                      // PageController(keepPage: true,initialPage: controllerHome.getPageCapotulo!.toInt());
-                      // _controllerPage.animateToPage(4, duration: Duration(milliseconds: 2000), curve: Curves.easeIn);
-
-                      //  _controllerPage.animateTo(offset, duration: duration, curve: curve);
                     } // Can be null
                     ),
                 Consumer<HomeController>(
@@ -320,9 +321,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: size.iScreen(0.0),
                                         vertical: size.iScreen(0.0)),
-                                    color: Color.fromARGB(72, 88, 85, 85),
+                                    color: const Color.fromARGB(72, 88, 85, 85),
                                     child: IconButton(
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       onPressed: () {
                                         _flutterTts.stop();
                                         controllerHome.setAction(false);

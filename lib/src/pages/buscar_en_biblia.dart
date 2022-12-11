@@ -189,6 +189,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                        
                           final _data = {
                             "libro": _libro['nombrelibro'],
                             "versiculo": _libro['libro'],
@@ -206,6 +207,7 @@ class _BusquedasBibliaState extends State<BusquedasBiblia> {
                                     searchVersoPage: _libro['verso'])
                                     ),
                           );
+                          //  controllerHome.setTextSelect(false);
 
                           // print('ESTE ES EL LIBRO:${_data}');
                         },

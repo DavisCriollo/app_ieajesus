@@ -173,11 +173,7 @@ controller.setSesion(widget.user);
                                  controllerInfo.validaDataDispositivo();
                                  controllerInfo.getTodosLosibrosBiblia();
                               Navigator.pushNamed(context, 'librosBiblia');
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           const ListaLibrosBiblia()),
-                              // );
+                          
                             },
                             label: 'Santa Biblia',
                             icon: 'biblia.png',
