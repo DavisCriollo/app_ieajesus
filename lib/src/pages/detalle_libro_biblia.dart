@@ -36,6 +36,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     _controllerPage.dispose();
     _textCapitulo.clear();
     _flutterTts.stop();
+         controllerHome.setAction(false);
     super.dispose();
   }
 
@@ -44,6 +45,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controllerPage.hasClients) {
         _controllerPage.jumpToPage(widget.searchPage);
+   
       }
     });
     super.initState();
@@ -370,7 +372,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     fontWeight: FontWeight.bold,
                     // color: Colors.grey,
                   ))),
-          content: Container(
+          content: SizedBox(
             width: size.wScreen(20),
             height: size.hScreen(50),
             child: ListView.builder(
@@ -384,7 +386,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     //  contexto.setPageCapitulo(index);
 
                     _controllerPage.animateToPage(index,
-                        duration: Duration(milliseconds: 50),
+                        duration: const Duration(milliseconds: 50),
                         curve: Curves.easeIn);
                     Navigator.of(context).pop();
                   },
