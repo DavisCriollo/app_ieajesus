@@ -35,8 +35,8 @@ class LoginController extends ChangeNotifier {
     // print('INFO login:$_nombre');
     // print('INFO login:$_codigo');
     String? _tipo;
-    if (_codigo == '12345' || _codigo == '@2022') {
-      if (_codigo == '12345') {
+    if (_codigo == '@12345' || _codigo == '@2022') {
+      if (_codigo == '@12345') {
         _tipo = 'standar';
       } else if (_codigo == '@2022') {
         _tipo = 'master';
