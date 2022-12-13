@@ -58,68 +58,36 @@ final dataResp = await _dio.get('/api/general/filtro/0');
 
 // //================================= GUARDA LA  DATA ==============================//
   Future saveAllData(List? _dataList) async {
-// print('DATA EN LA API: $_dataList');
+
 
     try {
-      // final url = Uri.parse('https://ieanjesusbackend.neitor.com/api/general');
-
-  //     final dataResp = await _http.post(
-  //       url,
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; ',
-  //       },
-  //       // body: _dataList
-  //       body:  {[{
-  //     "genId": 1,
-  //     "genTipo": "COROS",
-  //     "genTitulo": "Coro 1",
-  //     "genDescripcion": "PRUEBA OK",
-  //     "genFecReg": "2022-11-12T18:32:46.000Z"
-  //  }]}
-  //     );
-
   
-
-
     final dataResp = await _dio.post(
       '/api/general',
       data:
        _dataList
-  // [{
-  //     "genId": 1,
-  //     "genTipo": "COROS",
-  //     "genTitulo": "Coro 1",
-  //     "genDescripcion": "PRUEBA OK 2",
-  //     "genFecReg": "2022-11-12T18:32:46.000Z"
-  //  }]
+
     );
 
-      // print('INFORMACION DATA   $dataResp');
+
 
       if (dataResp.statusCode == 200) {
-        // final responseData = jsonDecode(dataResp.body);
-        // print('INFORMACION DATA   $responseData');
-        // print('RESPONSE:DSDSD ${dataResp.body}');
-        // print('si se ejecuta la accion ');
+        
         return dataResp;
       }
       if (dataResp.statusCode == 401) {
-        // Map<String, dynamic> message = jsonDecode(dataResp.body);
-        // NotificatiosnService.showSnackBarError(message['msg']);
+     
         return null;
       }
       if (dataResp.statusCode == 404) {
         return null;
       }
       if (dataResp.statusCode == 401) {
-        //  Auth.instance.deleteSesion(context!);
-        // Auth.instance.deleteIdRegistro();
-        // Auth.instance.deleteTurnoSesion();
+        
         return null;
       }
     } catch (e) {
-      // snaks.NotificatiosnService.showSnackBarError("DATA INFO  1  ");
-      // print('-ERROR -> $e');
+     
       return null;
     }
   }

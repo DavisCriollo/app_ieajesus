@@ -27,6 +27,7 @@ class DetalleLibro extends StatefulWidget {
 }
 
 class _DetalleLibroState extends State<DetalleLibro> {
+  // bool _isBook=false;
   final controllerHome = HomeController();
   final PageController _controllerPage = PageController();
   final TextEditingController _textCapitulo = TextEditingController();
@@ -36,7 +37,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     _controllerPage.dispose();
     _textCapitulo.clear();
     _flutterTts.stop();
-        //  controllerHome.setAction(false);
+    //  controllerHome.setAction(false);
     super.dispose();
   }
 
@@ -45,17 +46,33 @@ class _DetalleLibroState extends State<DetalleLibro> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controllerPage.hasClients) {
         _controllerPage.jumpToPage(widget.searchPage);
-   
       }
     });
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final Responsive size = Responsive.of(context);
-    final controllerHome = context.read<HomeController>();
+
+// print('ESTE ES EL LIBRO:${widget.libro[widget.searchPage][widget.searchVersoPage] }');
+//     if (widget.searchVersoPage != null) {
+//       final controllerHome = context.read<HomeController>();
+
+//       print('ESTE ES EL CAP:${widget.searchPage + 1}');
+//       print('ESTE ES EL LIBRO:${widget.searchVersoPage}');
+// // _isBook=true;
+//     } else {
+// // _isBook=false;
+
+//     }
+// print('ESTE ES EL LIBRO:${widget.searchPage}');
+// print('ESTE ES EL LIBRO:${widget.searchPage}
+// [widget.searchVersoPage] }');
+    //   libro;
+    // final int searchPage;
+    // final int? searchVersoPage;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -192,7 +209,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                                 "${_capitulo[i].replaceAll("/n", "")}",
                                             "data": "$_capitulo",
                                           });
-                                           final snackBar = _sNackCopy(
+                                          final snackBar = _sNackCopy(
                                               'Agregado a favoritos',
                                               size,
                                               tercearyColor);
@@ -244,18 +261,15 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                         },
                                       )
                                     ],
-                                  
                                   ),
                                 );
-
-                             
                               },
                               child: Consumer<HomeController>(
                                 builder: (_, valueSize, __) {
                                   return Container(
                                       color: widget.searchVersoPage == i + 1 &&
                                               valueSize.getTextSelect
-                                          ? Colors.green[100]
+                                          ? Colors.orange[100]
                                           : Colors.transparent,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: size.iScreen(0.1),
@@ -293,8 +307,22 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     },
                     itemCount: widget.libro['versiculo'].length,
                     onPageChanged: (_page) async {
-                      controllerHome.setTextSelect(false);
+                      final controllerHome = context.read<HomeController>();
                       controllerHome.setPageCapitulo(_page);
+
+                      if (widget.searchVersoPage != null) {
+                        if (widget.searchPage + 1 == _page + 1) {
+                          controllerHome.setTextSelect(true);
+                        } else {
+                          controllerHome.setTextSelect(false);
+                        }
+
+// _isBook=true;
+                      } else {
+                        controllerHome.setTextSelect(false);
+// _isBook=false;
+
+                      }
                       if (controllerHome.getAaction) {
                         await _flutterTts.stop();
                         await _flutterTts
@@ -303,6 +331,13 @@ class _DetalleLibroState extends State<DetalleLibro> {
                       } else {
                         controllerHome.setAction(false);
                       }
+// if(_page==widget.searchVersoPage){
+//  controllerHome.setTextSelect(false);
+
+// }else{
+
+//  controllerHome.setTextSelect(true);
+// }
                     } // Can be null
                     ),
                 Consumer<HomeController>(
