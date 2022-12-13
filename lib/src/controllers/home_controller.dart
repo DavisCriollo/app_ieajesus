@@ -893,6 +893,7 @@ class HomeController extends ChangeNotifier {
   bool get getAaction => _action;
   void setAction(bool _state) {
     _action = _state;
+    print('esta activa: $_action');
 
     notifyListeners();
   }
