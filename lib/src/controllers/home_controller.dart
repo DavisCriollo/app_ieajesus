@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -780,9 +780,11 @@ class HomeController extends ChangeNotifier {
   }
 
   Future getAllData() async {
+ 
     final response = await _api.getAllData();
     if (response != null) {
       _errorListaAllData = true;
+         await DB.deleteAllTable();
 
       setListaAllData(response.data['data']);
 

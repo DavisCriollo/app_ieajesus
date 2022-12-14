@@ -165,7 +165,7 @@ users.tipo=='master'
                     ),
                   ),
                 ):Container(),
-                Container(
+                SizedBox(
                    width: size.wScreen(40.0),
                   child: ElevatedButton(
                       style: ButtonStyle(
@@ -174,8 +174,8 @@ users.tipo=='master'
                       ),
                       onPressed: () async {
                         ProgressDialog.show(context);
-                        await controllerHome.deleteAllLocal();
-                        await controllerHome.getAllData();
+
+                         await controllerHome.getAllData();
                         ProgressDialog.dissmiss(context);
 
                         final snackBar = _sNackInfo(

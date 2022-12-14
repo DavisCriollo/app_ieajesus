@@ -255,7 +255,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                   return Container(
                                       color: widget.searchVersoPage == i + 1 &&
                                               valueSize.getTextSelect
-                                          ? Colors.green[100]
+                                          ? Colors.orange[100]
                                           : Colors.transparent,
                                       margin: EdgeInsets.symmetric(
                                           horizontal: size.iScreen(0.1),
