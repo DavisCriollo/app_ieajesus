@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ieanjesus/src/controllers/home_controller.dart';
@@ -18,36 +17,20 @@ class MyApp extends StatelessWidget {
     );
     return MultiProvider(
       providers: [
-  ChangeNotifierProvider(create: (_) => HomeController()),
-
-
+        ChangeNotifierProvider(create: (_) => HomeController()),
       ],
       child: MaterialApp(
-         debugShowCheckedModeBanner: false,
-    
-        //  CONFIGURACION PARA EL DATEPICKER
-        //  localizationsDelegates: [
-        //   GlobalWidgetsLocalizations.delegate,
-        //   GlobalMaterialLocalizations.delegate,
-        //   GlobalCupertinoLocalizations.delegate,
-        // ],
-        // supportedLocales: const [
-        //   Locale('en', 'US'), // English, no country code
-        //   Locale('es', 'ES'), // Hebrew, no country code
-        // ],
-    
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: primaryColor,
-          // floatingActionButtonTheme:FloatingActionButtonThemeData(backgroundColor: secondaryColor),
-          colorScheme: ColorScheme.fromSeed(seedColor: primaryColor,secondary: primaryColor,tertiary: tercearyColor),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: primaryColor,
+              secondary: primaryColor,
+              tertiary: tercearyColor),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
         initialRoute: 'splash',
-    
-        // initialRoute: 'compras',
         routes: appRoutes,
-        // navigatorKey: homeController.navigatorKey,
-        // scaffoldMessengerKey: No
       ),
     );
   }

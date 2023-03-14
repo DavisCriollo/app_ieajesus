@@ -36,7 +36,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
     _controllerPage.dispose();
     _textCapitulo.clear();
     _flutterTts.stop();
-        //  controllerHome.setAction(false);
+    //  controllerHome.setAction(false);
     super.dispose();
   }
 
@@ -45,12 +45,10 @@ class _DetalleLibroState extends State<DetalleLibro> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (_controllerPage.hasClients) {
         _controllerPage.jumpToPage(widget.searchPage);
-   
       }
     });
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +190,7 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                                 "${_capitulo[i].replaceAll("/n", "")}",
                                             "data": "$_capitulo",
                                           });
-                                           final snackBar = _sNackCopy(
+                                          final snackBar = _sNackCopy(
                                               'Agregado a favoritos',
                                               size,
                                               tercearyColor);
@@ -244,11 +242,8 @@ class _DetalleLibroState extends State<DetalleLibro> {
                                         },
                                       )
                                     ],
-                                  
                                   ),
                                 );
-
-                             
                               },
                               child: Consumer<HomeController>(
                                 builder: (_, valueSize, __) {
@@ -293,21 +288,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     },
                     itemCount: widget.libro['versiculo'].length,
                     onPageChanged: (_page) async {
-
-                      // controllerHome.setTextSelect(false);
-                      // controllerHome.setPageCapitulo(_page);
-                      // if (controllerHome.getAaction) {
-                      //   await _flutterTts.stop();
-                      //   await _flutterTts
-                      //       .speak('${widget.libro['versiculo'][_page]}');
-                      //   controllerHome.setAction(true);
-                      // } else {
-                      //   controllerHome.setAction(false);
-                      // }
-
-                       final controllerHome = context.read<HomeController>();
+                      final controllerHome = context.read<HomeController>();
                       controllerHome.setPageCapitulo(_page);
-  if (controllerHome.getAaction) {
+                      if (controllerHome.getAaction) {
                         await _flutterTts.stop();
                         await _flutterTts
                             .speak('${widget.libro['versiculo'][_page]}');
@@ -321,18 +304,9 @@ class _DetalleLibroState extends State<DetalleLibro> {
                         } else {
                           controllerHome.setTextSelect(false);
                         }
-
-// _isBook=true;
                       } else {
                         controllerHome.setTextSelect(false);
-// _isBook=false;
-
                       }
-  
-
-
-
-
                     } // Can be null
                     ),
                 Consumer<HomeController>(

@@ -888,6 +888,16 @@ class HomeController extends ChangeNotifier {
     //
     notifyListeners();
   }
+//===================TAMANIO DE LETRA==========================//
+
+  double _btnSizeLetter = 2;
+  double get getSizeLetter => _btnSizeLetter;
+
+  void setSizeLetter(double _sizes) {
+    _btnSizeLetter = _sizes;
+    print('object:$_sizes');
+    notifyListeners();
+  }
 
 //==============CONTROLLE LECTURA TEXTO================//
 
