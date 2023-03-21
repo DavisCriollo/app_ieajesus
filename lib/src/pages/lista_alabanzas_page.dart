@@ -241,6 +241,7 @@ class _ListaAlabanzasState extends State<ListaAlabanzas> {
                         child: GestureDetector(
                           onTap: () {
                             // valueListaCoros.getInfoDelCoro(_coro);
+                             valueListaAlabanza.setIsSizeText(false);
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetalleCoro(
                                       titulo: 'Alabanza',

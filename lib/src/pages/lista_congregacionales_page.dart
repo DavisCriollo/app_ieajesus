@@ -265,6 +265,7 @@ class _ListaCongregacionalesState extends State<ListaCongregacionales> {
                       child: GestureDetector(
                         onTap: () {
                           // valueListaHimnos.getInfoDelHimno(_himno);
+                          valueListaHimnos.setIsSizeText(false);
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => DetalleCoro(
                                     titulo: 'Himno',

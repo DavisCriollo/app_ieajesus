@@ -34,94 +34,25 @@ class DetalleCoro extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Consumer<HomeController>(
-                builder: (_, valueSize, __) {
-                  return Container(
-                    width: size.iScreen(10.0),
-                    // color: Colors.green,
-                    child: Container(
-                      // color: Colors.red,
-                      child: Slider(
-                          activeColor: Colors.green,
-                          thumbColor: Colors.white,
-                          inactiveColor: Colors.grey,
-                          min: 2,
-                          max: 10,
-                          value: valueSize.getBtnSize,
-                          onChanged: (_value) {
-                            valueSize.setBtnSize(_value);
-                          }),
-                    ),
-                  );
-                },
-              ),
+                 Container(
+              margin: EdgeInsets.only(right: size.iScreen(1.0)),
+              child: 
+              Consumer<HomeController>(builder: (_, valueLetter, __) {  
+                  return  IconButton(
+                  splashRadius: 2.0,
+                  icon: Icon(
+                    Icons.text_increase_outlined,
+                    size: size.iScreen(3.5),
+                    color:valueLetter.getIsSizeText?Colors.green: Colors.white,
+                  ),
+                  onPressed: () {
 
-              // Container(
-              //   width: size.iScreen(10.0),
-              //   // color: Colors.red,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       GestureDetector(
-              //         onTap: () {
-              //             if(_musica.getBtnSize>=1.5){
-
-              //           _musica.setBtnSize(_musica.getBtnSize - 0.5);
-
-              //               }
-              //         },
-              //         child: Text(
-              //           "A",
-              //           style: GoogleFonts.roboto(
-              //               fontSize: size.iScreen(1.5),
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           overflow: TextOverflow.ellipsis,
-              //         ),
-              //       ),
-              //       //***********************************************/
-              //       SizedBox(
-              //         width: size.iScreen(0.5),
-              //       ),
-              //       //*****************************************/
-              //       GestureDetector(
-              //         onTap: () {
-              //           _musica.setBtnSize(1.9);
-              //         },
-              //         child: Text(
-              //           "--",
-              //           style: GoogleFonts.roboto(
-              //               fontSize: size.iScreen(1.5),
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           overflow: TextOverflow.ellipsis,
-              //         ),
-              //       ),
-              //       //***********************************************/
-              //       SizedBox(
-              //         width: size.iScreen(0.5),
-              //       ),
-              //       //*****************************************/
-              //       GestureDetector(
-              //         onTap: () {
-              //            if(_musica.getBtnSize>=1.5 &&_musica.getBtnSize<=5.0){
-
-              //              _musica.setBtnSize(_musica.getBtnSize + 0.5);
-
-              //               }
-              //         },
-              //         child: Text(
-              //           "A ",
-              //           style: GoogleFonts.roboto(
-              //               fontSize: size.iScreen(2.0),
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //           overflow: TextOverflow.ellipsis,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+                      valueLetter.setIsSizeText(!_musica.getIsSizeText);
+                 });
+              },)
+             
+            ),
+            
             ],
           ),
           flexibleSpace: Container(
@@ -146,33 +77,82 @@ class DetalleCoro extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size.iScreen(2.0)),
             width: size.wScreen(100.0),
             height: size.hScreen(100),
-            child: SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
-                width: size.wScreen(100.0),
-                child: Consumer<HomeController>(
-                  builder: (_, sizes, __) {
-                    return GestureDetector(
-                      onLongPress: () async {
-                        await Clipboard.setData(ClipboardData(
-                            text: "${musica.titulo}\n\n ${musica.letra!}"));
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: size.iScreen(2.0)),
+                    width: size.wScreen(100.0),
+                    child: Consumer<HomeController>(
+                      builder: (_, sizes, __) {
+                        return GestureDetector(
+                          onLongPress: () async {
+                            await Clipboard.setData(ClipboardData(
+                                text: "${musica.titulo}\n\n ${musica.letra!}"));
 
-                        final snackBar = _sNackCopyLetra(
-                            'Letra copiada', size, Colors.green);
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            final snackBar = _sNackCopyLetra(
+                                'Letra copiada', size, Colors.green);
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          },
+                          child: Text(
+                            '${musica.titulo}\n\n ${musica.letra!}',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.lexendDeca(
+                                fontSize: size.iScreen(sizes.getBtnSize),
+                                // color: Colors.white,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        );
                       },
-                      child: Text(
-                        '${musica.titulo}\n\n ${musica.letra!}',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.lexendDeca(
-                            fontSize: size.iScreen(sizes.getBtnSize),
-                            // color: Colors.white,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
+                Consumer<HomeController>(builder: (_, value, __) { 
+return 
+value.getIsSizeText
+?Positioned(
+                  right: 5.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Container(
+                        // width: size.wScreen(100),
+                        height: size.hScreen(15.0),
+                        // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
+                        margin: EdgeInsets.only(
+                            
+                            left: size.wScreen(0.0)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.iScreen(0.0),
+                            vertical: size.iScreen(0.0)),
+                        color: const Color.fromARGB(72, 88, 85, 85),
+                        child: 
+                        Consumer<HomeController>(builder: (_, valueSize, __) {  
+                            return  RotatedBox(
+                                                  quarterTurns: 3,
+                                                  child:
+                                                  
+                                                  
+                                                  Slider(
+                        activeColor: Colors.green,
+                        thumbColor: Colors.white,
+                        inactiveColor: Colors.grey,
+                        min: 2,
+                        max: 4,
+                        value: valueSize.getBtnSize,
+                        onChanged: (_value) {
+                          valueSize.setBtnSize(_value);
+                        }),
+                                                );
+                          
+                        },),
+                                               
+                                                ),
+                  ),
+                ):Container();
+
+                 },),
+                
+              ],
             )));
   }
 

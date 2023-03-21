@@ -190,11 +190,18 @@ users.tipo=='master'
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(vertical: size.iScreen(0.3)),
-                        child: Row(
+                        child: 
+                        // IconButton(icon:const Icon(
+                        //       Icons.download_outlined,
+                        //     ),onPressed: (){
+
+                        //     } ,)
+                        
+                        Row(
                           children: [
                             Text('Actualizar',
                                 style: GoogleFonts.roboto(
-                                    // fontSize: size.iScreen(2.0),
+                                    fontSize: size.iScreen(2.0),
                                     fontWeight: FontWeight.bold
                                     // color: Colors.white,
                                     )),

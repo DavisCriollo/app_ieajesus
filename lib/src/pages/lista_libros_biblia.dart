@@ -97,18 +97,8 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                   ),
                   onPressed: () {
 
-
-
-
-
-
-
-
-
-
-
-   
-                  }),
+                      controllerHome.setIsSizeBiblia(!controllerHome.getIsSizeBiblia);
+                 }),
             ),
           ],
           flexibleSpace: Container(
@@ -277,6 +267,7 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                             onTap: () {
                               controllerHome.resetFormCoros();
                               controllerHome.setAction(false);
+                              controllerHome.setIsSizeText(false);
 
                               final _data = {
                                 "libro": _libros[index]["libro"],
@@ -294,7 +285,10 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                         );
                   },
                 ),
-                Positioned(
+                Consumer<HomeController>(builder: (_, value, __) { 
+return 
+value.getIsSizeBiblia
+?Positioned(
                   right: 5.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
@@ -332,7 +326,10 @@ class _ListaLibrosBibliaState extends State<ListaLibrosBiblia> {
                                                
                                                 ),
                   ),
-                )
+                ):Container();
+
+                 },),
+                
                       
                       
                       

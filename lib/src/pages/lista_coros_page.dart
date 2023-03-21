@@ -241,7 +241,7 @@ class _ListaCorosState extends State<ListaCoros> {
                         ),
                         child: GestureDetector(
                           onTap: () {
-                            // valueListaCoros.getInfoDelCoro(_coro);
+                            valueListaCoros.setIsSizeText(false);
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetalleCoro(
                                       titulo: 'Coro',

@@ -91,20 +91,39 @@ class _DetalleLibroState extends State<DetalleLibro> {
                     ),
                   ),
 
-                  SizedBox(
-                    width: size.iScreen(10.0),
-                    // color: Colors.green,
-                    child: Slider(
-                        activeColor: Colors.green,
-                        thumbColor: Colors.white,
-                        inactiveColor: Colors.grey,
-                        min: 2,
-                        max: 10,
-                        value: itemValue.getBtnSize,
-                        onChanged: (_value) {
-                          itemValue.setBtnSize(_value);
-                        }),
+                  // SizedBox(
+                  //   width: size.iScreen(10.0),
+                  //   // color: Colors.green,
+                  //   child: Slider(
+                  //       activeColor: Colors.green,
+                  //       thumbColor: Colors.white,
+                  //       inactiveColor: Colors.grey,
+                  //       min: 2,
+                  //       max: 10,
+                  //       value: itemValue.getBtnSize,
+                  //       onChanged: (_value) {
+                  //         itemValue.setBtnSize(_value);
+                  //       }),
+                  // ),
+                    // const Spacer(),
+                 Container(
+              margin: EdgeInsets.only(right: size.iScreen(1.0)),
+              child: 
+              Consumer<HomeController>(builder: (_, valueLetter, __) {  
+                  return  IconButton(
+                  splashRadius: 2.0,
+                  icon: Icon(
+                    Icons.text_increase_outlined,
+                    size: size.iScreen(3.5),
+                    color:valueLetter.getIsSizeText?Colors.green: Colors.white,
                   ),
+                  onPressed: () {
+
+                      valueLetter.setIsSizeText(!valueLetter.getIsSizeText);
+                 });
+              },)
+             
+            ),
                 ],
               );
             },
@@ -343,8 +362,53 @@ class _DetalleLibroState extends State<DetalleLibro> {
                         : Container();
                   },
                 ),
+                   Consumer<HomeController>(builder: (_, value, __) { 
+return 
+value.getIsSizeText
+?Positioned(
+                  right: 5.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Container(
+                        // width: size.wScreen(100),
+                        height: size.hScreen(15.0),
+                        // margin: EdgeInsets.symmetric(horizontal: size.iScreen(3.0),vertical: size.iScreen(0.0)),
+                        margin: EdgeInsets.only(
+                            
+                            left: size.wScreen(0.0)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.iScreen(0.0),
+                            vertical: size.iScreen(0.0)),
+                        color: const Color.fromARGB(72, 88, 85, 85),
+                        child: 
+                        Consumer<HomeController>(builder: (_, valueSize, __) {  
+                            return  RotatedBox(
+                                                  quarterTurns: 3,
+                                                  child:
+                                                  
+                                                  
+                                                  Slider(
+                        activeColor: Colors.green,
+                        thumbColor: Colors.white,
+                        inactiveColor: Colors.grey,
+                        min: 2,
+                        max: 4,
+                        value: valueSize.getBtnSize,
+                        onChanged: (_value) {
+                          valueSize.setBtnSize(_value);
+                        }),
+                                                );
+                          
+                        },),
+                                               
+                                                ),
+                  ),
+                ):Container();
+
+                 },),
               ],
-            )),
+            ),
+            ),
       ),
     );
   }

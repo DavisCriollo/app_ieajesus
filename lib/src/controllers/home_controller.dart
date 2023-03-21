@@ -898,6 +898,24 @@ class HomeController extends ChangeNotifier {
     print('object:$_sizes');
     notifyListeners();
   }
+//===================TAMANIO DE LETRA LIBROS BIBLIA==========================//
+ bool _isSizeBiblia = false;
+  bool get getIsSizeBiblia => _isSizeBiblia;
+
+  void setIsSizeBiblia(bool _sizes) {
+    _isSizeBiblia = _sizes;
+   
+    notifyListeners();
+  }
+//===================TAMANIO DE LETRA==========================//
+ bool _isSizeText = false;
+  bool get getIsSizeText => _isSizeText;
+
+  void setIsSizeText(bool _sizes) {
+    _isSizeText = _sizes;
+   
+    notifyListeners();
+  }
 
 //==============CONTROLLE LECTURA TEXTO================//
 
