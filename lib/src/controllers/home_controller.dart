@@ -895,7 +895,7 @@ class HomeController extends ChangeNotifier {
 
   void setSizeLetter(double _sizes) {
     _btnSizeLetter = _sizes;
-    print('object:$_sizes');
+    // print('object:$_sizes');
     notifyListeners();
   }
 //===================TAMANIO DE LETRA LIBROS BIBLIA==========================//
@@ -913,6 +913,15 @@ class HomeController extends ChangeNotifier {
 
   void setIsSizeText(bool _sizes) {
     _isSizeText = _sizes;
+   
+    notifyListeners();
+  }
+//===================TAMANIO DE LETRA==========================//
+ bool _isSizeTexFavoritos = false;
+  bool get getIsSizeTextFavoritos => _isSizeTexFavoritos;
+
+  void setIsSizeTextFavoritos(bool _sizes) {
+    _isSizeTexFavoritos = _sizes;
    
     notifyListeners();
   }

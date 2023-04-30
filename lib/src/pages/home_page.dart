@@ -169,7 +169,7 @@ controller.setSesion(widget.user);
                           ),
                           ItemsMenuHome(
                             onTap: () {
-
+                                controllerInfo.setIsSizeBiblia(false);
                                  controllerInfo.validaDataDispositivo();
                                  controllerInfo.getTodosLosibrosBiblia();
                               Navigator.pushNamed(context, 'librosBiblia');
