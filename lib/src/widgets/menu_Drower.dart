@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,8 @@ import 'package:ieanjesus/src/utils/dialogs.dart';
 
 import 'package:ieanjesus/src/utils/responsive.dart';
 import 'package:ieanjesus/src/utils/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 //
 
@@ -273,6 +276,20 @@ users.tipo=='master'
               )),
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 class _ListaOpciones extends StatelessWidget {
@@ -290,17 +307,159 @@ class _ListaOpciones extends StatelessWidget {
           page: 'dedicatoria',
           size: size,
         ),
-      
-        _ItemsMenu(
-          enabled: false,
-          icon: FontAwesomeIcons.shareAlt,
-          title: 'Compartir',
-          page: '',
-          size: size,
-        ),
+      //============================ BOTON DE COMPARTIR ===============================//
+                    Container(
+                      child: InkWell(
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                  //color: Colors.red,
+                                  border: Border(
+                                top: BorderSide(
+                                  color: primaryColor,
+                                  width: 0.1,
+                                ),
+                              )),
+                              padding: EdgeInsets.all(
+                                size.iScreen(1.0),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          left: size.iScreen(0.1),
+                                          right: size.iScreen(1.5)),
+                                      child: Icon(
+                                        Icons.share,
+                                        size: size.iScreen(3.5),
+                                        color: primaryColor,
+                                      )),
+                                  Expanded(
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                          // color: Colors.red,
+                                          ),
+                                      padding: EdgeInsets.only(
+                                          top: size.iScreen(1.0),
+                                          bottom: size.iScreen(1.0)),
+                                      // width: size.wScreen(100),
+                                      child: Text(
+                                        'Compartir',
+                                        style: GoogleFonts.lexendDeca(
+                                            fontSize: size.iScreen(2.0),
+                                            // color: Colors.white,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                    ),
+                                  ),
+                                  const Icon(Icons.chevron_right_outlined),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          _modalShare(context, size);
+                        },
+                      ),
+                    ),
+        // _ItemsMenu(
+        //   enabled: false,
+        //   icon: FontAwesomeIcons.shareAlt,
+        //   title: 'Compartir',
+        //   page: '',
+        //   size: size,
+        // ),
       ],
     );
   }
+  Future<void> _modalShare(
+  BuildContext context,
+  Responsive size,
+) {
+
+  return showCupertinoModalPopup<void>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: Text(
+        'Compatir',
+        style: GoogleFonts.roboto(
+            fontSize: size.iScreen(2.0),
+            color: primaryColor,
+            fontWeight: FontWeight.bold),
+      ),
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _onShare(context, 'https://n9.cl/ehbcn');
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Android',
+                  style: GoogleFonts.roboto(
+                      fontSize: size.iScreen(2.2),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: size.iScreen(1.0),
+                ),
+                Icon(
+                  Icons.android_outlined,
+                  color: Colors.green,
+                  size: size.iScreen(4.0),
+                )
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _onShare(context, 'https://acortar.link/5Nduvp');
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'IOS',
+                  style: GoogleFonts.roboto(
+                      fontSize: size.iScreen(2.2),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: size.iScreen(1.0),
+                ),
+                Icon(
+                  Icons.apple_outlined,
+                  color: Colors.black,
+                  size: size.iScreen(4.0),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+void _onShare(BuildContext context, String _urlApp) async {
+  final box = context.findRenderObject() as RenderBox?;
+
+  await Share.share(_urlApp,
+      subject: 'AMusic App',
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+}
+
 }
 
 class _ItemsMenu extends StatelessWidget {

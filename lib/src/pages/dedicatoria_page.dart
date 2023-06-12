@@ -10,6 +10,7 @@ class Dedicatoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+final String _fecha=DateTime.now().year.toString();
     final Responsive size = Responsive.of(context);
 
     return Scaffold(
@@ -40,17 +41,37 @@ class Dedicatoria extends StatelessWidget {
         height: size.hScreen(100.0),
         padding: EdgeInsets.symmetric(
             horizontal: size.iScreen(2.0), vertical: size.iScreen(1.0)),
-        child: Text(
-          'Quieremos agradecer principalmente a Dios, por ser el motivo de inspitación y darnos fuerzas necesarias para continuar en su camino y poder realizar este aporte.\n\nA nuestro pastor, por sus oraciones, consejos y guía mediante la palabra de Dios.\n\nA cada uno de los integrantes del comité de música de la congregación por su paciencia,colaboración y apoyo para que este proyecto se haga realidad.\n \n Dedicamos este proyecto a todos y cada uno de los hermanos en la fé de la IEANJESUS  "LA ALBORADA",quienes han sido mi motivo principal para la realización de este proyecto,el cual está compuesto por la letra de los coros, himnos y alabanzas que cantamos con gran amor y ferbor a nuestro salvador Jesucristo.\n\n Esperando que sea de apoyo para así juntos aprender estas hermosas letras y seguier cantando con entendimiento a la roca de nuestra salvación en el diario peregrinar por el camino del evangelio.   \n\n\n Dios les bendiga. \n\n\n Atentamente . \n\n\n El Comité de música  "La Alborada".',
-
-          
-
-          style: GoogleFonts.roboto(
-              fontSize: size.iScreen(1.8),
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              letterSpacing: 0.3)
-              ,
+        child: SingleChildScrollView(
+          physics:const BouncingScrollPhysics(),
+          child: Column( mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Quieremos agradecer principalmente a Dios, por ser el motivo de inspitación y darnos fuerzas necesarias para continuar en su camino y poder realizar este aporte.\n\nA nuestro pastor, por sus oraciones, consejos y guía mediante la palabra de Dios.\n\nA cada uno de los integrantes del comité de música de la congregación por su paciencia,colaboración y apoyo para que este proyecto se haga realidad.\n \n Dedicamos este proyecto a todos y cada uno de los hermanos en la fé de la IEANJESUS  "LA ALBORADA",quienes han sido mi motivo principal para la realización de este proyecto,el cual está compuesto por la letra de los coros, himnos y alabanzas que cantamos con gran amor y ferbor a nuestro salvador Jesucristo.\n\n Esperando que sea de apoyo para así juntos aprender estas hermosas letras y seguier cantando con entendimiento a la roca de nuestra salvación en el diario peregrinar por el camino del evangelio.   \n\n\n Dios les bendiga. \n\n\n Atentamente . \n\n\n El Comité de música  "La Alborada"',
+        
+                
+        
+                style: GoogleFonts.roboto(
+                    fontSize: size.iScreen(2.0),
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    letterSpacing: 0.3)
+                    ,
+              ),
+              SizedBox(height: size.iScreen(1.0),), 
+              Text(
+                ' $_fecha',
+        
+                
+        
+                style: GoogleFonts.roboto(
+                    fontSize: size.iScreen(2.0),
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.3)
+                    ,
+              ),
+            ],
+          ),
         ),
       ),
     );
